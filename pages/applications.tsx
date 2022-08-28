@@ -3,11 +3,11 @@ import Layout from '../components/Layout';
 
 const Applications: NextPage = () => {
   return (
-    <div>
-      <Layout>
-        <h1 className="text-3xl font-bold underline">Some landing</h1>
-      </Layout>
-    </div>
+    <Layout>
+      <>
+        <h1 className="text-3xl font-bold underline">All applications</h1>
+      </>
+    </Layout>
   );
 };
 

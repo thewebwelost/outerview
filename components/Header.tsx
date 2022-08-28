@@ -12,10 +12,10 @@ function Header() {
   };
 
   const navigation = [
-    { name: 'Home', href: '/dashboard', current: true },
+    { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Applications', href: '/applications', current: false },
-    { name: 'Create User', href: '/createUser', current: false },
-    { name: 'New Application', href: '/newApplication', current: false },
+    // { name: 'Create User', href: '/createUser', current: false },
+    // { name: 'New Application', href: '/newApplication', current: false },
   ];
 
   const userNavigation = [
