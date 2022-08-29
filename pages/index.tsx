@@ -12,26 +12,46 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className="text-3xl font-bold underline">Some landing</h1>
-      <Link href={'/dashboard'}>
-        <button>Log In</button>
-      </Link>
-      <br />
-      <a
-        className="flex justify-center items-center font-serif text-xs italic"
-        href="https://www.glassdoor.com/index.htm"
-      >
-        powered by{' '}
-        <span className="relative w-20 h-4 ml-2">
+      <header className="flex justify-center p-3">
+        <div className="relative w-44 h-10">
           <Image
-            src="https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png"
+            src="/logo.svg"
             title="Job Search"
             alt="Job Search"
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
           />
-        </span>
-      </a>
+        </div>
+      </header>
+
+      <main>
+        <h1 className="text-3xl font-bold underline">Some landing</h1>
+        <Link href={'/dashboard'}>
+          <button>Log In</button>
+        </Link>
+
+        <br />
+      </main>
+
+      <footer className="flex justify-center items-center font-serif text-xs italic">
+        <a
+          href="https://www.glassdoor.com/index.htm"
+          target="_blank"
+          rel="noreferrer"
+          className="flex"
+        >
+          hopefully will be powered by{' '}
+          <span className="relative block w-20 h-4 ml-2">
+            <Image
+              src="/glassdoor.svg"
+              title="Job Search"
+              alt="Job Search"
+              layout="fill"
+              objectFit="contain"
+            />
+          </span>
+        </a>
+      </footer>
     </div>
   );
 };
