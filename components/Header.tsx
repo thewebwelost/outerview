@@ -14,8 +14,8 @@ function Header() {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Applications', href: '/applications', current: false },
-    // { name: 'Create User', href: '/createUser', current: false },
-    // { name: 'New Application', href: '/newApplication', current: false },
+    { name: 'Profiles', href: '/profiles', current: false },
+    { name: 'Events', href: '/events', current: false },
   ];
 
   const userNavigation = [

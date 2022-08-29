@@ -16,9 +16,11 @@ const Dashboard: NextPage = () => {
               <h3>John Doe</h3>
               <p>Driver</p>
               <p>Active applications: 1</p>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
+              <Link href={'/profile'}>
+                <a className={'block mt-2 text-blue-500 underline text-right'}>
+                  edit
+                </a>
+              </Link>
             </div>
 
             <div className={'p-3 mr-5 border rounded-md'}>
@@ -27,9 +29,11 @@ const Dashboard: NextPage = () => {
               <h3>John Doe</h3>
               <p>Writer</p>
               <p>Active applications: 3</p>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
+              <Link href={'/profile'}>
+                <a className={'block mt-2 text-blue-500 underline text-right'}>
+                  edit
+                </a>
+              </Link>
             </div>
 
             <Link href={'/addProfile'}>
@@ -80,9 +84,11 @@ const Dashboard: NextPage = () => {
               </span>
             </li>
           </ul>
-          <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
-            + add event
-          </a>
+          <Link href={'/addEvent'}>
+            <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
+              + add event
+            </a>
+          </Link>
 
           {/* APPLICATIONS */}
           <h2 className="text-xl font-bold underline">Your applications:</h2>
@@ -94,6 +100,11 @@ const Dashboard: NextPage = () => {
                 status:{' '}
                 <span className="text-white bg-green-400">in progress</span>
               </p>
+              <Link href={'/application'}>
+                <a className={'block mt-2 text-blue-500 underline text-right'}>
+                  edit
+                </a>
+              </Link>
             </li>
             <li className="p-3 mr-5 border rounded-md">
               <p className="font-bold">Netflix</p>
@@ -102,6 +113,11 @@ const Dashboard: NextPage = () => {
                 status:{' '}
                 <span className="text-white bg-green-400">in progress</span>
               </p>
+              <Link href={'/application'}>
+                <a className={'block mt-2 text-blue-500 underline text-right'}>
+                  edit
+                </a>
+              </Link>
             </li>
             <li className="p-3 mr-5 border rounded-md">
               <p className="font-bold">Facebook</p>
@@ -110,6 +126,11 @@ const Dashboard: NextPage = () => {
                 status:{' '}
                 <span className="text-white bg-green-400">in progress</span>
               </p>
+              <Link href={'/application'}>
+                <a className={'block mt-2 text-blue-500 underline text-right'}>
+                  edit
+                </a>
+              </Link>
             </li>
             <li className="p-3 mr-5 border rounded-md">
               <p className="font-bold">Amazon</p>
@@ -117,6 +138,22 @@ const Dashboard: NextPage = () => {
               <p>
                 status: <span className="text-white bg-red-400">awaits</span>
               </p>
+              <Link href={'/application'}>
+                <a className={'block mt-2 text-blue-500 underline text-right'}>
+                  edit
+                </a>
+              </Link>
+            </li>
+            <li className="p-3 mr-5 border rounded-md">
+              <Link href={'/addApplication'}>
+                <a
+                  className={
+                    'flex justify-center items-center mr-5 text-blue-500 underline cursor-pointer'
+                  }
+                >
+                  + add application
+                </a>
+              </Link>
             </li>
           </ul>
         </>
