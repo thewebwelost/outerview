@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Home: NextPage = () => {
@@ -15,6 +16,22 @@ const Home: NextPage = () => {
       <Link href={'/dashboard'}>
         <button>Log In</button>
       </Link>
+      <br />
+      <a
+        className="flex justify-center items-center font-serif text-xs italic"
+        href="https://www.glassdoor.com/index.htm"
+      >
+        powered by{' '}
+        <span className="relative w-20 h-4 ml-2">
+          <Image
+            src="https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png"
+            title="Job Search"
+            alt="Job Search"
+            layout="fill"
+            objectFit="cover"
+          />
+        </span>
+      </a>
     </div>
   );
 };
