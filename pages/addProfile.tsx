@@ -19,23 +19,24 @@ const CreateUser: NextPage = () => {
               />
             </label>
 
-            <label className="block mt-5">
+            <label className="block">
               Bullet points to highlight your profile
-              <textarea
-                className="block"
-                defaultValue={'Your key metrics goes here'}
-              />
+              <input className="block" />
+              <button>+ add</button>
             </label>
 
-            <label className="block mt-5">
+            <label className="block">
               It&apos;s time for your hard skills
-              <textarea className="block" defaultValue={'Your hard skill'} />
+              <input className="block" />
+              <button>+ add</button>
             </label>
 
-            <label className="block mt-5">
+            <label className="block">
               And soft skills as well
-              <textarea className="block" defaultValue={'Your hard skill'} />
+              <input className="block" />
+              <button>+ add</button>
             </label>
+
             <br />
             <button className="text-white bg-blue-500">Done</button>
           </div>
