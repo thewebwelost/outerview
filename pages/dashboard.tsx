@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import Layout from '../components/Layout';
 
 const Dashboard: NextPage = () => {
@@ -31,13 +32,15 @@ const Dashboard: NextPage = () => {
               </a>
             </div>
 
-            <a
-              className={
-                'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
-              }
-            >
-              + add profile
-            </a>
+            <Link href={'/addProfile'}>
+              <a
+                className={
+                  'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
+                }
+              >
+                + add profile
+              </a>
+            </Link>
           </div>
 
           <br />
