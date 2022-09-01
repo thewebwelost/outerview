@@ -16,13 +16,13 @@ function Header() {
   const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
-    imageUrl: '/user.webp',
+    imageUrl: '/images/user.webp',
   };
 
   const Logo = () => (
     <div className="relative flex-shrink-0 h-8 w-8">
       <Image
-        src="/logo_short.svg"
+        src="/images/logo_short.svg"
         alt="Workflow"
         layout="fill"
         objectFit="contain"

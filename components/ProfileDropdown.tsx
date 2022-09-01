@@ -10,7 +10,7 @@ function ProfileDropdown() {
   const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
-    imageUrl: '/user.webp',
+    imageUrl: '/images/user.webp',
   };
 
   return (
