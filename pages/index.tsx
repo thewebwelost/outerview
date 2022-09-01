@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import LoginForm from '../components/LoginForm';
 
 const Home: NextPage = () => {
   return (
@@ -24,11 +25,15 @@ const Home: NextPage = () => {
         </div>
       </header>
 
-      <main>
-        <h1 className="text-3xl font-bold underline">Some landing</h1>
-        <Link href={'/dashboard'}>
-          <button>Log In</button>
-        </Link>
+      <main className="w-full">
+        <div className="flex w-full justify-around text-2xl p-3 font-bold">
+          <div className="text-2xl max-w-xs p-3 font-bold">
+            Imagine preparing for an interview
+          </div>
+          <div className="text-sm">
+            <LoginForm />
+          </div>
+        </div>
 
         <br />
       </main>

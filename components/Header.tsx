@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Navbar from './Navbar';
 import ProfileDropdown from './ProfileDropdown';
+
 import { navigation, userNavigation } from '../utils/navigation';
 import { classNames } from '../utils/classNames';
 
