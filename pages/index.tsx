@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
 
 const Home: NextPage = () => {
@@ -25,20 +24,49 @@ const Home: NextPage = () => {
         </div>
       </header>
 
-      <main className="w-full">
-        <div className="flex w-full justify-around text-2xl p-3 font-bold">
-          <div className="text-2xl max-w-xs p-3 font-bold">
-            Imagine preparing for an interview
+      <main className="flex flex-col w-full items-center">
+        <div className="flex justify-around max-w-6xl w-full mt-10 mb-10 p-3">
+          <div className="max-w-md p-3">
+            <h1 className="text-2xl font-bold text-center">
+              Simple tool to build resume and organize application process
+            </h1>
+
+            <div className="mt-5">
+              <p>1. Build resume using transparent rules</p>
+              <p>2. Gather all data in one place and use it</p>
+              <p>3. Keep track of every application</p>
+
+              <p className="mt-3">Simple as One Two Three!</p>
+            </div>
           </div>
           <div className="text-sm">
             <LoginForm />
           </div>
         </div>
 
-        <br />
+        <div className="flex justify-center items-center h-40 mt-3">
+          <p>
+            Outerview will help you organize your skills to match every company
+            individually. Consider it as a simple resume builder
+          </p>
+        </div>
+
+        <div className="flex justify-center items-center h-40 mt-3">
+          <p>
+            Juggeling with emails and calendars crowded with everything from
+            spam to Netflix releases and new credit products?
+          </p>
+        </div>
+
+        <div className="flex justify-center items-center h-40 mt-3">
+          <p>
+            We will help you organizing every application to track every little
+            piece of data. It will work for you when time comes
+          </p>
+        </div>
       </main>
 
-      <footer className="flex justify-center items-center font-serif text-xs italic">
+      <footer className="flex justify-center items-center mt-5 text-xs italic">
         <a
           href="https://www.glassdoor.com/index.htm"
           target="_blank"
