@@ -9,6 +9,7 @@ interface ButtonInterface {
 function Button({ handleClick, classNames, children }: ButtonInterface) {
   return (
     <button
+      type={'button'}
       onClick={handleClick}
       className={`px-6 py-2 bg-purple-700 text-white font-bold rounded-full ${classNames}`}
     >

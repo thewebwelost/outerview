@@ -1,9 +1,10 @@
-import React from 'react';
+import { ChangeEvent } from 'react';
 
 interface InputInterface {
-  handleChange: (e: React.ChangeEvent) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   type: string;
   classNames?: string;
+  value: string;
 }
 
 function Input({ type, handleChange, classNames }: InputInterface) {
