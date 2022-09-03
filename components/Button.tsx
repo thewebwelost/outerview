@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import { ReactNode, SyntheticEvent } from 'react';
 
 interface ButtonInterface {
-  handleClick: (e: React.SyntheticEvent) => void;
+  handleClick: (e: SyntheticEvent) => void;
   children: string | ReactNode;
   classNames?: string;
 }

@@ -1,9 +1,45 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
 import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/LoginForm';
+import { login as requestLogin } from '../api/user';
 
 const Home: NextPage = () => {
+  const [isSignup, setIsSignup] = useState(false);
+  const toggleSignup = () => setIsSignup(!isSignup);
+
+  const handleLogin = async (login: string, password: string) => {
+    const res = await requestLogin(login, password);
+    console.log('res', res);
+  };
+
+  const handleSignup = async (login: string, password: string) => {
+    // const res = await requestSignup(login, password);
+    console.log('signup', { login, password });
+  };
+
+  const renderFormHeading = () => {
+    return isSignup ? (
+      <h2 className="text-2xl font-bold">
+        Already have an account?{' '}
+        <button className={'font-bold text-blue-500'} onClick={toggleSignup}>
+          Log In
+        </button>
+        !
+      </h2>
+    ) : (
+      <h2 className="text-2xl font-bold">
+        Don&apos;t have an account?{' '}
+        <button className={'font-bold text-blue-500'} onClick={toggleSignup}>
+          Sign Up
+        </button>
+        !
+      </h2>
+    );
+  };
+
   return (
     <div>
       <Head>
@@ -40,7 +76,12 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
-            <LoginForm />
+            {renderFormHeading()}
+            <LoginForm
+              isSignup={isSignup}
+              handleLogin={handleLogin}
+              handleSignup={handleSignup}
+            />
           </div>
         </div>
 
