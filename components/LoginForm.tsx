@@ -5,7 +5,12 @@ import Input from './Input';
 interface LoginFormPropsInterface {
   isSignup: boolean;
   handleLogin: (login: string, password: string, rememberMe: boolean) => void;
-  handleSignup: (login: string, password: string) => void;
+  handleSignup: (
+    username: string,
+    login: string,
+    password: string,
+    rememberMe: boolean
+  ) => void;
 }
 
 function LoginForm({
@@ -13,6 +18,7 @@ function LoginForm({
   handleLogin,
   handleSignup,
 }: LoginFormPropsInterface) {
+  const [username, setUsername] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -27,7 +33,7 @@ function LoginForm({
     if (validateForm()) {
       setPasswordInvalid(false);
       return isSignup
-        ? handleSignup(login, password)
+        ? handleSignup(username, login, password, rememberMe)
         : handleLogin(login, password, rememberMe);
     }
     setPasswordInvalid(true);
@@ -36,6 +42,19 @@ function LoginForm({
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <form className="flex flex-col">
+        {isSignup && (
+          <label className="mt-3 font-bold">
+            User name
+            <Input
+              type={'email'}
+              handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setUsername(e.currentTarget.value)
+              }
+              value={username}
+            />
+          </label>
+        )}
+
         <label className="mt-3 font-bold">
           Email
           <Input
