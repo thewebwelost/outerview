@@ -9,8 +9,12 @@ const Home: NextPage = () => {
   const [isSignup, setIsSignup] = useState(false);
   const toggleSignup = () => setIsSignup(!isSignup);
 
-  const handleLogin = async (login: string, password: string) => {
-    const res = await requestLogin(login, password);
+  const handleLogin = async (
+    login: string,
+    password: string,
+    rememberMe: boolean
+  ) => {
+    const res = await requestLogin(login, password, rememberMe);
     console.log('res', res);
   };
 

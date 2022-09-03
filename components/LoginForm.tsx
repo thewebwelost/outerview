@@ -4,7 +4,7 @@ import Input from './Input';
 
 interface LoginFormPropsInterface {
   isSignup: boolean;
-  handleLogin: (login: string, password: string) => void;
+  handleLogin: (login: string, password: string, rememberMe: boolean) => void;
   handleSignup: (login: string, password: string) => void;
 }
 
@@ -15,7 +15,23 @@ function LoginForm({
 }: LoginFormPropsInterface) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [passwordInvalid, setPasswordInvalid] = useState(false);
+
+  const validateForm = () => {
+    return password === repeatPassword;
+  };
+
+  const submitForm = () => {
+    if (validateForm()) {
+      setPasswordInvalid(false);
+      return isSignup
+        ? handleSignup(login, password)
+        : handleLogin(login, password, rememberMe);
+    }
+    setPasswordInvalid(true);
+  };
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
@@ -39,6 +55,7 @@ function LoginForm({
               setPassword(e.currentTarget.value)
             }
             value={password}
+            classNames={passwordInvalid ? 'border-red-400' : ''}
           />
         </label>
 
@@ -48,9 +65,10 @@ function LoginForm({
             <Input
               type={'password'}
               handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.currentTarget.value)
+                setRepeatPassword(e.currentTarget.value)
               }
-              value={password}
+              value={repeatPassword}
+              classNames={passwordInvalid ? 'border-red-400' : ''}
             />
           </label>
         )}
@@ -71,11 +89,7 @@ function LoginForm({
 
         <Button
           classNames={'mt-5 max-w-max self-center'}
-          handleClick={
-            isSignup
-              ? () => handleSignup(login, password)
-              : () => handleLogin(login, password)
-          }
+          handleClick={submitForm}
         >
           {isSignup ? 'Create account' : 'Log In'}
         </Button>
