@@ -18,7 +18,7 @@ function LoginForm({
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
-    <div className="p-5 max-w-xs border rounded-md bg-white">
+    <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <form className="flex flex-col">
         <label className="mt-3 font-bold">
           Email

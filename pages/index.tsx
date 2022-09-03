@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/LoginForm';
 import { login as requestLogin } from '../api/user';
 
 const Home: NextPage = () => {
@@ -22,21 +21,21 @@ const Home: NextPage = () => {
 
   const renderFormHeading = () => {
     return isSignup ? (
-      <h2 className="text-2xl font-bold">
+      <>
         Already have an account?{' '}
         <button className={'font-bold text-blue-500'} onClick={toggleSignup}>
           Log In
         </button>
         !
-      </h2>
+      </>
     ) : (
-      <h2 className="text-2xl font-bold">
+      <>
         Don&apos;t have an account?{' '}
         <button className={'font-bold text-blue-500'} onClick={toggleSignup}>
           Sign Up
         </button>
         !
-      </h2>
+      </>
     );
   };
 
@@ -76,7 +75,9 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
-            {renderFormHeading()}
+            <h2 className="max-w-xs text-2xl font-bold">
+              {renderFormHeading()}
+            </h2>
             <LoginForm
               isSignup={isSignup}
               handleLogin={handleLogin}
