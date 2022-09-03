@@ -6,10 +6,13 @@ export async function login(
   password: string,
   rememberMe: boolean
 ) {
-  // TODO: set refresh token timeout
   return await resolve(
     axios
-      .post('http://localhost:8080/auth', { email: login, password })
+      .post('http://localhost:8080/auth', {
+        email: login,
+        password,
+        rememberMe,
+      })
       .then((res) => res.data)
   );
 }
