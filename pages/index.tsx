@@ -3,7 +3,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
 import { login as requestLogin } from '../api/user';
+import { signup as requestSignup } from '../api/user';
 
 const Home: NextPage = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -14,13 +16,16 @@ const Home: NextPage = () => {
     password: string,
     rememberMe: boolean
   ) => {
-    const res = await requestLogin(login, password, rememberMe);
-    console.log('res', res);
+    await requestLogin(login, password, rememberMe);
   };
 
-  const handleSignup = async (login: string, password: string) => {
-    // const res = await requestSignup(login, password);
-    console.log('signup', { login, password });
+  const handleSignup = async (
+    username: string,
+    login: string,
+    password: string,
+    rememberMe: boolean
+  ) => {
+    const res = await requestSignup(username, login, password, rememberMe);
   };
 
   const renderFormHeading = () => {
@@ -82,11 +87,11 @@ const Home: NextPage = () => {
             <h2 className="max-w-xs text-2xl font-bold">
               {renderFormHeading()}
             </h2>
-            <LoginForm
-              isSignup={isSignup}
-              handleLogin={handleLogin}
-              handleSignup={handleSignup}
-            />
+            {isSignup ? (
+              <SignupForm handleSignup={handleSignup} />
+            ) : (
+              <LoginForm handleLogin={handleLogin} />
+            )}
           </div>
         </div>
 

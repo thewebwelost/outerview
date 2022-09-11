@@ -1,36 +1,43 @@
-import axios from 'axios';
+import httpClient from '../axios/customHttp';
 import { resolve } from '../utils/resolver';
 
 export async function login(
-  login: string,
+  email: string,
   password: string,
   rememberMe: boolean
 ) {
   return await resolve(
-    axios
-      .post('http://localhost:8080/auth', {
-        email: login,
+    httpClient
+      .post('/auth', {
+        email,
         password,
         rememberMe,
       })
-      .then((res) => res.data)
+      .then((res) => {
+        // console.log('[resolve login]');
+        document.cookie = `Authorization=${res.data.accessToken} path=/`;
+        return res.data;
+      })
   );
 }
 
 export async function signup(
   username: string,
-  login: string,
+  email: string,
   password: string,
   rememberMe: boolean
 ) {
   return await resolve(
-    axios
-      .post('http://localhost:8080/register', {
+    httpClient
+      .post('/register', {
         username,
-        email: login,
+        email,
         password,
         rememberMe,
       })
-      .then((res) => res.data)
+      .then((res) => {
+        document.cookie = `Authorization=${res.data.accessToken} path=/`;
+        return res.data;
+      })
   );
 }
