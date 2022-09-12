@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import Button from './Button';
-import Checkbox from './Checkbox';
-import Input from './Input';
+import Button from './atoms/Button';
+import Checkbox from './atoms/Checkbox';
+import Input from './atoms/Input';
 
 interface LoginForm {
   handleLogin: (login: string, password: string, rememberMe: boolean) => void;

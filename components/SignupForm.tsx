@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Button from './Button';
-import Checkbox from './Checkbox';
-import Input from './Input';
+import Button from './atoms/Button';
+import Checkbox from './atoms/Checkbox';
+import Input from './atoms/Input';
 
 const EMAIL_REGEX = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$';
 const PASS_REGEX = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$';
