@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Button from './Button';
+import Checkbox from './Checkbox';
 import Input from './Input';
 
 interface LoginForm {
@@ -16,30 +17,35 @@ function LoginForm({ handleLogin }: LoginForm) {
     handleLogin(email, password, rememberMe);
   };
 
+  const handleCheckRememberMe = (e: ChangeEvent<HTMLInputElement>) =>
+    setRememberMe(e.currentTarget.checked);
+
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <form className="flex flex-col">
-        <label className="mt-3 font-bold">
-          Email
-          <Input
-            type={'email'}
-            handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.currentTarget.value)
-            }
-            value={email}
-          />
-        </label>
+        <Input
+          label={'Email'}
+          type={'email'}
+          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.currentTarget.value)
+          }
+          value={email}
+        />
 
-        <label className="mt-3 font-bold">
-          Password
-          <Input
-            type={'password'}
-            handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.currentTarget.value)
-            }
-            value={password}
-          />
-        </label>
+        <Input
+          label={'Password'}
+          type={'password'}
+          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.currentTarget.value)
+          }
+          value={password}
+        />
+
+        <Checkbox
+          handleChange={handleCheckRememberMe}
+          label={'Remember me'}
+          value={rememberMe}
+        />
 
         <Button
           classNames={'mt-5 max-w-max self-center'}
