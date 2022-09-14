@@ -13,7 +13,6 @@ function LoginForm({ handleLogin }: LoginForm) {
   const [rememberMe, setRememberMe] = useState(false);
 
   const submitForm = () => {
-    console.log('[submit login form]');
     handleLogin(email, password, rememberMe);
   };
 

@@ -1,31 +1,44 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
+
+import { login as requestLogin } from '../api/auth';
+import { signup as requestSignup } from '../api/auth';
+import NavLink from '../components/atoms/NavLink';
+
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
-import { login as requestLogin } from '../api/user';
-import { signup as requestSignup } from '../api/user';
+import { AuthContext } from '../context/authContext';
 
 const Home: NextPage = () => {
   const [isSignup, setIsSignup] = useState(false);
+  const router = useRouter();
   const toggleSignup = () => setIsSignup(!isSignup);
+  const authContext = useContext(AuthContext);
 
   const handleLogin = async (
     login: string,
     password: string,
     rememberMe: boolean
   ) => {
-    await requestLogin(login, password, rememberMe);
+    const { data } = await requestLogin(login, password, rememberMe);
+    if (data && authContext) {
+      authContext && authContext.setAuthStatus(data);
+      router.push('/dashboard');
+    }
   };
 
   const handleSignup = async (
     username: string,
     login: string,
-    password: string,
-    rememberMe: boolean
+    password: string
   ) => {
-    const res = await requestSignup(username, login, password, rememberMe);
+    const { data } = await requestSignup(username, login, password);
+    if (data && data.success) {
+      router.push('/login');
+    }
   };
 
   const renderFormHeading = () => {
@@ -92,6 +105,8 @@ const Home: NextPage = () => {
             ) : (
               <LoginForm handleLogin={handleLogin} />
             )}
+            <NavLink href={'/signup'} value={'Sign Up'} />
+            <NavLink href={'/login'} value={'Log In'} />
           </div>
         </div>
 

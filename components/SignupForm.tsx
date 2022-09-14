@@ -1,18 +1,12 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Button from './atoms/Button';
-import Checkbox from './atoms/Checkbox';
 import Input from './atoms/Input';
 
 const EMAIL_REGEX = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$';
 const PASS_REGEX = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$';
 
 interface SignupForm {
-  handleSignup: (
-    username: string,
-    login: string,
-    password: string,
-    rememberMe: boolean
-  ) => void;
+  handleSignup: (username: string, login: string, password: string) => void;
 }
 
 function SignupForm({ handleSignup }: SignupForm) {
@@ -28,7 +22,6 @@ function SignupForm({ handleSignup }: SignupForm) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const [passwordInvalid, setPasswordInvalid] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
@@ -39,14 +32,10 @@ function SignupForm({ handleSignup }: SignupForm) {
   const submitForm = () => {
     if (validateForm()) {
       setPasswordInvalid(false);
-      console.log('[submit signup form]');
-      return handleSignup(username, email, password, rememberMe);
+      return handleSignup(username, email, password);
     }
     setPasswordInvalid(true);
   };
-
-  const handleCheckRememberMe = (e: ChangeEvent<HTMLInputElement>) =>
-    setRememberMe(e.currentTarget.checked);
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
@@ -90,12 +79,6 @@ function SignupForm({ handleSignup }: SignupForm) {
           }
           value={repeatPassword}
           classNames={passwordInvalid ? 'border-red-400' : ''}
-        />
-
-        <Checkbox
-          handleChange={handleCheckRememberMe}
-          label={'Remember me'}
-          value={rememberMe}
         />
 
         <Button

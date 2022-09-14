@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { parseCookies } from 'nookies';
 
 const httpClient = axios.create({
@@ -6,25 +6,18 @@ const httpClient = axios.create({
   timeout: 1000,
 });
 
-httpClient.interceptors.response.use(
-  (response: AxiosResponse) => {
-    console.log('[response]', response);
-  },
-  (err: Error) => {
-    console.log('[reject]', err);
-    return Promise.reject(err);
-  }
-);
-
+// sign each axios request with a cookie
+// write to Authorization header
 httpClient.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
     if (config.headers === undefined) {
       config.headers = {};
     }
+
     const cookies = parseCookies();
     const authToken = cookies['OuterviewAuthToken'];
 
-    config.headers.Authorization = authToken ? `Bearer ${authToken}` : '';
+    config.headers.Authorization = `Bearer ${authToken}`;
 
     return config;
   }

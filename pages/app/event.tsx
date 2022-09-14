@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 
-const CreateEvent: NextPage = () => {
+const Event: NextPage = () => {
   return (
     <Layout>
       <>
@@ -33,4 +33,4 @@ const CreateEvent: NextPage = () => {
   );
 };
 
-export default CreateEvent;
+export default Event;
