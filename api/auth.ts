@@ -48,7 +48,21 @@ export async function signup(
       });
       return res.data;
     });
+  return res;
+}
 
-  console.log('res', res);
+export async function getUser(email: string) {
+  const res = await httpClient
+    .post('/dashboard', {
+      email,
+    })
+    .then((res) => {
+      // return raw user data
+      return res.data;
+    })
+    .catch((err) => {
+      console.log('[getUser error]', err.message);
+    });
+
   return res;
 }

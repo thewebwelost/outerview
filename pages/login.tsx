@@ -17,11 +17,11 @@ const Login: NextPage = () => {
     const res = await requestLogin(login, password, rememberMe);
 
     if (res.success && authContext) {
-      authContext.setAuthStatus({
-        isAuth: res.success,
-        user: res.user,
-        accessToken: res.accessToken,
-      });
+      // authContext.setAuthStatus({
+      //   isAuth: res.success,
+      //   user: res.user,
+      //   accessToken: res.accessToken,
+      // });
       router.push('/app/dashboard');
     }
   };

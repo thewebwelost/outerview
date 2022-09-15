@@ -4,6 +4,7 @@ import { parseCookies } from 'nookies';
 const httpClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   timeout: 1000,
+  withCredentials: true,
 });
 
 // sign each axios request with a cookie
@@ -16,6 +17,8 @@ httpClient.interceptors.request.use(
 
     const cookies = parseCookies();
     const authToken = cookies['OuterviewAuthToken'];
+
+    console.log('[http authToken]', authToken);
 
     config.headers.Authorization = `Bearer ${authToken}`;
 

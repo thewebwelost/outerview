@@ -1,12 +1,15 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
+import { getUser } from '../../api/auth';
 import Layout from '../../components/Layout';
 
-export function getServerSideProps() {
-  const user = { name: 'test' };
+export async function getServerSideProps({ req }: any) {
+  console.log('[getServerSideProps context]', req.body);
+  const user = await getUser('baaa@aa.aa');
+
   return {
     props: {
-      user,
+      user: user || null,
     },
   };
 }
