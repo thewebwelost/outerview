@@ -1,16 +1,19 @@
 import axios from 'axios';
+import { setCookie } from 'nookies';
 import { useState } from 'react';
+import httpClient from '../axios/customHttp';
 
-interface IUser {
+export interface IUser {
   username: string;
   email: string;
 }
 
-interface ILogin {
+export interface ILogin {
   email: string;
   password: string;
 }
-interface IRegister {
+
+export interface IRegister {
   username: string;
   email: string;
   password: string;
@@ -20,19 +23,29 @@ export function useProvideAuth() {
   const [user, setUser] = useState<IUser | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   async function login(authPayload: ILogin) {
     setIsLoading(true);
-    await axios
+    await httpClient
       .post('/login', authPayload)
       .then((res) => {
         setIsLoading(false);
-        setUser({
-          username: res.data.username,
-          email: res.data.email,
+
+        setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
+          maxAge: 24 * 60 * 60 * 1000,
+          path: '/',
         });
+
+        setUser({
+          username: res.data.user.username,
+          email: res.data.user.email,
+        });
+
+        setIsLoggedIn(true);
       })
       .catch((err) => {
+        setIsLoggedIn(false);
         const newErrs: string[] = [...errors, err.message];
         setErrors(newErrs);
       });
@@ -42,7 +55,7 @@ export function useProvideAuth() {
     setErrors([]);
     setIsLoading(true);
     await axios
-      .post('/register', registerPayload)
+      .post('http://localhost:8080/register', registerPayload)
       .then((res) => {
         setIsLoading(false);
         setUser({
@@ -56,11 +69,11 @@ export function useProvideAuth() {
       });
   }
 
-  async function logout(registerPayload: IRegister) {
+  async function logout() {
     setErrors([]);
     setIsLoading(true);
     await axios
-      .get('/logout')
+      .get('http://localhost:8080/logout')
       .then((res) => {
         setIsLoading(false);
         setUser({
@@ -77,6 +90,7 @@ export function useProvideAuth() {
   return {
     errors,
     isLoading,
+    isLoggedIn,
     user,
     login,
     logout,

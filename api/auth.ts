@@ -10,10 +10,6 @@ export async function login(email: string, password: string) {
     .then((res) => {
       // we get access token from login response
       // and write it to cookies
-      setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
-        maxAge: 24 * 60 * 60 * 1000,
-        path: '/',
-      });
 
       return res.data;
     })

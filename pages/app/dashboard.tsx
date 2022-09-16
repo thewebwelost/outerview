@@ -1,30 +1,13 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import Router from 'next/router';
-import { useContext, useEffect, useState } from 'react';
-import { getUser } from '../../api/user';
+import { useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { AuthContext, IAuthContext } from '../../context/authContext';
+import { IAuthContext } from '../../context/authContext';
+import { useAuth } from '../../hooks/useAuth';
 
-const Dashboard: NextPage = () => {
-  const [user, setUser] = useState<{ [key: string]: any }>({});
-  const authContext: IAuthContext = useContext<IAuthContext>(AuthContext);
-  const authStatus = authContext.authStatus;
-  const { isLoggedIn, email } = authStatus;
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      const fetchUser = async (email: string) => {
-        const res = await getUser(email);
-        setUser(res);
-        return res;
-      };
-
-      fetchUser(email as string);
-    } else {
-      Router.push('/login');
-    }
-  }, [email, isLoggedIn]);
+const DashboardPage: NextPage = () => {
+  const auth = useAuth();
+  const user = auth?.user;
 
   useEffect(() => {
     console.log('[Dashboard user]', user);
@@ -33,7 +16,6 @@ const Dashboard: NextPage = () => {
   return (
     <Layout>
       <>
-        {/* USER */}
         <h1 className="text-3xl font-bold underline">{`${user?.email}`}</h1>
         <div className={'flex mt-3'}>
           <div className={'p-3 mr-5 border rounded-md'}>
@@ -185,4 +167,26 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default function Dashboard() {
+  const auth = useAuth();
+
+  // const { isLoggedIn, login, logout, user } = auth;
+
+  console.log('[AUTH]', auth);
+
+  return auth && auth.isLoggedIn ? (
+    <div>
+      <p>Email: {auth && auth.user?.email}</p>
+      <button onClick={(e) => auth && auth.logout()}>Log Out</button>
+      <DashboardPage />
+    </div>
+  ) : (
+    <button
+      onClick={(e) =>
+        auth && auth.login({ email: 'baaa@aa.aa', password: 'aaaa' })
+      }
+    >
+      Log In
+    </button>
+  );
+}

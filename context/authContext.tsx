@@ -1,48 +1,25 @@
+import { createContext, ReactNode } from 'react';
 import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from 'react';
-
-interface IAuthState {
-  isLoggedIn: boolean;
-  accessToken: string | null;
-  email: string | null;
-  [key: string]: any;
-}
+  ILogin,
+  IRegister,
+  IUser,
+  useProvideAuth,
+} from '../hooks/useProvideAuth';
 
 export interface IAuthContext {
-  authStatus: IAuthState;
-  setAuthStatus: Dispatch<SetStateAction<IAuthState>>;
+  errors: string[];
+  isLoading: boolean;
+  isLoggedIn: boolean;
+  user: IUser | null;
+  login: (authPayload: ILogin) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (registerPayload: IRegister) => Promise<void>;
 }
 
-export const AuthContext = createContext<IAuthContext>({
-  authStatus: {
-    isLoggedIn: false,
-    accessToken: null,
-    email: null,
-  },
-  setAuthStatus: () => {},
-});
+export const AuthContext = createContext<IAuthContext | null>(null);
 const Provider = AuthContext.Provider;
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const [authStatus, setAuthStatus] = useState<IAuthState>({
-    isLoggedIn: false,
-    accessToken: null,
-    email: null,
-  });
-
-  return (
-    <Provider
-      value={{
-        authStatus,
-        setAuthStatus,
-      }}
-    >
-      {children}
-    </Provider>
-  );
+  const auth = useProvideAuth();
+  return <Provider value={auth}>{children}</Provider>;
 }
