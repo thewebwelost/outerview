@@ -1,25 +1,40 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { getUser } from '../../api/auth';
+import Router from 'next/router';
+import { useContext, useEffect, useState } from 'react';
+import { getUser } from '../../api/user';
 import Layout from '../../components/Layout';
+import { AuthContext, IAuthContext } from '../../context/authContext';
 
-export async function getServerSideProps({ req }: any) {
-  console.log('[getServerSideProps context]', req.body);
-  const user = await getUser('baaa@aa.aa');
+const Dashboard: NextPage = () => {
+  const [user, setUser] = useState<{ [key: string]: any }>({});
+  const authContext: IAuthContext = useContext<IAuthContext>(AuthContext);
+  const authStatus = authContext.authStatus;
+  const { isLoggedIn, email } = authStatus;
 
-  return {
-    props: {
-      user: user || null,
-    },
-  };
-}
+  useEffect(() => {
+    if (isLoggedIn) {
+      const fetchUser = async (email: string) => {
+        const res = await getUser(email);
+        setUser(res);
+        return res;
+      };
 
-const Dashboard: NextPage = ({ user }: any) => {
+      fetchUser(email as string);
+    } else {
+      Router.push('/login');
+    }
+  }, [email, isLoggedIn]);
+
+  useEffect(() => {
+    console.log('[Dashboard user]', user);
+  }, [user]);
+
   return (
     <Layout>
       <>
         {/* USER */}
-        <h1 className="text-3xl font-bold underline">User&apos;s profiles</h1>
+        <h1 className="text-3xl font-bold underline">{`${user?.email}`}</h1>
         <div className={'flex mt-3'}>
           <div className={'p-3 mr-5 border rounded-md'}>
             <h3 className={'font-bold'}>Profile #1</h3>

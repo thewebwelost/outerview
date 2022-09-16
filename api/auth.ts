@@ -1,16 +1,11 @@
 import { setCookie } from 'nookies';
 import httpClient from '../axios/customHttp';
 
-export async function login(
-  email: string,
-  password: string,
-  rememberMe: boolean
-) {
+export async function login(email: string, password: string) {
   const res = await httpClient
-    .post('/auth', {
+    .post('/login', {
       email,
       password,
-      rememberMe,
     })
     .then((res) => {
       // we get access token from login response
@@ -19,6 +14,7 @@ export async function login(
         maxAge: 24 * 60 * 60 * 1000,
         path: '/',
       });
+
       return res.data;
     })
     .catch((err) => {
@@ -48,21 +44,5 @@ export async function signup(
       });
       return res.data;
     });
-  return res;
-}
-
-export async function getUser(email: string) {
-  const res = await httpClient
-    .post('/dashboard', {
-      email,
-    })
-    .then((res) => {
-      // return raw user data
-      return res.data;
-    })
-    .catch((err) => {
-      console.log('[getUser error]', err.message);
-    });
-
   return res;
 }

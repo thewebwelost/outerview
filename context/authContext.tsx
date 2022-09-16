@@ -6,32 +6,40 @@ import {
   useState,
 } from 'react';
 
-interface AuthStateInterface {
-  isAuth?: boolean;
-  accessToken?: string;
-  user?: { [key: string]: string };
+interface IAuthState {
+  isLoggedIn: boolean;
+  accessToken: string | null;
+  email: string | null;
+  [key: string]: any;
 }
 
-interface AuthContextInterface {
-  authStatus: AuthStateInterface;
-  setAuthStatus: Dispatch<SetStateAction<AuthStateInterface>>;
+export interface IAuthContext {
+  authStatus: IAuthState;
+  setAuthStatus: Dispatch<SetStateAction<IAuthState>>;
 }
 
-export const AuthContext = createContext<AuthContextInterface | null>(null);
+export const AuthContext = createContext<IAuthContext>({
+  authStatus: {
+    isLoggedIn: false,
+    accessToken: null,
+    email: null,
+  },
+  setAuthStatus: () => {},
+});
 const Provider = AuthContext.Provider;
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const [authStatus, setAuthStatus] = useState({});
+  const [authStatus, setAuthStatus] = useState<IAuthState>({
+    isLoggedIn: false,
+    accessToken: null,
+    email: null,
+  });
 
   return (
     <Provider
       value={{
         authStatus,
-        setAuthStatus: (val) => {
-          console.log('val', val);
-          debugger;
-          setAuthStatus(val);
-        },
+        setAuthStatus,
       }}
     >
       {children}

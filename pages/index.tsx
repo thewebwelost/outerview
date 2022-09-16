@@ -23,10 +23,12 @@ const Home: NextPage = () => {
     password: string,
     rememberMe: boolean
   ) => {
-    const { data } = await requestLogin(login, password, rememberMe);
+    const res = await requestLogin(login, password, rememberMe);
+    console.log('res', res);
+    const data = res.data;
     if (data && authContext) {
       authContext && authContext.setAuthStatus(data);
-      router.push('/dashboard');
+      //router.push('/dashboard');
     }
   };
 

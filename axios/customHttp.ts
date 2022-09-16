@@ -14,13 +14,11 @@ httpClient.interceptors.request.use(
     if (config.headers === undefined) {
       config.headers = {};
     }
-
+    // parses client non-secure cookies
     const cookies = parseCookies();
     const authToken = cookies['OuterviewAuthToken'];
 
-    console.log('[http authToken]', authToken);
-
-    config.headers.Authorization = `Bearer ${authToken}`;
+    config.headers.Authorization = authToken ? `Bearer ${authToken}` : '';
 
     return config;
   }

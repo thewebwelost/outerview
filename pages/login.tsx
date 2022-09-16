@@ -9,19 +9,17 @@ const Login: NextPage = () => {
   const router = useRouter();
   const authContext = useContext(AuthContext);
 
-  const handleLogin = async (
-    login: string,
-    password: string,
-    rememberMe: boolean
-  ) => {
-    const res = await requestLogin(login, password, rememberMe);
+  const { setAuthStatus } = authContext;
 
-    if (res.success && authContext) {
-      // authContext.setAuthStatus({
-      //   isAuth: res.success,
-      //   user: res.user,
-      //   accessToken: res.accessToken,
-      // });
+  const handleLogin = async (login: string, password: string) => {
+    const res = await requestLogin(login, password);
+
+    if (res) {
+      setAuthStatus({
+        isLoggedIn: true,
+        email: res.user.email,
+        accessToken: res.accessToken,
+      });
       router.push('/app/dashboard');
     }
   };
