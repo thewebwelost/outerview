@@ -1,8 +1,9 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { getUser } from '../../api/user';
 import Layout from '../../components/Layout';
-import { IAuthContext } from '../../context/authContext';
 import { useAuth } from '../../hooks/useAuth';
 
 const DashboardPage: NextPage = () => {
@@ -10,7 +11,13 @@ const DashboardPage: NextPage = () => {
   const user = auth?.user;
 
   useEffect(() => {
-    console.log('[Dashboard user]', user);
+    const fetchUser = async () => {
+      if (user && user.email) {
+        await getUser(user.email);
+      }
+    };
+
+    fetchUser();
   }, [user]);
 
   return (
@@ -169,24 +176,17 @@ const DashboardPage: NextPage = () => {
 
 export default function Dashboard() {
   const auth = useAuth();
+  const router = useRouter();
 
-  // const { isLoggedIn, login, logout, user } = auth;
+  useEffect(() => {
+    if (!auth || !auth.isLoggedIn) router.push('/login');
+  }, [auth, router]);
 
-  console.log('[AUTH]', auth);
-
-  return auth && auth.isLoggedIn ? (
+  return (
     <div>
       <p>Email: {auth && auth.user?.email}</p>
       <button onClick={(e) => auth && auth.logout()}>Log Out</button>
       <DashboardPage />
     </div>
-  ) : (
-    <button
-      onClick={(e) =>
-        auth && auth.login({ email: 'baaa@aa.aa', password: 'aaaa' })
-      }
-    >
-      Log In
-    </button>
   );
 }

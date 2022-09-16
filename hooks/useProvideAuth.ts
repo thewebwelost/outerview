@@ -80,6 +80,7 @@ export function useProvideAuth() {
           username: '',
           email: '',
         });
+        setIsLoggedIn(false);
       })
       .catch((err) => {
         const newErrs: string[] = [...errors, err.message];
