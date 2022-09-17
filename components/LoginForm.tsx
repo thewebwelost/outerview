@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Button from './atoms/Button';
 import Checkbox from './atoms/Checkbox';
 import Input from './atoms/Input';
@@ -13,7 +13,10 @@ function LoginForm({ handleLogin }: LoginForm) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = () => handleLogin(email, password);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    handleLogin(email, password);
+  };
 
   useEffect(() => setError(''), [email, password]);
 

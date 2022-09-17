@@ -1,5 +1,4 @@
-import { setCookie } from 'nookies';
-import httpClient from '../axios/customHttp';
+import httpClient from '../utils/http/customHttp';
 
 export async function getUser(email: string) {
   const res = await httpClient

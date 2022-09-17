@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setCookie } from 'nookies';
 import { useState } from 'react';
-import httpClient from '../axios/customHttp';
+import httpClient from '../utils/http/customHttp';
 
 export interface IUser {
   username: string;
@@ -30,14 +30,12 @@ export function useProvideAuth() {
     await httpClient
       .post('/login', authPayload)
       .then((res) => {
+        const { user, accessToken } = res.data;
         setIsLoading(false);
-
-        setUser({
-          username: res.data.user.username,
-          email: res.data.user.email,
-        });
-
-        setIsLoggedIn(true);
+        // set user data to auth context
+        setUser(user);
+        // write accessToken to cookies
+        setCookie(null, 'OuterviewAuthToken', accessToken);
       })
       .catch((err) => {
         setIsLoggedIn(false);
@@ -49,14 +47,16 @@ export function useProvideAuth() {
   async function register(registerPayload: IRegister) {
     setErrors([]);
     setIsLoading(true);
-    await axios
-      .post('http://localhost:8080/register', registerPayload)
+    await httpClient
+      .post('/register', registerPayload)
       .then((res) => {
+        const { user, accessToken } = res.data;
         setIsLoading(false);
-        setUser({
-          username: res.data.username,
-          email: res.data.email,
-        });
+        // set user data to auth context
+        setUser(user);
+        // write accessToken to cookies
+        setCookie(null, 'OuterviewAuthToken', accessToken);
+        setIsLoggedIn(true);
       })
       .catch((err) => {
         const newErrs: string[] = [...errors, err.message];
@@ -67,8 +67,8 @@ export function useProvideAuth() {
   async function logout() {
     setErrors([]);
     setIsLoading(true);
-    await axios
-      .get('http://localhost:8080/logout')
+    await httpClient
+      .get('/logout')
       .then((res) => {
         setIsLoading(false);
         setUser({

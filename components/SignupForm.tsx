@@ -1,5 +1,11 @@
 import Link from 'next/link';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import Button from './atoms/Button';
 import Input from './atoms/Input';
 
@@ -38,7 +44,9 @@ function SignupForm({ handleSignup }: SignupForm) {
     return password === repeatPassword;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
     if (validateForm()) {
       setPasswordInvalid(false);
       return handleSignup(username, email, password);

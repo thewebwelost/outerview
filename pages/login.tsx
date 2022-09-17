@@ -13,9 +13,9 @@ const Login: NextPage = () => {
   };
 
   useEffect(() => {
-    // if (auth && auth.isLoggedIn) {
-    //   router.push('/app/dashboard');
-    // }
+    if (auth && auth.isLoggedIn) {
+      router.push('/app/dashboard');
+    }
   }, [auth, router]);
 
   return (
