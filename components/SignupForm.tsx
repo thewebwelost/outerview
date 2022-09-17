@@ -50,7 +50,7 @@ function SignupForm({ handleSignup }: SignupForm) {
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <h1 className="text-3xl font-bold">Log In</h1>
       {error && (
-        <div className="p-2 mt-2 bg-red-200 border border-red-300 text-red-600">
+        <div className="p-2 mt-2 bg-red-200 border rounded-md border-red-300 text-red-600">
           {error}
         </div>
       )}
@@ -110,7 +110,7 @@ function SignupForm({ handleSignup }: SignupForm) {
       </form>
       <p className="mt-5">
         Already have an account?{' '}
-        <Link href={'/register'}>
+        <Link href={'/login'}>
           <a className={'text-blue-400'}>Log in</a>
         </Link>
       </p>
