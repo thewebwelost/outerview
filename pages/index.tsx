@@ -1,68 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
-
-import { login as requestLogin } from '../api/auth';
-import { signup as requestSignup } from '../api/auth';
 import NavLink from '../components/atoms/NavLink';
-
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
-import { AuthContext } from '../context/authContext';
 
 const Home: NextPage = () => {
-  const [isSignup, setIsSignup] = useState(false);
-  const router = useRouter();
-  const toggleSignup = () => setIsSignup(!isSignup);
-  const authContext = useContext(AuthContext);
-
-  const handleLogin = async (
-    login: string,
-    password: string,
-    rememberMe: boolean
-  ) => {
-    const res = await requestLogin(login, password, rememberMe);
-    console.log('res', res);
-    const data = res.data;
-    if (data && authContext) {
-      authContext && authContext.setAuthStatus(data);
-      //router.push('/dashboard');
-    }
-  };
-
-  const handleSignup = async (
-    username: string,
-    login: string,
-    password: string
-  ) => {
-    const { data } = await requestSignup(username, login, password);
-    if (data && data.success) {
-      router.push('/login');
-    }
-  };
-
-  const renderFormHeading = () => {
-    return isSignup ? (
-      <>
-        Already have an account?{' '}
-        <button className={'font-bold text-blue-500'} onClick={toggleSignup}>
-          Log In
-        </button>
-        !
-      </>
-    ) : (
-      <>
-        Don&apos;t have an account?{' '}
-        <button className={'font-bold text-blue-500'} onClick={toggleSignup}>
-          Sign Up
-        </button>
-        !
-      </>
-    );
-  };
-
   return (
     <div>
       <Head>
@@ -99,14 +42,6 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
-            <h2 className="max-w-xs text-2xl font-bold">
-              {renderFormHeading()}
-            </h2>
-            {isSignup ? (
-              <SignupForm handleSignup={handleSignup} />
-            ) : (
-              <LoginForm handleLogin={handleLogin} />
-            )}
             <NavLink href={'/signup'} value={'Sign Up'} />
             <NavLink href={'/login'} value={'Log In'} />
           </div>

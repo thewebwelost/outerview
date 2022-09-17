@@ -18,6 +18,8 @@ httpClient.interceptors.request.use(
     const cookies = parseCookies();
     const authToken = cookies['OuterviewAuthToken'];
 
+    console.log('[authToken]', authToken);
+
     config.headers.Authorization = authToken ? `Bearer ${authToken}` : '';
 
     return config;

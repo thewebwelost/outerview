@@ -13,6 +13,7 @@ const Login: NextPage = () => {
   };
 
   useEffect(() => {
+    console.log('auth', auth);
     if (auth && auth.isLoggedIn) {
       router.push('/app/dashboard');
     }

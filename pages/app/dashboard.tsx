@@ -178,9 +178,9 @@ export default function Dashboard() {
   const auth = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!auth || !auth.isLoggedIn) router.push('/login');
-  }, [auth, router]);
+  // useEffect(() => {
+  //   if (!auth || !auth.isLoggedIn) router.push('/login');
+  // }, [auth, router]);
 
   return <DashboardPage />;
 }
