@@ -7,10 +7,10 @@ export async function getUser(email: string) {
       email,
     })
     .then((res) => {
-      setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
-        maxAge: 24 * 60 * 60 * 1000,
-        path: '/',
-      });
+      // setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
+      //   maxAge: 24 * 60 * 60 * 1000,
+      //   path: '/',
+      // });
       return res.data;
     })
     .catch((err) => {

@@ -179,14 +179,8 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!auth || !auth.isLoggedIn) router.push('/login');
+    // if (!auth || !auth.isLoggedIn) router.push('/login');
   }, [auth, router]);
 
-  return (
-    <div>
-      <p>Email: {auth && auth.user?.email}</p>
-      <button onClick={(e) => auth && auth.logout()}>Log Out</button>
-      <DashboardPage />
-    </div>
-  );
+  return <DashboardPage />;
 }

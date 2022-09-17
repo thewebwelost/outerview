@@ -2,22 +2,16 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  // middleware to protect Next routes
+  console.log('[REQUEST WENT THROUG MIDDLEWARE]');
 
-  // JWT IS HERE
-  // console.log('[req.cookies]', req.cookies);
-  const res = NextResponse.next();
+  if (req.url.includes('/login')) {
+    const authToken = req.cookies.get('OuterviewAuthToken');
+    const refreshToken = req.cookies.get('jwt');
 
-  if (req.cookies.get('OuterviewAuthToken')) {
-    const res = NextResponse.next();
-    res.cookies.set('authorization', req.cookies.get('OuterviewAuthToken'), {
-      path: '/',
-    });
-    res.cookies.set('jwt', req.cookies.get('jwt'), {
-      path: '/',
-    });
+    authToken && sessionStorage.setItem('auth', authToken);
+    refreshToken && sessionStorage.setItem('refresh', refreshToken);
   } else {
-    NextResponse.redirect('http://localhost:8080/login');
+    NextResponse.redirect('http://localhost:3000/login');
   }
 }
 

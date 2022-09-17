@@ -34,10 +34,10 @@ export async function signup(
     .then((res) => {
       // successfull registration must log user in
       //
-      setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
-        maxAge: 24 * 60 * 60 * 1000,
-        path: '/',
-      });
+      // setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
+      //   maxAge: 24 * 60 * 60 * 1000,
+      //   path: '/',
+      // });
       return res.data;
     });
   return res;

@@ -32,11 +32,6 @@ export function useProvideAuth() {
       .then((res) => {
         setIsLoading(false);
 
-        setCookie(null, 'OuterviewAuthToken', res.data.accessToken, {
-          maxAge: 24 * 60 * 60 * 1000,
-          path: '/',
-        });
-
         setUser({
           username: res.data.user.username,
           email: res.data.user.email,
