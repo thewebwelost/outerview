@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Button from './atoms/Button';
 import Input from './atoms/Input';
@@ -10,26 +11,34 @@ interface SignupForm {
 }
 
 function SignupForm({ handleSignup }: SignupForm) {
+  const [username, setUsername] = useState('');
+  const usernameRef = useRef<HTMLInputElement>(null);
+
+  const [email, setEmail] = useState('');
   const emailRef = useRef<HTMLInputElement>(null);
+
+  const [password, setPassword] = useState('');
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const [repeatPassword, setRepeatPassword] = useState('');
   const repeatPasswordRef = useRef<HTMLInputElement>(null);
 
+  const [error, setError] = useState('');
+  const [passwordInvalid, setPasswordInvalid] = useState(false);
+
   useEffect(() => {
-    if (emailRef.current) emailRef.current.focus();
+    if (usernameRef.current) usernameRef.current.focus();
   }, []);
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const [passwordInvalid, setPasswordInvalid] = useState(false);
-  const [emailFocus, setEmailFocus] = useState(false);
+  useEffect(() => {
+    setError('');
+  }, [username, email, password, repeatPassword]);
 
   const validateForm = () => {
     return password === repeatPassword;
   };
 
-  const submitForm = () => {
+  const handleSubmit = () => {
     if (validateForm()) {
       setPasswordInvalid(false);
       return handleSignup(username, email, password);
@@ -39,7 +48,13 @@ function SignupForm({ handleSignup }: SignupForm) {
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
-      <form className="flex flex-col">
+      <h1 className="text-3xl font-bold">Log In</h1>
+      {error && (
+        <div className="p-2 mt-2 bg-red-200 border border-red-300 text-red-600">
+          {error}
+        </div>
+      )}
+      <form className="flex flex-col" onSubmit={handleSubmit}>
         <Input
           label={'User name'}
           type={'text'}
@@ -47,6 +62,8 @@ function SignupForm({ handleSignup }: SignupForm) {
             setUsername(e.currentTarget.value)
           }
           value={username}
+          autoComplete={'off'}
+          required={true}
         />
 
         <Input
@@ -57,6 +74,8 @@ function SignupForm({ handleSignup }: SignupForm) {
             setEmail(e.currentTarget.value)
           }
           value={email}
+          autoComplete={'off'}
+          required={true}
         />
 
         <Input
@@ -68,6 +87,8 @@ function SignupForm({ handleSignup }: SignupForm) {
           }
           value={password}
           classNames={passwordInvalid ? 'border-red-400' : ''}
+          autoComplete={'off'}
+          required={true}
         />
 
         <Input
@@ -79,15 +100,20 @@ function SignupForm({ handleSignup }: SignupForm) {
           }
           value={repeatPassword}
           classNames={passwordInvalid ? 'border-red-400' : ''}
+          autoComplete={'off'}
+          required={true}
         />
 
-        <Button
-          classNames={'mt-5 max-w-max self-center'}
-          handleClick={submitForm}
-        >
+        <Button classNames={'mt-5 max-w-max self-center'} type={'submit'}>
           Create account
         </Button>
       </form>
+      <p className="mt-5">
+        Already have an account?{' '}
+        <Link href={'/register'}>
+          <a className={'text-blue-400'}>Log in</a>
+        </Link>
+      </p>
     </div>
   );
 }

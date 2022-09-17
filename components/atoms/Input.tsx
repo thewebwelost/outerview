@@ -6,10 +6,19 @@ interface InputInterface {
   classNames?: string;
   value: string;
   label?: string;
+  autoComplete?: string;
+  required?: boolean;
 }
 
 function Input(
-  { type, handleChange, classNames, label, ...rest }: InputInterface,
+  {
+    type,
+    handleChange,
+    classNames,
+    label,
+    autoComplete,
+    required,
+  }: InputInterface,
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const inputForIdValue = label && label.split(' ').join('_');
@@ -18,17 +27,19 @@ function Input(
     <>
       {label && (
         <label className="mt-3 font-bold" htmlFor={inputForIdValue}>
-          {label}
+          {label}:
         </label>
       )}
       <input
-        id={inputForIdValue}
-        ref={ref}
-        type={type}
-        onChange={handleChange}
         className={`block w-full h-8 p-1 font-normal border rounded-md ${classNames}`}
-        // aria-describedby={''}
-        {...{ ...rest }}
+        {...{
+          autoComplete,
+          required,
+          ref,
+          type,
+          id: inputForIdValue,
+          onChange: handleChange,
+        }}
       />
     </>
   );

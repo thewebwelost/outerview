@@ -1,58 +1,59 @@
+import Link from 'next/link';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Button from './atoms/Button';
 import Checkbox from './atoms/Checkbox';
 import Input from './atoms/Input';
 
 interface LoginForm {
-  handleLogin: (login: string, password: string, rememberMe: boolean) => void;
+  handleLogin: (login: string, password: string) => void;
 }
 
 function LoginForm({ handleLogin }: LoginForm) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
 
-  const submitForm = () => {
-    handleLogin(email, password, rememberMe);
-  };
+  const handleSubmit = () => handleLogin(email, password);
 
-  const handleCheckRememberMe = (e: ChangeEvent<HTMLInputElement>) =>
-    setRememberMe(e.currentTarget.checked);
+  useEffect(() => setError(''), [email, password]);
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
-      <form className="flex flex-col">
+      <h1 className="text-3xl font-bold">Log In</h1>
+      {error && (
+        <div className="p-2 mt-2 bg-red-200 border border-red-300 text-red-600">
+          {error}
+        </div>
+      )}
+      <form className="flex flex-col" onSubmit={handleSubmit}>
         <Input
           label={'Email'}
           type={'email'}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.currentTarget.value)
-          }
+          handleChange={(e) => setEmail(e.currentTarget.value)}
           value={email}
+          autoComplete={'off'}
+          required={true}
         />
 
         <Input
           label={'Password'}
           type={'password'}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.currentTarget.value)
-          }
+          handleChange={(e) => setPassword(e.currentTarget.value)}
           value={password}
+          autoComplete={'off'}
+          required={true}
         />
 
-        <Checkbox
-          handleChange={handleCheckRememberMe}
-          label={'Remember me'}
-          value={rememberMe}
-        />
-
-        <Button
-          classNames={'mt-5 max-w-max self-center'}
-          handleClick={submitForm}
-        >
-          Log In
+        <Button classNames={'mt-5 max-w-max self-center'} type={'submit'}>
+          Sign In
         </Button>
       </form>
+      <p className="mt-5">
+        Don&apos;t have an account?{' '}
+        <Link href={'/register'}>
+          <a className={'text-blue-400'}>Sign up</a>
+        </Link>
+      </p>
     </div>
   );
 }
