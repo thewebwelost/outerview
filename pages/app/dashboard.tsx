@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../context/authContext';
 import { useUser } from '../../hooks/useUser';
 
 const Dashboard: NextPage = () => {

@@ -1,4 +1,4 @@
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import {
   ILogin,
   IRegister,
@@ -22,4 +22,8 @@ const Provider = AuthContext.Provider;
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const auth = useProvideAuth();
   return <Provider value={auth}>{children}</Provider>;
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
 }

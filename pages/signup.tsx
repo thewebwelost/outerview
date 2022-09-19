@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import SignupForm from '../components/SignupForm';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../context/authContext';
 
 const Login: NextPage = () => {
   const router = useRouter();

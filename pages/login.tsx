@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import LoginForm from '../components/LoginForm';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../context/authContext';
 
 const Login: NextPage = () => {
   const router = useRouter();
