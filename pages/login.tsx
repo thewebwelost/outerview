@@ -11,8 +11,6 @@ const Login: NextPage = () => {
     const data = await auth?.login({ email: login, password });
     if (data) {
       router.push('/app/dashboard');
-    } else {
-      // set error
     }
   };
 

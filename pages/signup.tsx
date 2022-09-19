@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import SignupForm from '../components/SignupForm';
 import { useAuth } from '../context/authContext';
 
@@ -13,14 +12,11 @@ const Login: NextPage = () => {
     login: string,
     password: string
   ) => {
-    await auth?.register({ username, email: login, password });
+    const data = await auth?.register({ username, email: login, password });
+    if (data) {
+      router.push('/app/dashboard');
+    }
   };
-
-  useEffect(() => {
-    // if (auth && auth.isLoggedIn) {
-    //   router.push('/app/dashboard');
-    // }
-  }, [auth, router]);
 
   return (
     <div className="p-10">
