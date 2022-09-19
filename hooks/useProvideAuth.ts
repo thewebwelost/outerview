@@ -35,6 +35,7 @@ export function useProvideAuth() {
         setUser(user);
         // write accessToken to session storage
         sessionStorage.setItem('access', JSON.stringify(accessToken));
+        sessionStorage.setItem('user', JSON.stringify(user));
         setIsLoggedIn(true);
         return res.data;
       })

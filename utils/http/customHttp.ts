@@ -14,8 +14,6 @@ httpClient.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
     const token = JSON.parse(sessionStorage.getItem('access') as string);
 
-    console.log('[[token]]', token);
-
     if (config.headers === undefined) {
       config.headers = {};
     }
@@ -26,8 +24,6 @@ httpClient.interceptors.request.use(
         authorization: `Bearer ${token}`,
       };
     }
-
-    console.log('interceptor config.headers', config.headers);
 
     return config;
   }
