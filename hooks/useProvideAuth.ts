@@ -35,6 +35,7 @@ export function useProvideAuth() {
         setUser(user);
         // write accessToken to session storage
         sessionStorage.setItem('access', JSON.stringify(accessToken));
+        setIsLoggedIn(true);
         return res.data;
       })
       .catch((err) => {
@@ -56,8 +57,8 @@ export function useProvideAuth() {
         setIsLoading(false);
         // set user data to auth context
         setUser(user);
-        // write accessToken to cookies
-        setCookie(null, 'OuterviewAuthToken', accessToken);
+        // write accessToken to session storage
+        sessionStorage.setItem('access', JSON.stringify(accessToken));
         setIsLoggedIn(true);
         return res.data;
       })
@@ -69,25 +70,22 @@ export function useProvideAuth() {
 
   async function refresh() {
     setErrors([]);
-    const session = JSON.parse(localStorage.getItem('session') as string);
-
-    try {
-      const res = await httpClient.post('/user/refresh', {
-        refreshToken: session?.refreshToken,
+    const token = await httpClient
+      .get('/refresh')
+      .then((res) => {
+        const { accessToken } = res.data;
+        if (!accessToken) {
+          return sessionStorage.removeItem('access');
+        }
+        sessionStorage.setItem('access', JSON.stringify(accessToken));
+      })
+      .catch((err) => {
+        sessionStorage.removeItem('session');
+        const newErrs: string[] = [...errors, err.message];
+        setErrors(newErrs);
       });
 
-      const { newSession } = res.data;
-
-      if (!newSession?.accessToken) {
-        localStorage.removeItem('session');
-      }
-
-      localStorage.setItem('session', JSON.stringify(newSession));
-
-      return newSession;
-    } catch (error) {
-      localStorage.removeItem('session');
-    }
+    return token;
   }
 
   async function logout() {
@@ -95,7 +93,7 @@ export function useProvideAuth() {
     setIsLoading(true);
     await httpClient
       .get('/logout')
-      .then((res) => {
+      .then(() => {
         setIsLoading(false);
         setUser({
           username: '',
