@@ -1,26 +1,33 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { parseCookies } from 'nookies';
 
 const httpClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   timeout: 1000,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-// sign each axios request with a cookie
-// write to Authorization header
+// sign each axios request with a cookie write to Authorization header
 httpClient.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
+    const token = JSON.parse(sessionStorage.getItem('access') as string);
+
+    console.log('[[token]]', token);
+
     if (config.headers === undefined) {
       config.headers = {};
     }
-    // parses client non-secure cookies
-    const cookies = parseCookies();
-    const authToken = cookies['OuterviewAuthToken'];
 
-    console.log('[authToken]', authToken);
+    if (token) {
+      config.headers = {
+        ...config.headers,
+        authorization: `Bearer ${token}`,
+      };
+    }
 
-    config.headers.Authorization = authToken ? `Bearer ${authToken}` : '';
+    console.log('interceptor config.headers', config.headers);
 
     return config;
   }

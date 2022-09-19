@@ -2,28 +2,34 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { getUser } from '../../api/user';
 import Layout from '../../components/Layout';
 import { useAuth } from '../../hooks/useAuth';
+import { useUser } from '../../hooks/useUser';
 
-const DashboardPage: NextPage = () => {
+const Dashboard: NextPage = () => {
   const auth = useAuth();
+  const router = useRouter();
+  const { getDashboard } = useUser();
+
   const user = auth?.user;
+  const accessEmail = user?.email; // WE NEED TO PERSIST USER INFOOOOOOOO
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (user && user.email) {
-        await getUser(user.email);
+      try {
+        const dashboard = await getDashboard(accessEmail as string);
+      } catch {
+        router.push('/login');
       }
     };
 
     fetchUser();
-  }, [user]);
+  }, [accessEmail, router, getDashboard]);
 
   return (
     <Layout>
       <>
-        <h1 className="text-3xl font-bold underline">{`${user?.email}`}</h1>
+        <h1 className="text-3xl font-bold underline">{`test`}</h1>
         <div className={'flex mt-3'}>
           <div className={'p-3 mr-5 border rounded-md'}>
             <h3 className={'font-bold'}>Profile #1</h3>
@@ -174,13 +180,4 @@ const DashboardPage: NextPage = () => {
   );
 };
 
-export default function Dashboard() {
-  const auth = useAuth();
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!auth || !auth.isLoggedIn) router.push('/login');
-  // }, [auth, router]);
-
-  return <DashboardPage />;
-}
+export default Dashboard;

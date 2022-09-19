@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { setCookie } from 'nookies';
 import { useState } from 'react';
 import httpClient from '../utils/http/customHttp';
@@ -27,21 +26,24 @@ export function useProvideAuth() {
 
   async function login(authPayload: ILogin) {
     setIsLoading(true);
-    await httpClient
+    const userData = await httpClient
       .post('/login', authPayload)
       .then((res) => {
         const { user, accessToken } = res.data;
         setIsLoading(false);
         // set user data to auth context
         setUser(user);
-        // write accessToken to cookies
-        setCookie(null, 'OuterviewAuthToken', accessToken);
+        // write accessToken to session storage
+        sessionStorage.setItem('access', JSON.stringify(accessToken));
+        return res.data;
       })
       .catch((err) => {
         setIsLoggedIn(false);
         const newErrs: string[] = [...errors, err.message];
         setErrors(newErrs);
       });
+
+    return userData;
   }
 
   async function register(registerPayload: IRegister) {
@@ -57,11 +59,35 @@ export function useProvideAuth() {
         // write accessToken to cookies
         setCookie(null, 'OuterviewAuthToken', accessToken);
         setIsLoggedIn(true);
+        return res.data;
       })
       .catch((err) => {
         const newErrs: string[] = [...errors, err.message];
         setErrors(newErrs);
       });
+  }
+
+  async function refresh() {
+    setErrors([]);
+    const session = JSON.parse(localStorage.getItem('session') as string);
+
+    try {
+      const res = await httpClient.post('/user/refresh', {
+        refreshToken: session?.refreshToken,
+      });
+
+      const { newSession } = res.data;
+
+      if (!newSession?.accessToken) {
+        localStorage.removeItem('session');
+      }
+
+      localStorage.setItem('session', JSON.stringify(newSession));
+
+      return newSession;
+    } catch (error) {
+      localStorage.removeItem('session');
+    }
   }
 
   async function logout() {
@@ -90,6 +116,7 @@ export function useProvideAuth() {
     user,
     login,
     logout,
+    refresh,
     register,
   };
 }

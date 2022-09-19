@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import LoginForm from '../components/LoginForm';
 import { useAuth } from '../hooks/useAuth';
 
@@ -9,15 +8,13 @@ const Login: NextPage = () => {
   const auth = useAuth();
 
   const handleLogin = async (login: string, password: string) => {
-    await auth?.login({ email: login, password });
-  };
-
-  useEffect(() => {
-    console.log('auth', auth);
-    if (auth && auth.isLoggedIn) {
+    const data = await auth?.login({ email: login, password });
+    if (data) {
       router.push('/app/dashboard');
+    } else {
+      // set error
     }
-  }, [auth, router]);
+  };
 
   return (
     <div className="p-10">
