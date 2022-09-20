@@ -1,55 +1,77 @@
 import type { NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { useAuth } from '../../context/authContext';
 import { useUser } from '../../hooks/useUser';
 
+interface IDashboard {
+  applications: object[];
+  avatar: string;
+  email: string;
+  id: number;
+  profiles: {
+    id: number;
+    name: string;
+    avatar: string;
+    username: string;
+    position: string;
+    applicationsCount: number;
+  }[];
+  username: string;
+}
+
 const Dashboard: NextPage = () => {
   const router = useRouter();
-  const { isLoading, getDashboard } = useUser();
+  const { getDashboard } = useUser();
+
+  const [dashboard, setDashboard] = useState<IDashboard>();
 
   useEffect(() => {
     const fetchUser = async () => {
-      const dashboard = await getDashboard();
+      const dashboardData = await getDashboard();
+      setDashboard(dashboardData);
     };
 
     fetchUser();
   }, [router, getDashboard]);
 
-  if (isLoading) return <div>loading...</div>; // only flickering
-
   return (
     <Layout>
       <>
-        <h1 className="text-3xl font-bold underline">{`test`}</h1>
+        <h1 className="text-3xl font-bold underline">
+          {dashboard && dashboard.username}
+        </h1>
         <div className={'flex mt-3'}>
-          <div className={'p-3 mr-5 border rounded-md'}>
-            <h3 className={'font-bold'}>Profile #1</h3>
-            <p>Some avatar</p>
-            <h3>John Doe</h3>
-            <p>Driver</p>
-            <p>Active applications: 1</p>
-            <Link href={'/profile'}>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
-            </Link>
-          </div>
-
-          <div className={'p-3 mr-5 border rounded-md'}>
-            <h3 className={'font-bold'}>Profile #2</h3>
-            <p>Some avatar</p>
-            <h3>John Doe</h3>
-            <p>Writer</p>
-            <p>Active applications: 3</p>
-            <Link href={'/profile'}>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
-            </Link>
-          </div>
+          {dashboard &&
+            dashboard.profiles.map((profile, i) => {
+              return (
+                <div
+                  key={`${profile.id}_${i}`}
+                  className={'p-3 mr-5 border rounded-md'}
+                >
+                  <h3 className={'font-bold'}>{profile.name}</h3>
+                  <Image src={profile.avatar} alt={profile.username} />
+                  <h3>{profile.username}</h3>
+                  <p>{profile.position}</p>
+                  <p>
+                    Active applications:{' '}
+                    <span>{profile.applicationsCount}</span>
+                  </p>
+                  <Link href={'/profile'}>
+                    <a
+                      className={
+                        'block mt-2 text-blue-500 underline text-right'
+                      }
+                    >
+                      edit
+                    </a>
+                  </Link>
+                </div>
+              );
+            })}
 
           <Link href={'/addProfile'}>
             <a
