@@ -35,7 +35,6 @@ export function useProvideAuth() {
         setUser(user);
         // write accessToken to session storage
         sessionStorage.setItem('access', JSON.stringify(accessToken));
-        sessionStorage.setItem('user', JSON.stringify(user));
         setIsLoggedIn(true);
         return res.data;
       })
@@ -81,7 +80,7 @@ export function useProvideAuth() {
         sessionStorage.setItem('access', JSON.stringify(accessToken));
       })
       .catch((err) => {
-        sessionStorage.removeItem('session');
+        sessionStorage.removeItem('access');
         const newErrs: string[] = [...errors, err.message];
         setErrors(newErrs);
       });

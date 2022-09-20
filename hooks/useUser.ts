@@ -10,9 +10,7 @@ export function useUser() {
   async function getDashboard(email: string) {
     setIsLoading(true);
     const res = await httpClient
-      .post('/dashboard', {
-        email,
-      })
+      .get('/dashboard')
       .then((res) => {
         setIsLoading(false);
         return res.data;
