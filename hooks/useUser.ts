@@ -7,7 +7,7 @@ export function useUser() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function getDashboard(email: string) {
+  async function getDashboard() {
     setIsLoading(true);
     const res = await httpClient
       .get('/dashboard')
@@ -16,13 +16,14 @@ export function useUser() {
         return res.data;
       })
       .catch((err) => {
-        router.push('/login');
+        console.log('err', err);
       });
 
     return res;
   }
 
   return {
+    isLoading,
     getDashboard,
   };
 }

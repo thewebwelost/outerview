@@ -1,120 +1,98 @@
 import Link from 'next/link';
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import Button from './atoms/Button';
-import Input from './atoms/Input';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-const EMAIL_REGEX = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$';
-const PASS_REGEX = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$';
-
-interface SignupForm {
+interface ISignupForm {
   handleSignup: (username: string, login: string, password: string) => void;
 }
 
-function SignupForm({ handleSignup }: SignupForm) {
-  const [username, setUsername] = useState('');
-  const usernameRef = useRef<HTMLInputElement>(null);
+interface ISignupFormData {
+  username: string;
+  email: string;
+  password: string;
+}
 
-  const [email, setEmail] = useState('');
-  const emailRef = useRef<HTMLInputElement>(null);
+function SignupForm({ handleSignup }: ISignupForm) {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<ISignupFormData>();
 
-  const [password, setPassword] = useState('');
-  const passwordRef = useRef<HTMLInputElement>(null);
-
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const repeatPasswordRef = useRef<HTMLInputElement>(null);
-
-  const [error, setError] = useState('');
-  const [passwordInvalid, setPasswordInvalid] = useState(false);
-
-  useEffect(() => {
-    if (usernameRef.current) usernameRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setError('');
-  }, [username, email, password, repeatPassword]);
-
-  const validateForm = () => {
-    return password === repeatPassword;
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      setPasswordInvalid(false);
-      return handleSignup(username, email, password);
-    }
-    setPasswordInvalid(true);
-  };
+  const onSubmit: SubmitHandler<ISignupFormData> = (data) =>
+    handleSignup(data.username, data.email, data.password);
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <h1 className="text-3xl font-bold">Sign Up</h1>
-      {error && (
-        <div className="p-2 mt-2 bg-red-200 border rounded-md border-red-300 text-red-600">
-          {error}
-        </div>
-      )}
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <Input
-          label={'User name'}
-          type={'text'}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setUsername(e.currentTarget.value)
-          }
-          value={username}
-          autoComplete={'off'}
-          required={true}
+      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+        <label className="mt-3 font-bold">Username</label>
+        <Controller
+          name={'username'}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <input
+              type={'text'}
+              className={'block w-full h-8 p-1 font-normal border rounded-md'}
+              {...field}
+            />
+          )}
         />
+        {errors.username && <span>This field is required</span>}
 
-        <Input
-          label={'Email'}
-          ref={emailRef}
-          type={'email'}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.currentTarget.value)
-          }
-          value={email}
-          autoComplete={'off'}
-          required={true}
+        <label className="mt-3 font-bold">Email</label>
+        <Controller
+          name={'email'}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <input
+              type={'email'}
+              className={'block w-full h-8 p-1 font-normal border rounded-md'}
+              {...field}
+            />
+          )}
         />
+        {errors.email && <span>This field is required</span>}
 
-        <Input
-          label={'Password'}
-          ref={passwordRef}
-          type={'password'}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.currentTarget.value)
-          }
-          value={password}
-          classNames={passwordInvalid ? 'border-red-400' : ''}
-          autoComplete={'off'}
-          required={true}
+        <label className="mt-3 font-bold">Password</label>
+        <Controller
+          name={'password'}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <input
+              type={'password'}
+              className={'block w-full h-8 p-1 font-normal border rounded-md'}
+              {...field}
+            />
+          )}
         />
+        {errors.password && <span>This field is required</span>}
 
-        <Input
-          label={'Repeat password'}
-          ref={repeatPasswordRef}
-          type={'password'}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setRepeatPassword(e.currentTarget.value)
-          }
-          value={repeatPassword}
-          classNames={passwordInvalid ? 'border-red-400' : ''}
-          autoComplete={'off'}
-          required={true}
+        <label className="mt-3 font-bold">Repeat password</label>
+        <Controller
+          name={'repeatPassword'}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <input
+              type={'password'}
+              className={'block w-full h-8 p-1 font-normal border rounded-md'}
+              {...field}
+            />
+          )}
         />
+        {errors.repeatPassword && <span>This field is required</span>}
 
-        <Button classNames={'mt-5 max-w-max self-center'} type={'submit'}>
-          Create account
-        </Button>
+        <button
+          className={
+            'mt-5 max-w-max self-center px-6 py-2 bg-purple-700 text-white font-bold rounded-full'
+          }
+          type={'submit'}
+        >
+          Sign Up
+        </button>
       </form>
       <p className="mt-5">
         Already have an account?{' '}

@@ -1,55 +1,68 @@
 import Link from 'next/link';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import Button from './atoms/Button';
-import Checkbox from './atoms/Checkbox';
-import Input from './atoms/Input';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-interface LoginForm {
-  handleLogin: (login: string, password: string) => void;
+interface ILoginForm {
+  handleLogin: (email: string, password: string) => void;
 }
 
-function LoginForm({ handleLogin }: LoginForm) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+interface ILoginFormData {
+  email: string;
+  password: string;
+}
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    handleLogin(email, password);
-  };
+function LoginForm({ handleLogin }: ILoginForm) {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<ILoginFormData>();
 
-  useEffect(() => setError(''), [email, password]);
+  const onSubmit: SubmitHandler<ILoginFormData> = (data) =>
+    handleLogin(data.email, data.password);
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <h1 className="text-3xl font-bold">Log In</h1>
-      {error && (
-        <div className="p-2 mt-2 bg-red-200 border rounded-md border-red-300 text-red-600">
-          {error}
-        </div>
-      )}
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <Input
-          label={'Email'}
-          type={'email'}
-          handleChange={(e) => setEmail(e.currentTarget.value)}
-          value={email}
-          autoComplete={'off'}
-          required={true}
+      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+        <label className="mt-3 font-bold">Email</label>
+        <Controller
+          name={'email'}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <input
+              type={'email'}
+              className={'block w-full h-8 p-1 font-normal border rounded-md'}
+              {...field}
+            />
+          )}
+        />
+        {errors.email && <span>This field is required</span>}
+
+        <label className="mt-3 font-bold">Password</label>
+        <Controller
+          name={'password'}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <input
+              type={'password'}
+              className={'block w-full h-8 p-1 font-normal border rounded-md'}
+              {...field}
+            />
+          )}
         />
 
-        <Input
-          label={'Password'}
-          type={'password'}
-          handleChange={(e) => setPassword(e.currentTarget.value)}
-          value={password}
-          autoComplete={'off'}
-          required={true}
-        />
+        {errors.password && <span>This field is required</span>}
 
-        <Button classNames={'mt-5 max-w-max self-center'} type={'submit'}>
-          Sign In
-        </Button>
+        <button
+          className={
+            'mt-5 max-w-max self-center px-6 py-2 bg-purple-700 text-white font-bold rounded-full'
+          }
+          type={'submit'}
+        >
+          Log In
+        </button>
       </form>
       <p className="mt-5">
         Don&apos;t have an account?{' '}

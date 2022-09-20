@@ -7,24 +7,18 @@ import { useAuth } from '../../context/authContext';
 import { useUser } from '../../hooks/useUser';
 
 const Dashboard: NextPage = () => {
-  const auth = useAuth();
   const router = useRouter();
-  const { getDashboard } = useUser();
-
-  const user = auth?.user;
-  const accessEmail = user?.email; // WE NEED TO PERSIST USER INFOOOOOOOO
+  const { isLoading, getDashboard } = useUser();
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const dashboard = await getDashboard(accessEmail as string);
-      } catch {
-        router.push('/login');
-      }
+      const dashboard = await getDashboard();
     };
 
     fetchUser();
-  }, [accessEmail, router, getDashboard]);
+  }, [router, getDashboard]);
+
+  if (isLoading) return <div>loading...</div>; // only flickering
 
   return (
     <Layout>
