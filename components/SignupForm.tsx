@@ -9,11 +9,13 @@ interface ISignupFormData {
   username: string;
   email: string;
   password: string;
+  repeatPassword: string;
 }
 
 function SignupForm({ handleSignup }: ISignupForm) {
   const {
     handleSubmit,
+    getValues,
     control,
     formState: { errors },
   } = useForm<ISignupFormData>();
@@ -59,7 +61,13 @@ function SignupForm({ handleSignup }: ISignupForm) {
         <Controller
           name={'password'}
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            validate: (value) => {
+              const { repeatPassword } = getValues();
+              return repeatPassword === value || 'Passwords should match!';
+            },
+          }}
           render={({ field }) => (
             <input
               type={'password'}
@@ -74,7 +82,13 @@ function SignupForm({ handleSignup }: ISignupForm) {
         <Controller
           name={'repeatPassword'}
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            validate: (value) => {
+              const { password } = getValues();
+              return password === value || 'Passwords should match!';
+            },
+          }}
           render={({ field }) => (
             <input
               type={'password'}
