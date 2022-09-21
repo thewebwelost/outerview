@@ -2,8 +2,6 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import NavLink from '../components/atoms/NavLink';
-import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/SignupForm';
 
 const Home: NextPage = () => {
   return (
