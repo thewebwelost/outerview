@@ -28,6 +28,7 @@ function LoginForm({ handleLogin }: ILoginForm) {
         <Controller
           name={'email'}
           control={control}
+          defaultValue={''}
           rules={{ required: true }}
           render={({ field }) => (
             <input
@@ -43,6 +44,7 @@ function LoginForm({ handleLogin }: ILoginForm) {
         <Controller
           name={'password'}
           control={control}
+          defaultValue={''}
           rules={{ required: true }}
           render={({ field }) => (
             <input

@@ -31,6 +31,7 @@ function SignupForm({ handleSignup }: ISignupForm) {
         <Controller
           name={'username'}
           control={control}
+          defaultValue={''}
           rules={{ required: true }}
           render={({ field }) => (
             <input
@@ -46,6 +47,7 @@ function SignupForm({ handleSignup }: ISignupForm) {
         <Controller
           name={'email'}
           control={control}
+          defaultValue={''}
           rules={{ required: true }}
           render={({ field }) => (
             <input
@@ -61,6 +63,7 @@ function SignupForm({ handleSignup }: ISignupForm) {
         <Controller
           name={'password'}
           control={control}
+          defaultValue={''}
           rules={{
             required: true,
             validate: (value) => {
@@ -82,6 +85,7 @@ function SignupForm({ handleSignup }: ISignupForm) {
         <Controller
           name={'repeatPassword'}
           control={control}
+          defaultValue={''}
           rules={{
             required: true,
             validate: (value) => {
