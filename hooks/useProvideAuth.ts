@@ -1,4 +1,3 @@
-import { setCookie } from 'nookies';
 import { useState } from 'react';
 import httpClient from '../utils/http/customHttp';
 

@@ -26,7 +26,6 @@ interface IDashboard {
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const { getDashboard } = useUser();
-
   const [dashboard, setDashboard] = useState<IDashboard>();
 
   useEffect(() => {
@@ -42,12 +41,13 @@ const Dashboard: NextPage = () => {
     <Layout>
       <>
         <h1 className="text-3xl font-bold underline">
-          {dashboard && dashboard.username}
+          {`${dashboard?.username}'s profiles`}
         </h1>
         <div className={'flex mt-3'}>
           {dashboard &&
             dashboard.profiles.map((profile, i) => {
               return (
+                // TODO: move to component
                 <div
                   key={`${profile.id}_${i}`}
                   className={'p-3 mr-5 border rounded-md'}
@@ -85,7 +85,7 @@ const Dashboard: NextPage = () => {
         </div>
 
         <br />
-        {/* EVENTS */}
+
         <h2 className="text-xl font-bold underline">Upcoming events:</h2>
         <ul>
           <li className="flex justify-between items-center border mt-1 p-2">
