@@ -9,14 +9,19 @@ const httpClient = axios.create({
   },
 });
 
-httpClient.interceptors.response.use((response) => {
-  if (response.data.isTokenInvalid) {
-    httpClient.get('/refresh').then((res) => {
-      sessionStorage.setItem('access', JSON.stringify(res.data.accessToken));
-    });
+httpClient.interceptors.response.use(
+  (response) => response,
+  (err) => {
+    console.log('err.response', err);
+    if (err.response.status === 401) {
+      httpClient.get('/refresh').then((res) => {
+        sessionStorage.setItem('access', JSON.stringify(res.data.accessToken));
+      });
+    } else {
+      return Promise.reject(err);
+    }
   }
-  return response;
-});
+);
 
 // sign each axios request with a cookie write to Authorization header
 httpClient.interceptors.request.use(

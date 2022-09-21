@@ -45,6 +45,7 @@ const Dashboard: NextPage = () => {
         </h1>
         <div className={'flex mt-3'}>
           {dashboard &&
+            dashboard.profiles &&
             dashboard.profiles.map((profile, i) => {
               return (
                 // TODO: move to component

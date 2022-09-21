@@ -9,7 +9,7 @@ export function useUser() {
 
   async function getDashboard() {
     setIsLoading(true);
-    const res = await httpClient
+    const dashboard = await httpClient
       .get('/dashboard')
       .then((res) => {
         setIsLoading(false);
@@ -19,7 +19,7 @@ export function useUser() {
         console.log('err', err);
       });
 
-    return res;
+    return dashboard;
   }
 
   return {
