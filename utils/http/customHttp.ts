@@ -15,6 +15,7 @@ httpClient.interceptors.response.use((response) => {
       sessionStorage.setItem('access', JSON.stringify(res.data.accessToken));
     });
   }
+  return response;
 });
 
 // sign each axios request with a cookie write to Authorization header

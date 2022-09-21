@@ -7,8 +7,8 @@ const Login: NextPage = () => {
   const router = useRouter();
   const auth = useAuth();
 
-  const handleLogin = async (login: string, password: string) => {
-    const data = await auth?.login({ email: login, password });
+  const handleLogin = async (email: string, password: string) => {
+    const data = await auth?.login({ email, password });
     if (data) {
       router.push('/app/dashboard');
     }
