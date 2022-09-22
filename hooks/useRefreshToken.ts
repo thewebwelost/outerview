@@ -1,11 +1,11 @@
 import useAuth, { IAuthState } from './useAuth';
-import httpClient from '../utils/http/customHttp';
+import axios from '../utils/http/axios';
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await httpClient.get('/refresh', {
+    const response = await axios.get('/refresh', {
       withCredentials: true,
     });
     setAuth((prev: IAuthState) => {
@@ -19,3 +19,5 @@ const useRefreshToken = () => {
 
   return refresh;
 };
+
+export default useRefreshToken;

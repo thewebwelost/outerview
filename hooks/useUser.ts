@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
-import httpClient from '../utils/http/customHttp';
+import axios from '../utils/http/axios';
 
 export function useUser() {
   const router = useRouter();
@@ -9,7 +9,7 @@ export function useUser() {
 
   async function getDashboard() {
     setIsLoading(true);
-    const dashboard = await httpClient
+    const dashboard = await axios
       .get('/dashboard')
       .then((res) => {
         setIsLoading(false);

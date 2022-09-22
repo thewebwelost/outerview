@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import { useAuth } from '../../context/authContext';
 import { useUser } from '../../hooks/useUser';
 
 interface IDashboard {

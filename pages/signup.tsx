@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import SignupForm from '../components/SignupForm';
-import { useAuth } from '../context/authContext';
+import { useAuthContext } from '../context/authContext';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const auth = useAuth();
+  const auth = useAuthContext();
 
   const handleSignup = async (
     username: string,

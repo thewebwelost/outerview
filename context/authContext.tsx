@@ -24,6 +24,6 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   return <Provider value={auth}>{children}</Provider>;
 }
 
-export function useAuth() {
+export function useAuthContext() {
   return useContext(AuthContext);
 }

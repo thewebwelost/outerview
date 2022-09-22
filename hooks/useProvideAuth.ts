@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import httpClient from '../utils/http/customHttp';
+import axios from '../utils/http/axios';
 
 export interface IUser {
   username: string;
@@ -25,7 +25,7 @@ export function useProvideAuth() {
 
   async function login(authPayload: ILogin) {
     setIsLoading(true);
-    const userData = await httpClient
+    const userData = await axios
       .post('/login', authPayload)
       .then((res) => {
         const { user, accessToken } = res.data;
@@ -49,7 +49,7 @@ export function useProvideAuth() {
   async function register(registerPayload: IRegister) {
     setErrors([]);
     setIsLoading(true);
-    await httpClient
+    await axios
       .post('/register', registerPayload)
       .then((res) => {
         const { user, accessToken } = res.data;
@@ -69,7 +69,7 @@ export function useProvideAuth() {
 
   async function refresh() {
     setErrors([]);
-    const token = await httpClient
+    const token = await axios
       .get('/refresh')
       .then((res) => {
         const { accessToken } = res.data;
@@ -90,7 +90,7 @@ export function useProvideAuth() {
   async function logout() {
     setErrors([]);
     setIsLoading(true);
-    await httpClient
+    await axios
       .get('/logout')
       .then(() => {
         setIsLoading(false);
