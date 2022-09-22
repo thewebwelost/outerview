@@ -123,3 +123,63 @@ function SignupForm({ handleSignup }: ISignupForm) {
 }
 
 export default SignupForm;
+
+// import { yupResolver } from '@hookform/resolvers/yup';
+// import * as Yup from 'yup';
+
+// export default function ConfirmPassword() {
+//   const formSchema = Yup.object().shape({
+//     password: Yup.string()
+//       .required('Password is mendatory')
+//       .min(3, 'Password must be at 3 char long'),
+//     confirmPwd: Yup.string()
+//       .required('Password is mendatory')
+//       .oneOf([Yup.ref('password')], 'Passwords does not match'),
+//   });
+
+//   const formOptions = { resolver: yupResolver(formSchema) };
+//   const { register, handleSubmit, reset, formState } = useForm(formOptions);
+//   const { errors } = formState;
+
+//   function onSubmit(data: SubmitHandler<ILoginFormData>) {
+//     console.log(JSON.stringify(data, null, 4));
+//     return false;
+//   }
+
+//   return (
+//     <div className="container mt-5">
+//       <h2>React Confirm Password Validation Example</h2>
+//       <form onSubmit={handleSubmit(onSubmit)}>
+//         <div className="form-group">
+//           <label>Password</label>
+//           <input
+//             {...register('password')}
+//             name="password"
+//             type="password"
+//             className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+//           />
+//           <div className="invalid-feedback">
+//             {errors.password?.message as string}
+//           </div>
+//         </div>
+//         <div className="form-group">
+//           <label>Confirm Password</label>
+//           <input
+//             {...register('confirmPwd')}
+//             name="confirmPwd"
+//             type="password"
+//             className={`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}
+//           />
+//           <div className="invalid-feedback">
+//             {errors.confirmPwd?.message as string}
+//           </div>
+//         </div>
+//         <div className="mt-3">
+//           <button type="submit" className="btn btn-primary">
+//             Submit
+//           </button>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// }
