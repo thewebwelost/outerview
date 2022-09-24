@@ -1,10 +1,8 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useProvideAuth } from '../../hooks/useProvideAuth';
 import { useUser } from '../../hooks/useUser';
 
