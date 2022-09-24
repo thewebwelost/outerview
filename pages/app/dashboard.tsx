@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useProvideAuth } from '../../hooks/useProvideAuth';
 import { useUser } from '../../hooks/useUser';
 
 interface IDashboard {
@@ -27,6 +29,9 @@ const Dashboard: NextPage = () => {
   const { getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
 
+  const { refresh } = useProvideAuth();
+  const axiosPrivate = useAxiosPrivate();
+
   useEffect(() => {
     const fetchUser = async () => {
       const dashboardData = await getDashboard();
@@ -42,6 +47,13 @@ const Dashboard: NextPage = () => {
         <h1 className="text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
+        <button
+          onClick={() => {
+            refresh();
+          }}
+        >
+          refresh
+        </button>
         <div className={'flex mt-3'}>
           {dashboard &&
             dashboard.profiles &&

@@ -1,18 +1,16 @@
-import useAuth, { IAuthState } from './useAuth';
-import axios from '../utils/http/axios';
+import { axiosPrivate } from '../utils/http/axios';
+import { useProvideAuth, IUser } from './useProvideAuth';
 
 const useRefreshToken = () => {
-  const { setAuth } = useAuth();
+  const { setAuth } = useProvideAuth();
 
   const refresh = async () => {
-    const response = await axios.get('/refresh', {
+    const response = await axiosPrivate.get('/refresh', {
       withCredentials: true,
     });
-    setAuth((prev: IAuthState) => {
-      return {
-        ...prev,
-        accessToken: response.data.accessToken,
-      };
+    console.log('response.data', response.data);
+    setAuth({
+      accessToken: response.data.accessToken,
     });
     return response.data.accessToken;
   };

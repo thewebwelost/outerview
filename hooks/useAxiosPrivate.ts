@@ -1,36 +1,25 @@
 import { useEffect } from 'react';
-import useAuth from './useAuth';
+import { useProvideAuth } from './useProvideAuth';
 import { axiosPrivate } from '../utils/http/axios';
 import useRefreshToken from './useRefreshToken';
 import { AxiosRequestConfig } from 'axios';
 
-function usePrivateAxios() {
+function useAxiosPrivate() {
   const refresh = useRefreshToken();
-  const { auth } = useAuth();
+  const { auth } = useProvideAuth();
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config: AxiosRequestConfig): AxiosRequestConfig => {
+        console.log('I AM IN');
         if (config.headers === undefined) {
           config.headers = {};
         }
 
         if (!config.headers['Authorization']) {
-          config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
+          config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
+          console.log('I AM IN 2');
         }
-
-        // const token = JSON.parse(sessionStorage.getItem('access') as string);
-
-        if (config.headers === undefined) {
-          config.headers = {};
-        }
-
-        // if (token) {
-        //   config.headers = {
-        //     ...config.headers,
-        //     authorization: `Bearer ${token}`,
-        //   };
-        // }
 
         return config;
       }
@@ -46,10 +35,12 @@ function usePrivateAxios() {
           prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return axiosPrivate(prevRequest);
         }
+        return Promise.reject(err);
       }
     );
 
     return () => {
+      axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
   }, [auth, refresh]);
@@ -57,4 +48,4 @@ function usePrivateAxios() {
   return axiosPrivate;
 }
 
-export default usePrivateAxios;
+export default useAxiosPrivate;

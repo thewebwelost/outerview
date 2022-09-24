@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios from '../utils/http/axios';
+import useRefreshToken from './useRefreshToken';
 
 export interface IUser {
-  username: string;
-  email: string;
+  accessToken: string | null;
 }
 
 export interface ILogin {
@@ -18,10 +18,14 @@ export interface IRegister {
 }
 
 export function useProvideAuth() {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [auth, setAuth] = useState<IUser>({
+    accessToken: null,
+  });
   const [errors, setErrors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  const refresh = useRefreshToken();
 
   async function login(authPayload: ILogin) {
     setIsLoading(true);
@@ -30,10 +34,7 @@ export function useProvideAuth() {
       .then((res) => {
         const { user, accessToken } = res.data;
         setIsLoading(false);
-        // set user data to auth context
-        setUser(user);
-        // write accessToken to session storage
-        sessionStorage.setItem('access', JSON.stringify(accessToken));
+        setAuth({ accessToken });
         setIsLoggedIn(true);
         return res.data;
       })
@@ -55,9 +56,7 @@ export function useProvideAuth() {
         const { user, accessToken } = res.data;
         setIsLoading(false);
         // set user data to auth context
-        setUser(user);
-        // write accessToken to session storage
-        sessionStorage.setItem('access', JSON.stringify(accessToken));
+        setAuth({ accessToken });
         setIsLoggedIn(true);
         return res.data;
       })
@@ -67,26 +66,6 @@ export function useProvideAuth() {
       });
   }
 
-  async function refresh() {
-    setErrors([]);
-    const token = await axios
-      .get('/refresh')
-      .then((res) => {
-        const { accessToken } = res.data;
-        if (!accessToken) {
-          return sessionStorage.removeItem('access');
-        }
-        sessionStorage.setItem('access', JSON.stringify(accessToken));
-      })
-      .catch((err) => {
-        sessionStorage.removeItem('access');
-        const newErrs: string[] = [...errors, err.message];
-        setErrors(newErrs);
-      });
-
-    return token;
-  }
-
   async function logout() {
     setErrors([]);
     setIsLoading(true);
@@ -94,9 +73,9 @@ export function useProvideAuth() {
       .get('/logout')
       .then(() => {
         setIsLoading(false);
-        setUser({
-          username: '',
-          email: '',
+        setAuth({
+          accessToken: null,
+          isLoggedIn: false,
         });
         setIsLoggedIn(false);
       })
@@ -110,7 +89,8 @@ export function useProvideAuth() {
     errors,
     isLoading,
     isLoggedIn,
-    user,
+    auth,
+    setAuth,
     login,
     logout,
     refresh,
