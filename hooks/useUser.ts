@@ -3,6 +3,7 @@ import useAxiosPrivate from './useAxiosPrivate';
 
 export function useUser() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState('');
   const axiosPrivate = useAxiosPrivate();
 
   async function getDashboard() {
@@ -12,11 +13,14 @@ export function useUser() {
       setIsLoading(false);
       return dashboard.data;
     } catch (err) {
-      console.error(err);
+      let message = 'Unknown Error';
+      if (err instanceof Error) message = err.message;
+      setError(message);
     }
   }
 
   return {
+    error,
     isLoading,
     getDashboard,
   };

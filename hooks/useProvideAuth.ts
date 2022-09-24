@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios, { axiosPrivate } from '../utils/http/axios';
 
 export interface IAuth {
@@ -44,6 +44,21 @@ export function useProvideAuth() {
     }
   }
 
+  async function refresh() {
+    try {
+      const res = await axiosPrivate.get('/refresh');
+      setAuth({ accessToken: res.data.accessToken });
+
+      return res.data.accessToken;
+    } catch (err) {
+      let message = 'Unknown Error';
+      if (err instanceof Error) message = err.message;
+
+      const newErrs: string[] = [...errors, message];
+      setErrors(newErrs);
+    }
+  }
+
   async function register(registerPayload: IRegister) {
     setErrors([]);
     setIsLoading(true);
@@ -72,21 +87,6 @@ export function useProvideAuth() {
       setIsLoading(false);
       setAuth({ accessToken: null });
       setIsLoggedIn(false);
-    } catch (err) {
-      let message = 'Unknown Error';
-      if (err instanceof Error) message = err.message;
-
-      const newErrs: string[] = [...errors, message];
-      setErrors(newErrs);
-    }
-  }
-
-  async function refresh() {
-    try {
-      const res = await axiosPrivate.get('/refresh');
-      setAuth({ accessToken: res.data.accessToken });
-
-      return res.data.accessToken;
     } catch (err) {
       let message = 'Unknown Error';
       if (err instanceof Error) message = err.message;

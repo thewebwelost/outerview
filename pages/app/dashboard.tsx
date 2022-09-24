@@ -25,7 +25,6 @@ interface IDashboard {
 }
 
 const Dashboard: NextPage = () => {
-  const router = useRouter();
   const { getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
 
@@ -38,7 +37,7 @@ const Dashboard: NextPage = () => {
     };
 
     fetchUser();
-  }, [router, getDashboard]);
+  }, [getDashboard]);
 
   return (
     <Layout>

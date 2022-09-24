@@ -7,18 +7,14 @@ function useAxiosPrivate() {
   const { auth, refresh } = useProvideAuth();
 
   useEffect(() => {
-    console.log('auth', auth);
-
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config: AxiosRequestConfig): AxiosRequestConfig => {
-        console.log('I AM IN');
         if (config.headers === undefined) {
           config.headers = {};
         }
 
         if (!config.headers['Authorization']) {
           config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
-          console.log('I AM IN 2');
         }
 
         return config;
@@ -31,7 +27,7 @@ function useAxiosPrivate() {
         const prevRequest = err?.config;
         if (err.response.status === 403 && !prevRequest?.sent) {
           prevRequest.sent = true;
-          const newAccessToken = await refresh();
+          const newAccessToken = 'sheeeeesh'; // await refresh();
           prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return axiosPrivate(prevRequest);
         }
