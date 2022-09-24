@@ -1,14 +1,14 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import LoginForm from '../components/LoginForm';
-import { useAuth } from '../context/authContext';
+import { useProvideAuth } from '../hooks/useProvideAuth';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const auth = useAuth();
+  const { login } = useProvideAuth();
 
   const handleLogin = async (email: string, password: string) => {
-    const data = await auth?.login({ email, password });
+    const data = await login({ email, password });
     if (data) {
       router.push('/app/dashboard');
     }

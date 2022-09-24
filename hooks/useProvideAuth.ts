@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import httpClient from '../utils/http/customHttp';
+import { useEffect, useState } from 'react';
+import axios, { axiosPrivate } from '../utils/http/axios';
 
-export interface IUser {
-  username: string;
-  email: string;
+export interface IAuth {
+  accessToken: string | null;
 }
 
 export interface ILogin {
@@ -18,99 +17,91 @@ export interface IRegister {
 }
 
 export function useProvideAuth() {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [auth, setAuth] = useState<IAuth>({
+    accessToken: null,
+  });
   const [errors, setErrors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   async function login(authPayload: ILogin) {
     setIsLoading(true);
-    const userData = await httpClient
-      .post('/login', authPayload)
-      .then((res) => {
-        const { user, accessToken } = res.data;
-        setIsLoading(false);
-        // set user data to auth context
-        setUser(user);
-        // write accessToken to session storage
-        sessionStorage.setItem('access', JSON.stringify(accessToken));
-        setIsLoggedIn(true);
-        return res.data;
-      })
-      .catch((err) => {
-        setIsLoggedIn(false);
-        const newErrs: string[] = [...errors, err.message];
-        setErrors(newErrs);
-      });
 
-    return userData;
+    try {
+      const res = await axios.post('/login', authPayload);
+      setIsLoading(false);
+      setAuth({ accessToken: res.data.accessToken });
+      setIsLoggedIn(true);
+
+      return res.data;
+    } catch (err) {
+      let message = 'Unknown Error';
+      if (err instanceof Error) message = err.message;
+
+      setIsLoggedIn(false);
+      const newErrs: string[] = [...errors, message];
+      setErrors(newErrs);
+    }
+  }
+
+  async function refresh() {
+    try {
+      const res = await axiosPrivate.get('/refresh');
+      setAuth({ accessToken: res.data.accessToken });
+
+      return res.data.accessToken;
+    } catch (err) {
+      let message = 'Unknown Error';
+      if (err instanceof Error) message = err.message;
+
+      const newErrs: string[] = [...errors, message];
+      setErrors(newErrs);
+    }
   }
 
   async function register(registerPayload: IRegister) {
     setErrors([]);
     setIsLoading(true);
-    await httpClient
-      .post('/register', registerPayload)
-      .then((res) => {
-        const { user, accessToken } = res.data;
-        setIsLoading(false);
-        // set user data to auth context
-        setUser(user);
-        // write accessToken to session storage
-        sessionStorage.setItem('access', JSON.stringify(accessToken));
-        setIsLoggedIn(true);
-        return res.data;
-      })
-      .catch((err) => {
-        const newErrs: string[] = [...errors, err.message];
-        setErrors(newErrs);
-      });
-  }
+    try {
+      const res = await axios.post('/register', registerPayload);
+      setIsLoading(false);
+      setAuth({ accessToken: res.data.accessToken });
+      setIsLoggedIn(true);
 
-  async function refresh() {
-    setErrors([]);
-    const token = await httpClient
-      .get('/refresh')
-      .then((res) => {
-        const { accessToken } = res.data;
-        if (!accessToken) {
-          return sessionStorage.removeItem('access');
-        }
-        sessionStorage.setItem('access', JSON.stringify(accessToken));
-      })
-      .catch((err) => {
-        sessionStorage.removeItem('access');
-        const newErrs: string[] = [...errors, err.message];
-        setErrors(newErrs);
-      });
+      return res.data;
+    } catch (err) {
+      let message = 'Unknown Error';
+      if (err instanceof Error) message = err.message;
 
-    return token;
+      const newErrs: string[] = [...errors, message];
+      setErrors(newErrs);
+    }
   }
 
   async function logout() {
     setErrors([]);
     setIsLoading(true);
-    await httpClient
-      .get('/logout')
-      .then(() => {
-        setIsLoading(false);
-        setUser({
-          username: '',
-          email: '',
-        });
-        setIsLoggedIn(false);
-      })
-      .catch((err) => {
-        const newErrs: string[] = [...errors, err.message];
-        setErrors(newErrs);
-      });
+
+    try {
+      const res = await axios.get('/logout');
+      setIsLoading(false);
+      setAuth({ accessToken: null });
+      setIsLoggedIn(false);
+    } catch (err) {
+      let message = 'Unknown Error';
+      if (err instanceof Error) message = err.message;
+
+      const newErrs: string[] = [...errors, message];
+      setErrors(newErrs);
+    }
   }
 
   return {
     errors,
     isLoading,
     isLoggedIn,
-    user,
+    auth,
+    setAuth,
     login,
     logout,
     refresh,

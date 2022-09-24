@@ -1,10 +1,9 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import { useAuth } from '../../context/authContext';
+import { useProvideAuth } from '../../hooks/useProvideAuth';
 import { useUser } from '../../hooks/useUser';
 
 interface IDashboard {
@@ -24,9 +23,10 @@ interface IDashboard {
 }
 
 const Dashboard: NextPage = () => {
-  const router = useRouter();
   const { getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
+
+  const { refresh } = useProvideAuth();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -35,7 +35,7 @@ const Dashboard: NextPage = () => {
     };
 
     fetchUser();
-  }, [router, getDashboard]);
+  }, [getDashboard]);
 
   return (
     <Layout>
@@ -43,9 +43,15 @@ const Dashboard: NextPage = () => {
         <h1 className="text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
+        <button
+          onClick={async () => {
+            await refresh();
+          }}
+        >
+          refresh
+        </button>
         <div className={'flex mt-3'}>
           {dashboard &&
-            dashboard.profiles &&
             dashboard.profiles.map((profile, i) => {
               return (
                 // TODO: move to component

@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AuthContextProvider>
         <Component {...pageProps} />
       </AuthContextProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }
