@@ -30,7 +30,6 @@ const Dashboard: NextPage = () => {
   const [dashboard, setDashboard] = useState<IDashboard>();
 
   const { refresh } = useProvideAuth();
-  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -48,8 +47,8 @@ const Dashboard: NextPage = () => {
           {`${dashboard?.username}'s profiles`}
         </h1>
         <button
-          onClick={() => {
-            refresh();
+          onClick={async () => {
+            await refresh();
           }}
         >
           refresh

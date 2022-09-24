@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useProvideAuth } from './useProvideAuth';
 import { axiosPrivate } from '../utils/http/axios';
-import useRefreshToken from './useRefreshToken';
 import { AxiosRequestConfig } from 'axios';
 
 function useAxiosPrivate() {
-  const refresh = useRefreshToken();
-  const { auth } = useProvideAuth();
+  const { auth, refresh } = useProvideAuth();
 
   useEffect(() => {
+    console.log('auth', auth);
+
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config: AxiosRequestConfig): AxiosRequestConfig => {
         console.log('I AM IN');
