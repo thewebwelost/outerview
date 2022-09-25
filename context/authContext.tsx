@@ -21,7 +21,7 @@ export interface IAuthContext {
   login: (authPayload: ILogin) => Promise<void>;
   logout: () => Promise<void>;
   register: (registerPayload: IRegister) => Promise<void>;
-  refresh: () => Promise<void>;
+  refresh: () => Promise<{ accessToken: string }>;
 }
 
 export const AuthContext = createContext<IAuthContext | null>(null);

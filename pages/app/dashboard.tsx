@@ -204,21 +204,32 @@ import { useUser } from '../../hooks/useUser';
 // };
 
 const Dashboard: NextPage = () => {
-  const { getDashboard } = useUser();
+  const { error, isLoading, getDashboard } = useUser();
+  const [dashboard, setDashboard] = useState();
+  const auth = useProvideAuth();
 
   useEffect(() => {
     const fetchUser = async () => {
       const res = await getDashboard();
-      return res;
+      setDashboard(res);
     };
 
-    const dashboardData = fetchUser();
-    console.log('dashboardData', dashboardData);
-  }, [getDashboard]);
+    fetchUser();
+  });
 
   console.log('RENDER Dashboard');
 
-  return <div>dashboard</div>;
+  if (isLoading) return <p>Loading...</p>;
+  if (!dashboard) return <p>Something went wrong</p>;
+
+  return (
+    <div>
+      <div>
+        <button onClick={() => auth.refresh()}>refresh</button>
+      </div>
+      <div>dashboard: {JSON.stringify(dashboard)}</div>
+    </div>
+  );
 };
 
 export default Dashboard;
