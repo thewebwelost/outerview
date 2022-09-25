@@ -62,6 +62,7 @@ export function useProvideAuth() {
   async function register(registerPayload: IRegister) {
     setErrors([]);
     setIsLoading(true);
+
     try {
       const res = await axios.post('/register', registerPayload);
       setIsLoading(false);

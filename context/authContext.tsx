@@ -25,11 +25,14 @@ export interface IAuthContext {
 }
 
 export const AuthContext = createContext<IAuthContext | null>(null);
-const Provider = AuthContext.Provider;
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const authContextData = useProvideAuth();
-  return <Provider value={authContextData}>{children}</Provider>;
+  return (
+    <AuthContext.Provider value={authContextData}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuthContext() {
