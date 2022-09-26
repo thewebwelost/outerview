@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios, { axiosPrivate } from '../utils/http/axios';
+import { axiosPrivate } from '../utils/http/axios';
 
 export interface IAuth {
   accessToken: string | null;
@@ -28,7 +28,7 @@ export function useProvideAuth() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post('/login', authPayload);
+      const res = await axiosPrivate.post('/login', authPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
       setIsLoggedIn(true);
@@ -64,7 +64,7 @@ export function useProvideAuth() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post('/register', registerPayload);
+      const res = await axiosPrivate.post('/register', registerPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
       setIsLoggedIn(true);
@@ -84,7 +84,7 @@ export function useProvideAuth() {
     setIsLoading(true);
 
     try {
-      const res = await axios.get('/logout');
+      const res = await axiosPrivate.get('/logout');
       setIsLoading(false);
       setAuth({ accessToken: null });
       setIsLoggedIn(false);

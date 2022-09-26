@@ -208,24 +208,20 @@ const Dashboard: NextPage = () => {
   const [dashboard, setDashboard] = useState();
   const auth = useProvideAuth();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await getDashboard();
-      setDashboard(res);
-    };
-
-    fetchUser();
-  });
+  const fetchUser = async () => {
+    const res = await getDashboard();
+    setDashboard(res);
+  };
 
   console.log('RENDER Dashboard');
 
   if (isLoading) return <p>Loading...</p>;
-  if (!dashboard) return <p>Something went wrong</p>;
 
   return (
     <div>
       <div>
         <button onClick={() => auth.refresh()}>refresh</button>
+        <button onClick={() => fetchUser()}>get dashboard</button>
       </div>
       <div>dashboard: {JSON.stringify(dashboard)}</div>
     </div>
