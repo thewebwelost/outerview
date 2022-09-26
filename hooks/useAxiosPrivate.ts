@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-import { useProvideAuth } from './useProvideAuth';
-import { axiosPrivate } from '../utils/http/axios';
+import { useContext, useEffect } from 'react';
 import { AxiosRequestConfig } from 'axios';
+import { axiosPrivate } from '../utils/http/axios';
+import { useProvideAuth } from './useProvideAuth';
+import { AuthContext } from '../context/authContext';
 
 function useAxiosPrivate() {
-  const { auth, refresh } = useProvideAuth();
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
@@ -13,8 +14,12 @@ function useAxiosPrivate() {
           config.headers = {};
         }
 
+        console.log('auth.accessToken', authContext?.auth);
+
         if (!config.headers['Authorization']) {
-          config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
+          config.headers[
+            'Authorization'
+          ] = `Bearer ${authContext?.auth?.accessToken}`;
         }
 
         return config;
@@ -27,8 +32,8 @@ function useAxiosPrivate() {
         const prevRequest = err?.config;
         if (err.response.status === 403 && !prevRequest?.sent) {
           prevRequest.sent = true;
-          const newAccessToken = 'sheeeeesh'; // await refresh();
-          prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          const auth = await authContext?.refresh();
+          prevRequest.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
           return axiosPrivate(prevRequest);
         }
         return Promise.reject(err);
@@ -39,7 +44,7 @@ function useAxiosPrivate() {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
-  }, [auth, refresh]);
+  }, [authContext]);
 
   return axiosPrivate;
 }

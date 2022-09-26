@@ -8,6 +8,7 @@ export function useUser() {
 
   async function getDashboard() {
     setIsLoading(true);
+
     try {
       const dashboard = await axiosPrivate.get('/dashboard');
       setIsLoading(false);

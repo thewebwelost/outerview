@@ -21,15 +21,18 @@ export interface IAuthContext {
   login: (authPayload: ILogin) => Promise<void>;
   logout: () => Promise<void>;
   register: (registerPayload: IRegister) => Promise<void>;
-  refresh: () => Promise<void>;
+  refresh: () => Promise<{ accessToken: string }>;
 }
 
 export const AuthContext = createContext<IAuthContext | null>(null);
-const Provider = AuthContext.Provider;
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const authContextData = useProvideAuth();
-  return <Provider value={authContextData}>{children}</Provider>;
+  return (
+    <AuthContext.Provider value={authContextData}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuthContext() {
