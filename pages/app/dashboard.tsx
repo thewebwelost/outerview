@@ -74,7 +74,7 @@ const Dashboard: NextPage = () => {
             );
           })}
 
-          <Link href={'/addProfile'}>
+          <Link href={'/app/addProfile'}>
             <a
               className={
                 'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
@@ -120,7 +120,7 @@ const Dashboard: NextPage = () => {
             </span>
           </li>
         </ul>
-        <Link href={'/addEvent'}>
+        <Link href={'/app/addEvent'}>
           <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
             + add event
           </a>
@@ -136,7 +136,7 @@ const Dashboard: NextPage = () => {
               status:{' '}
               <span className="text-white bg-green-400">in progress</span>
             </p>
-            <Link href={'/application'}>
+            <Link href={'/app/application'}>
               <a className={'block mt-2 text-blue-500 underline text-right'}>
                 edit
               </a>
@@ -149,7 +149,7 @@ const Dashboard: NextPage = () => {
               status:{' '}
               <span className="text-white bg-green-400">in progress</span>
             </p>
-            <Link href={'/application'}>
+            <Link href={'/app/application'}>
               <a className={'block mt-2 text-blue-500 underline text-right'}>
                 edit
               </a>
@@ -162,7 +162,7 @@ const Dashboard: NextPage = () => {
               status:{' '}
               <span className="text-white bg-green-400">in progress</span>
             </p>
-            <Link href={'/application'}>
+            <Link href={'/app/application'}>
               <a className={'block mt-2 text-blue-500 underline text-right'}>
                 edit
               </a>
@@ -174,14 +174,14 @@ const Dashboard: NextPage = () => {
             <p>
               status: <span className="text-white bg-red-400">awaits</span>
             </p>
-            <Link href={'/application'}>
+            <Link href={'/app/application'}>
               <a className={'block mt-2 text-blue-500 underline text-right'}>
                 edit
               </a>
             </Link>
           </li>
           <li className="p-3 mr-5 border rounded-md">
-            <Link href={'/addApplication'}>
+            <Link href={'/app/addApplication'}>
               <a
                 className={
                   'flex justify-center items-center mr-5 text-blue-500 underline cursor-pointer'
