@@ -39,11 +39,8 @@ const Dashboard: NextPage = () => {
     fetchUser();
   }, [fetchUser]);
 
-  if (error) return <p>Error! {error}</p>;
-  if (isLoading) return <p>Loading...</p>;
-
   return (
-    <Layout>
+    <Layout isLoading={isLoading} isError={error}>
       <>
         <h1 className="text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
