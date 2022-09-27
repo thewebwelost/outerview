@@ -213,8 +213,6 @@ const Dashboard: NextPage = () => {
     setDashboard(res);
   };
 
-  console.log('RENDER Dashboard');
-
   if (isLoading) return <p>Loading...</p>;
 
   return (
