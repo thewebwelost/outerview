@@ -213,6 +213,7 @@ const Dashboard: NextPage = () => {
     setDashboard(res);
   };
 
+  if (error) return <p>Error...</p>;
   if (isLoading) return <p>Loading...</p>;
 
   return (

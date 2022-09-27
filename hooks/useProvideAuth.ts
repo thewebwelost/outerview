@@ -47,6 +47,7 @@ export function useProvideAuth() {
   async function refresh() {
     try {
       const res = await axiosPrivate.get('/refresh');
+      console.log('res.data.accessToken', res.data.accessToken);
       setAuth({ accessToken: res.data.accessToken });
 
       return res.data.accessToken;
