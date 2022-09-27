@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { json } from 'stream/consumers';
+import NavLink from '../../components/atoms/NavLink';
 import Layout from '../../components/Layout';
 import { useProvideAuth } from '../../hooks/useProvideAuth';
 import { useUser } from '../../hooks/useUser';
@@ -208,22 +210,30 @@ const Dashboard: NextPage = () => {
   const [dashboard, setDashboard] = useState();
   const auth = useProvideAuth();
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     const res = await getDashboard();
     setDashboard(res);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (error) return <p>Error...</p>;
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  if (error) return <p>Error... {JSON.stringify(error)}</p>;
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div>
-        <button onClick={() => auth.refresh()}>refresh</button>
-        <button onClick={() => fetchUser()}>get dashboard</button>
-      </div>
-      <div>dashboard: {JSON.stringify(dashboard)}</div>
-    </div>
+    <Layout>
+      <>
+        <div>
+          <button className="p-2 bg-gray-400" onClick={() => auth.refresh()}>
+            refresh
+          </button>
+        </div>
+        <div>dashboard: {JSON.stringify(dashboard)}</div>
+      </>
+    </Layout>
   );
 };
 
