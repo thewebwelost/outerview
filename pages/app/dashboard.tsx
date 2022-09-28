@@ -1,12 +1,9 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { json } from 'stream/consumers';
-import NavLink from '../../components/atoms/NavLink';
 import Layout from '../../components/Layout';
-import { useProvideAuth } from '../../hooks/useProvideAuth';
 import { useUser } from '../../hooks/useUser';
+import Profile from './profile';
 
 interface IDashboard {
   applications: object[];
@@ -27,7 +24,6 @@ interface IDashboard {
 const Dashboard: NextPage = () => {
   const { error, isLoading, getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
-  const auth = useProvideAuth();
 
   const fetchUser = useCallback(async () => {
     const res = await getDashboard();
@@ -45,31 +41,11 @@ const Dashboard: NextPage = () => {
         <h1 className="text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
+
         <div className={'flex mt-3'}>
-          {dashboard?.profiles?.map((profile, i) => {
-            return (
-              // TODO: move to component
-              <div
-                key={`${profile.id}_${i}`}
-                className={'p-3 mr-5 border rounded-md'}
-              >
-                <h3 className={'font-bold'}>{profile.name}</h3>
-                <Image src={profile.avatar} alt={profile.username} />
-                <h3>{profile.username}</h3>
-                <p>{profile.position}</p>
-                <p>
-                  Active applications: <span>{profile.applicationsCount}</span>
-                </p>
-                <Link href={'/profile'}>
-                  <a
-                    className={'block mt-2 text-blue-500 underline text-right'}
-                  >
-                    edit
-                  </a>
-                </Link>
-              </div>
-            );
-          })}
+          {dashboard?.profiles?.map((profile) => (
+            <Profile key={profile.id} {...profile} />
+          ))}
 
           <Link href={'/app/addProfile'}>
             <a
@@ -82,9 +58,8 @@ const Dashboard: NextPage = () => {
           </Link>
         </div>
 
-        <br />
-
         <h2 className="text-xl font-bold underline">Upcoming events:</h2>
+
         <ul>
           <li className="flex justify-between items-center border mt-1 p-2">
             <span>
@@ -117,6 +92,7 @@ const Dashboard: NextPage = () => {
             </span>
           </li>
         </ul>
+
         <Link href={'/app/addEvent'}>
           <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
             + add event
@@ -125,6 +101,7 @@ const Dashboard: NextPage = () => {
 
         {/* APPLICATIONS */}
         <h2 className="text-xl font-bold underline">Your applications:</h2>
+
         <ul className="flex mt-3">
           <li className="p-3 mr-5 border rounded-md">
             <p className="font-bold">Google</p>
