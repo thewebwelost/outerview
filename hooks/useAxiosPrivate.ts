@@ -1,11 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { AxiosRequestConfig } from 'axios';
 import { axiosPrivate } from '../utils/http/axios';
-import { useProvideAuth } from './useProvideAuth';
-import { AuthContext } from '../context/authContext';
+import { useAuthContext } from '../context/authContext';
+import { useRouter } from 'next/router';
 
 function useAxiosPrivate() {
-  const authContext = useContext(AuthContext);
+  const authContext = useAuthContext();
+  const router = useRouter();
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
@@ -13,8 +14,6 @@ function useAxiosPrivate() {
         if (config.headers === undefined) {
           config.headers = {};
         }
-
-        console.log('auth.accessToken', authContext?.auth);
 
         if (!config.headers['Authorization']) {
           config.headers[
@@ -30,10 +29,11 @@ function useAxiosPrivate() {
       (response) => response,
       async (err) => {
         const prevRequest = err?.config;
+        if (err.response.status === 401) return router.push('/login');
         if (err.response.status === 403 && !prevRequest?.sent) {
           prevRequest.sent = true;
-          const auth = await authContext?.refresh();
-          prevRequest.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
+          const accessToken = await authContext?.refresh();
+          prevRequest.headers['Authorization'] = `Bearer ${accessToken}`;
           return axiosPrivate(prevRequest);
         }
         return Promise.reject(err);
@@ -44,7 +44,7 @@ function useAxiosPrivate() {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
-  }, [authContext]);
+  }, [router, authContext]);
 
   return axiosPrivate;
 }

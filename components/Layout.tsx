@@ -1,14 +1,26 @@
 import { ReactElement } from 'react';
 import Header from './Header';
 
-export default function Layout({ children }: { children: ReactElement }) {
+interface ILayout {
+  isLoading: boolean;
+  isError: string;
+  children: ReactElement;
+}
+
+export default function Layout({ isLoading, isError, children }: ILayout) {
   return (
     <>
       <Header />
       <div className="min-h-full">
         <main>
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            {children}
+            {isError ? (
+              <p>Error: {isError}</p>
+            ) : isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              children
+            )}
           </div>
         </main>
       </div>
