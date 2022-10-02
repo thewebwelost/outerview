@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
-interface IProfile {
+export interface IProfile {
   id: number;
   name: string;
   avatar: string;

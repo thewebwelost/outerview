@@ -8,7 +8,7 @@ interface IProfilePanel {
 
 function ProfilePanel({ profiles }: IProfilePanel) {
   return (
-    <div className={'flex mt-3'}>
+    <section className={'flex mt-3'}>
       {profiles?.map((profile) => (
         <Profile key={profile.id} {...profile} />
       ))}
@@ -22,7 +22,7 @@ function ProfilePanel({ profiles }: IProfilePanel) {
           + add profile
         </a>
       </Link>
-    </div>
+    </section>
   );
 }
 

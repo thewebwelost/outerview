@@ -1,8 +1,11 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { createElement, useCallback, useEffect, useState } from 'react';
+import EventsPanel from '../../components/EventsPanel';
 import Layout from '../../components/Layout';
+import { IProfile } from '../../components/Profile';
 import ProfilePanel from '../../components/ProfilePanel';
+import { IUserEvent } from '../../components/UserEvent';
 import { useUser } from '../../hooks/useUser';
 import Profile from './profile';
 
@@ -11,14 +14,8 @@ export interface IDashboard {
   avatar: string;
   email: string;
   id: number;
-  profiles: {
-    id: number;
-    name: string;
-    avatar: string;
-    username: string;
-    position: string;
-    applicationsCount: number;
-  }[];
+  profiles: IProfile[];
+  events: IUserEvent[];
   username: string;
 }
 
@@ -45,8 +42,9 @@ const Dashboard: NextPage = () => {
         <ProfilePanel profiles={dashboard?.profiles || []} />
 
         <h2 className="text-xl font-bold underline">Upcoming events:</h2>
+        <EventsPanel events={dashboard?.events || []} />
 
-        <ul>
+        {/* <ul>
           <li className="flex justify-between items-center border mt-1 p-2">
             <span>
               Interview at <a className={'text-blue-500 underline'}>Google</a>
@@ -83,7 +81,7 @@ const Dashboard: NextPage = () => {
           <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
             + add event
           </a>
-        </Link>
+        </Link> */}
 
         {/* APPLICATIONS */}
         <h2 className="text-xl font-bold underline">Your applications:</h2>
