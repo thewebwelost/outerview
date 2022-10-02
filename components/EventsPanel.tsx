@@ -11,7 +11,7 @@ function EventsPanel({ events }: IEventsPanel) {
     <section className={'p-3 mr-5 border rounded-md'}>
       <ul>
         {events.map((userEvent) => (
-          <UserEvent key={userEvent.id} {...{ ...userEvent }} />
+          <UserEvent key={userEvent.id} {...userEvent} />
         ))}
       </ul>
 

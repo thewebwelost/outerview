@@ -1,16 +1,18 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
-import { createElement, useCallback, useEffect, useState } from 'react';
-import EventsPanel from '../../components/EventsPanel';
-import Layout from '../../components/Layout';
-import { IProfile } from '../../components/Profile';
-import ProfilePanel from '../../components/ProfilePanel';
-import { IUserEvent } from '../../components/UserEvent';
+import { useCallback, useEffect, useState } from 'react';
 import { useUser } from '../../hooks/useUser';
-import Profile from './profile';
+
+import Layout from '../../components/Layout';
+import ApplicationsPanel from '../../components/ApplicationsPanel';
+import EventsPanel from '../../components/EventsPanel';
+import ProfilePanel from '../../components/ProfilePanel';
+
+import { IProfile } from '../../components/Profile';
+import { IUserEvent } from '../../components/UserEvent';
+import { IApplication } from '../../components/Application';
 
 export interface IDashboard {
-  applications: object[];
+  applications: IApplication[];
   avatar: string;
   email: string;
   id: number;
@@ -44,112 +46,8 @@ const Dashboard: NextPage = () => {
         <h2 className="text-xl font-bold underline">Upcoming events:</h2>
         <EventsPanel events={dashboard?.events || []} />
 
-        {/* <ul>
-          <li className="flex justify-between items-center border mt-1 p-2">
-            <span>
-              Interview at <a className={'text-blue-500 underline'}>Google</a>
-            </span>
-            <span className={'text-green-400'}>Phone screen</span>{' '}
-            <span>45 min with recruiter</span>
-            <span className="text-xs text-gray-500 italic">
-              01/01/2001 12:00 PST
-            </span>
-          </li>
-          <li className="flex justify-between items-center border mt-1 p-2">
-            <span>
-              Interview at <a className={'text-blue-500 underline'}>Facebook</a>
-            </span>
-            <span className={'text-orange-400'}>Technical Interview</span>{' '}
-            <span>90 min with Dev lead</span>
-            <span className="text-xs text-gray-500 italic">
-              01/02/2001 12:00 PST
-            </span>
-          </li>
-          <li className="flex justify-between items-center border mt-1 p-2">
-            <span>
-              Interview at <a className={'text-blue-500 underline'}>Netflix</a>
-            </span>
-            <span className={'text-purple-400'}>Behavioural</span>{' '}
-            <span>45 min with CEO</span>
-            <span className="text-xs text-gray-500 italic">
-              01/03/2001 12:00 PST
-            </span>
-          </li>
-        </ul>
-
-        <Link href={'/app/addEvent'}>
-          <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
-            + add event
-          </a>
-        </Link> */}
-
-        {/* APPLICATIONS */}
         <h2 className="text-xl font-bold underline">Your applications:</h2>
-
-        <ul className="flex mt-3">
-          <li className="p-3 mr-5 border rounded-md">
-            <p className="font-bold">Google</p>
-            <p>software engineer II</p>
-            <p>
-              status:{' '}
-              <span className="text-white bg-green-400">in progress</span>
-            </p>
-            <Link href={'/app/application'}>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
-            </Link>
-          </li>
-          <li className="p-3 mr-5 border rounded-md">
-            <p className="font-bold">Netflix</p>
-            <p>FE Team Lead</p>
-            <p>
-              status:{' '}
-              <span className="text-white bg-green-400">in progress</span>
-            </p>
-            <Link href={'/app/application'}>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
-            </Link>
-          </li>
-          <li className="p-3 mr-5 border rounded-md">
-            <p className="font-bold">Facebook</p>
-            <p>Senior developer</p>
-            <p>
-              status:{' '}
-              <span className="text-white bg-green-400">in progress</span>
-            </p>
-            <Link href={'/app/application'}>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
-            </Link>
-          </li>
-          <li className="p-3 mr-5 border rounded-md">
-            <p className="font-bold">Amazon</p>
-            <p>software engineer II</p>
-            <p>
-              status: <span className="text-white bg-red-400">awaits</span>
-            </p>
-            <Link href={'/app/application'}>
-              <a className={'block mt-2 text-blue-500 underline text-right'}>
-                edit
-              </a>
-            </Link>
-          </li>
-          <li className="p-3 mr-5 border rounded-md">
-            <Link href={'/app/addApplication'}>
-              <a
-                className={
-                  'flex justify-center items-center mr-5 text-blue-500 underline cursor-pointer'
-                }
-              >
-                + add application
-              </a>
-            </Link>
-          </li>
-        </ul>
+        <ApplicationsPanel applications={dashboard?.applications || []} />
       </>
     </Layout>
   );
