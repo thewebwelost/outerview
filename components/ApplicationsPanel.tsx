@@ -1,4 +1,3 @@
-import React from 'react';
 import { IDashboard } from '../pages/app/dashboard';
 import Application from './Application';
 
