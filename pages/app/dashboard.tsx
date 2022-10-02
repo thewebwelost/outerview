@@ -38,15 +38,15 @@ const Dashboard: NextPage = () => {
   return (
     <Layout isLoading={isLoading} isError={error}>
       <>
-        <h1 className="text-3xl font-bold underline">
+        <h1 className="mt-5 text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
         <ProfilePanel profiles={dashboard?.profiles || []} />
 
-        <h2 className="text-xl font-bold underline">Upcoming events:</h2>
+        <h2 className="mt-5 text-xl font-bold underline">Upcoming events:</h2>
         <EventsPanel events={dashboard?.events || []} />
 
-        <h2 className="text-xl font-bold underline">Your applications:</h2>
+        <h2 className="mt-5 text-xl font-bold underline">Your applications:</h2>
         <ApplicationsPanel applications={dashboard?.applications || []} />
       </>
     </Layout>

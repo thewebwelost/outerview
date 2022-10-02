@@ -19,7 +19,7 @@ function Profile({
   applicationsCount,
 }: IProfile) {
   return (
-    <div className={'p-3 mr-5 border rounded-md'}>
+    <li className={'p-3 mr-5 border rounded-md'}>
       <h3 className={'font-bold'}>{name}</h3>
       <Image src={avatar} alt={username} />
       <h3>{username}</h3>
@@ -30,7 +30,7 @@ function Profile({
       <Link href={`/profile/:${id}`}>
         <a className={'block mt-2 text-blue-500 underline text-right'}>edit</a>
       </Link>
-    </div>
+    </li>
   );
 }
 

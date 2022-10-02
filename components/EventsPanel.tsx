@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { IDashboard } from '../pages/app/dashboard';
+import EmptySection from './EmptySection';
 import UserEvent from './UserEvent';
 
 interface IEventsPanel {
@@ -7,9 +8,12 @@ interface IEventsPanel {
 }
 
 function EventsPanel({ events }: IEventsPanel) {
+  if (!events.length)
+    return <EmptySection type={'event'} href={'/app/addEvent'} />;
+
   return (
     <section className={'p-3 mr-5 border rounded-md'}>
-      <ul>
+      <ul className="mt-3 p-3">
         {events.map((userEvent) => (
           <UserEvent key={userEvent.id} {...userEvent} />
         ))}
