@@ -12,13 +12,13 @@ import { IUserEvent } from '../../components/UserEvent';
 import { IApplication } from '../../components/Application';
 
 export interface IDashboard {
-  applications: IApplication[];
-  avatar: string;
-  email: string;
   id: number;
+  username: string;
+  email: string;
+  avatar: string;
+  applications: IApplication[];
   profiles: IProfile[];
   events: IUserEvent[];
-  username: string;
 }
 
 const Dashboard: NextPage = () => {
