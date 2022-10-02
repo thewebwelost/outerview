@@ -2,12 +2,16 @@ import { ReactElement } from 'react';
 import Header from './Header';
 
 interface ILayout {
-  isLoading: boolean;
-  isError: string;
+  isLoading?: boolean;
+  isError?: string;
   children: ReactElement;
 }
 
-export default function Layout({ isLoading, isError, children }: ILayout) {
+export default function Layout({
+  isLoading = false,
+  isError,
+  children,
+}: ILayout) {
   return (
     <>
       <Header />

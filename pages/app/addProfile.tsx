@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Layout from '../../components/Layout';
 
-const CreateUser: NextPage = () => {
+const AddProfile: NextPage = () => {
   return (
     <Layout>
       <>
@@ -193,4 +193,4 @@ const CreateUser: NextPage = () => {
   );
 };
 
-export default CreateUser;
+export default AddProfile;
