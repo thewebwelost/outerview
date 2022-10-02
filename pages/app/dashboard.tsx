@@ -1,11 +1,12 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { createElement, useCallback, useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
+import ProfilePanel from '../../components/ProfilePanel';
 import { useUser } from '../../hooks/useUser';
 import Profile from './profile';
 
-interface IDashboard {
+export interface IDashboard {
   applications: object[];
   avatar: string;
   email: string;
@@ -41,22 +42,7 @@ const Dashboard: NextPage = () => {
         <h1 className="text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
-
-        <div className={'flex mt-3'}>
-          {dashboard?.profiles?.map((profile) => (
-            <Profile key={profile.id} {...profile} />
-          ))}
-
-          <Link href={'/app/addProfile'}>
-            <a
-              className={
-                'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
-              }
-            >
-              + add profile
-            </a>
-          </Link>
-        </div>
+        <ProfilePanel profiles={dashboard?.profiles || []} />
 
         <h2 className="text-xl font-bold underline">Upcoming events:</h2>
 
