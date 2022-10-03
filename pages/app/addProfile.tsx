@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import Layout from '../../components/Layout';
 
 // {
@@ -21,6 +21,7 @@ import Layout from '../../components/Layout';
 // }
 
 const defaultNewProfileFormState = {
+  step: 0,
   name: '',
   title: '',
   summary: '',
@@ -38,8 +39,55 @@ const defaultNewProfileFormState = {
   socials: [],
 };
 
+interface IProfileForm {
+  step: number;
+  name: string;
+  title: string;
+  summary: string;
+  details: string[];
+  hardSkills: string[];
+  softSkills: string[];
+  experience: object[];
+  education: object[];
+  achievements: string;
+  country: string;
+  city: string;
+  state: string;
+  email: string;
+  website: string;
+  socials: object[];
+}
+
+enum FormStateActionEnum {
+  NEXT_STEP = 'NEXT_STEP',
+  PREV_STEP = 'PREV_STEP',
+}
+
+interface FormStateAction {
+  type: FormStateActionEnum;
+  payload: IProfileForm;
+}
+
+function reducer(state: IProfileForm, action: FormStateAction) {
+  switch (action.type) {
+    case FormStateActionEnum.NEXT_STEP:
+      return {
+        ...state,
+        step: state.step + 1,
+      };
+    case FormStateActionEnum.PREV_STEP:
+      return {
+        ...state,
+        step: state.step - 1,
+      };
+    default:
+      return state;
+  }
+}
+
 const AddProfile: NextPage = () => {
-  const [formState, setFormState] = useState(defaultNewProfileFormState);
+  // const [formState, setFormState] = useState(defaultNewProfileFormState);
+  const [state, dispatch] = useReducer(reducer, defaultNewProfileFormState);
   const [step, setStep] = useState(0);
 
   const handleNextStep = () => {
@@ -248,27 +296,30 @@ const AddProfile: NextPage = () => {
     );
   };
 
+  const renderForm = () => {
+    switch (step) {
+      case 0:
+        return renderStepOne();
+      case 1:
+        return renderStepTwo();
+      case 2:
+        return renderStepThree();
+      case 3:
+        return renderStepFour();
+      case 4:
+        return renderStepFive();
+      default:
+        return renderStepOne();
+    }
+  };
+
   return (
     <Layout>
       <>
         <h1 className="text-3xl font-bold underline">New Profile</h1>
 
         <div className="flex">
-          <div>
-            {/* STEP 1 ---- PROFILE INFO */}
-            {step === 0 && renderStepOne()}
-            {/* STEP 2 ---- EXPERIENCE */}
-            {step === 1 && renderStepTwo()}
-            {/* STEP 3 ---- EDUCATION */}
-            {step === 2 && renderStepThree()}
-
-            {/* TODO: add it to Educations step */}
-
-            {/* STEP 4 ---- ACHIEVEMENTS */}
-            {step === 3 && renderStepFour()}
-            {/* STEP 5 ---- CONTACTS */}
-            {step === 4 && renderStepFive()}
-          </div>
+          <div>{renderForm()}</div>
           <div>preview</div>
         </div>
       </>
