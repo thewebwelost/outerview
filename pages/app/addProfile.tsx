@@ -1,27 +1,8 @@
 import type { NextPage } from 'next';
-import { useReducer, useState } from 'react';
+import { ChangeEvent, useReducer, useState } from 'react';
 import Layout from '../../components/Layout';
 
-// {
-//   name, // *
-//   title, // *
-//   summary,
-//   details,
-//   hardSkills,
-//   softSkills,
-//   experience,
-//   education,
-//   achievements,
-//   country,
-//   city,
-//   state,
-//   email,
-//   website,
-//   socials,
-// }
-
 const defaultNewProfileFormState = {
-  step: 0,
   name: '',
   title: '',
   summary: '',
@@ -40,62 +21,114 @@ const defaultNewProfileFormState = {
 };
 
 interface IProfileForm {
-  step: number;
-  name: string;
-  title: string;
-  summary: string;
+  name?: string;
+  title?: string;
+  summary?: string;
   details: string[];
   hardSkills: string[];
   softSkills: string[];
   experience: object[];
   education: object[];
-  achievements: string;
-  country: string;
-  city: string;
-  state: string;
-  email: string;
-  website: string;
+  achievements?: string;
+  country?: string;
+  city?: string;
+  state?: string;
+  email?: string;
+  website?: string;
   socials: object[];
 }
 
 enum FormStateActionEnum {
-  NEXT_STEP = 'NEXT_STEP',
-  PREV_STEP = 'PREV_STEP',
+  SET_SUMMARY = 'SET_SUMMARY',
+  ADD_EXPERIENCE = 'ADD_EXPERIENCE',
+  ADD_EDUCATION = 'ADD_EDUCATION',
 }
 
 interface FormStateAction {
   type: FormStateActionEnum;
-  payload: IProfileForm;
+  payload: Partial<IProfileForm>;
 }
 
 function reducer(state: IProfileForm, action: FormStateAction) {
   switch (action.type) {
-    case FormStateActionEnum.NEXT_STEP:
+    case FormStateActionEnum.SET_SUMMARY:
       return {
         ...state,
-        step: state.step + 1,
+        ...action.payload,
       };
-    case FormStateActionEnum.PREV_STEP:
+    case FormStateActionEnum.ADD_EXPERIENCE:
       return {
         ...state,
-        step: state.step - 1,
+        experience: [...state.experience, action.payload],
+      };
+    case FormStateActionEnum.ADD_EDUCATION:
+      return {
+        ...state,
+        education: [...state.education, action.payload],
       };
     default:
+      console.error('Unknown action: ' + action.type);
       return state;
   }
 }
 
 const AddProfile: NextPage = () => {
-  // const [formState, setFormState] = useState(defaultNewProfileFormState);
   const [state, dispatch] = useReducer(reducer, defaultNewProfileFormState);
   const [step, setStep] = useState(0);
+  // Step #1
+  const [summary, setSummary] = useState('');
+  const [name, setName] = useState('');
+
+  const [details, setDetails] = useState('');
+  const [detailsList, setDetailsList] = useState<string[]>([]);
+
+  const [hardSkills, setHardSkills] = useState('');
+  const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
+
+  const [softSkills, setSoftSkills] = useState('');
+  const [softSkillsList, setSoftSkillsList] = useState<string[]>([]);
+  // Step #2
 
   const handleNextStep = () => {
+    switch (step) {
+      case 0:
+        dispatch({
+          type: FormStateActionEnum.SET_SUMMARY,
+          payload: {
+            title: `${name}`,
+            name,
+            summary,
+            details: detailsList,
+            hardSkills: hardSkillsList,
+            softSkills: softSkillsList,
+          },
+        });
+      case 1:
+        dispatch({
+          type: FormStateActionEnum.SET_SUMMARY,
+          payload: {},
+        });
+    }
     setStep(step + 1);
   };
 
   const handlePrevStep = () => {
     setStep(step - 1);
+  };
+
+  const handleAddField = (type: string) => {
+    console.log('type', type);
+    switch (type) {
+      case 'details':
+        setDetailsList([...detailsList, details]);
+        setDetails('');
+      case 'hardSkills':
+        setHardSkillsList([...hardSkillsList, hardSkills]);
+        setHardSkills('');
+      case 'softSkills':
+        setSoftSkillsList([...softSkillsList, softSkills]);
+        setSoftSkills('');
+    }
   };
 
   const renderStepOne = () => {
@@ -108,28 +141,59 @@ const AddProfile: NextPage = () => {
           <textarea
             className="block"
             placeholder={'First, tell us few words about yourself.'}
+            value={summary}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              setSummary(e.target.value)
+            }
           />
         </label>
 
         <label className="block">
           Bullet points to highlight your profile
-          <input className="block" />
-          <button>+ add</button>
+          {detailsList.map((item, i) => (
+            <p key={i}>{item}</p>
+          ))}
+          <input
+            className="block"
+            value={details}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setDetails(e.target.value)
+            }
+          />
+          <button onClick={() => handleAddField('details')}>+ add</button>
         </label>
 
         <label className="block">
           It&apos;s time for your hard skills
-          <input className="block" />
-          <button>+ add</button>
+          {hardSkillsList.map((item, i) => (
+            <p key={i}>{item}</p>
+          ))}
+          <input
+            className="block"
+            value={hardSkills}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setHardSkills(e.target.value)
+            }
+          />
+          <button onClick={() => handleAddField('hardSkills')}>+ add</button>
         </label>
 
         <label className="block">
           And soft skills as well
-          <input className="block" />
-          <button>+ add</button>
+          {softSkillsList.map((item, i) => (
+            <p key={i}>{item}</p>
+          ))}
+          <input
+            className="block"
+            value={softSkills}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSoftSkills(e.target.value)
+            }
+          />
+          <button onClick={() => handleAddField('softSkills')}>+ add</button>
         </label>
 
-        <br />
+        <hr />
         <button className="text-white bg-blue-500" onClick={handleNextStep}>
           Next
         </button>
@@ -180,7 +244,13 @@ const AddProfile: NextPage = () => {
         <button className="text-blue-500 border border-blue-500 mr-3">
           + one more
         </button>
-        <button className="text-white bg-blue-500">Done</button>
+        <hr />
+        <button className="text-white bg-blue-500" onClick={handlePrevStep}>
+          Prev
+        </button>
+        <button className="text-white bg-blue-500" onClick={handleNextStep}>
+          Next
+        </button>
       </div>
     );
   };
@@ -219,7 +289,14 @@ const AddProfile: NextPage = () => {
         <button className="text-blue-500 border border-blue-500 mr-3">
           + one more
         </button>
-        <button className="text-white bg-blue-500">Done</button>
+
+        <hr />
+        <button className="text-white bg-blue-500" onClick={handlePrevStep}>
+          Prev
+        </button>
+        <button className="text-white bg-blue-500" onClick={handleNextStep}>
+          Next
+        </button>
       </div>
     );
   };
@@ -243,7 +320,14 @@ const AddProfile: NextPage = () => {
         <button className="text-blue-500 border border-blue-500 mr-3">
           + one more
         </button>
-        <button className="text-white bg-blue-500">Done</button>
+
+        <hr />
+        <button className="text-white bg-blue-500" onClick={handlePrevStep}>
+          Prev
+        </button>
+        <button className="text-white bg-blue-500" onClick={handleNextStep}>
+          Next
+        </button>
       </div>
     );
   };
@@ -291,7 +375,18 @@ const AddProfile: NextPage = () => {
           <button>+ add</button>
         </div>
 
-        <button className="text-white bg-blue-500">Done</button>
+        <hr />
+        <button className="text-white bg-blue-500" onClick={handlePrevStep}>
+          Prev
+        </button>
+        <button
+          className="text-white bg-blue-500"
+          onClick={() => {
+            console.log('DONE', state);
+          }}
+        >
+          Done
+        </button>
       </div>
     );
   };
