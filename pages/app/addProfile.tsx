@@ -137,6 +137,17 @@ const AddProfile: NextPage = () => {
         <h2 className="text-xl font-bold mb-2">Introduce yourself first</h2>
 
         <label className="block">
+          Your visible name
+          <input
+            className="block"
+            value={name}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
+          />
+        </label>
+
+        <label className="block">
           Summary
           <textarea
             className="block"
