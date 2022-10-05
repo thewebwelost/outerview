@@ -95,7 +95,7 @@ const AddProfile: NextPage = () => {
         dispatch({
           type: FormStateActionEnum.SET_SUMMARY,
           payload: {
-            title: `${name}`,
+            title: `${name}'s profile`,
             name,
             summary,
             details: detailsList,
@@ -105,9 +105,16 @@ const AddProfile: NextPage = () => {
         });
       case 1:
         dispatch({
-          type: FormStateActionEnum.SET_SUMMARY,
+          type: FormStateActionEnum.ADD_EXPERIENCE,
           payload: {},
         });
+      case 2:
+        dispatch({
+          type: FormStateActionEnum.ADD_EDUCATION,
+          payload: {},
+        });
+      default:
+        return;
     }
     setStep(step + 1);
   };
