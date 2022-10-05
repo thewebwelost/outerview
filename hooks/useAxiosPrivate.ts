@@ -31,10 +31,14 @@ function useAxiosPrivate() {
         const prevRequest = err?.config;
         if (err.response.status === 401) return router.push('/login');
         if (err.response.status === 403 && !prevRequest?.sent) {
-          prevRequest.sent = true;
-          const accessToken = await authContext?.refresh();
-          prevRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-          return axiosPrivate(prevRequest);
+          try {
+            prevRequest.sent = true;
+            const accessToken = await authContext?.refresh();
+            prevRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+            return axiosPrivate(prevRequest);
+          } catch (err) {
+            return router.push('/login');
+          }
         }
         return Promise.reject(err);
       }

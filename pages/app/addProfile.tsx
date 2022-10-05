@@ -117,7 +117,6 @@ const AddProfile: NextPage = () => {
   };
 
   const handleAddField = (type: string) => {
-    console.log('type', type);
     switch (type) {
       case 'details':
         setDetailsList([...detailsList, details]);
@@ -162,10 +161,12 @@ const AddProfile: NextPage = () => {
         <label className="block">
           Bullet points to highlight your profile
           {detailsList.map((item, i) => (
-            <p key={i}>{item}</p>
+            <p key={i} className={'mt-3'}>
+              {item}
+            </p>
           ))}
           <input
-            className="block"
+            className="block mt-3"
             value={details}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setDetails(e.target.value)
@@ -177,10 +178,12 @@ const AddProfile: NextPage = () => {
         <label className="block">
           It&apos;s time for your hard skills
           {hardSkillsList.map((item, i) => (
-            <p key={i}>{item}</p>
+            <p key={i} className={'mt-3'}>
+              {item}
+            </p>
           ))}
           <input
-            className="block"
+            className="block mt-3"
             value={hardSkills}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setHardSkills(e.target.value)
@@ -192,10 +195,12 @@ const AddProfile: NextPage = () => {
         <label className="block">
           And soft skills as well
           {softSkillsList.map((item, i) => (
-            <p key={i}>{item}</p>
+            <p key={i} className={'mt-3'}>
+              {item}
+            </p>
           ))}
           <input
-            className="block"
+            className="block mt-3"
             value={softSkills}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setSoftSkills(e.target.value)

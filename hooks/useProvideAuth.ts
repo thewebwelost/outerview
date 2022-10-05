@@ -17,9 +17,7 @@ export interface IRegister {
 }
 
 export function useProvideAuth() {
-  const [auth, setAuth] = useState<IAuth>({
-    accessToken: null,
-  });
+  const [auth, setAuth] = useState<IAuth>({ accessToken: null });
   const [errors, setErrors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -47,7 +45,6 @@ export function useProvideAuth() {
   async function refresh() {
     try {
       const res = await axiosPrivate.get('/refresh');
-      console.log('res.data.accessToken', res.data.accessToken);
       setAuth({ accessToken: res.data.accessToken });
 
       return res.data.accessToken;
@@ -85,7 +82,7 @@ export function useProvideAuth() {
     setIsLoading(true);
 
     try {
-      const res = await axiosPrivate.get('/logout');
+      await axiosPrivate.get('/logout');
       setIsLoading(false);
       setAuth({ accessToken: null });
       setIsLoggedIn(false);
