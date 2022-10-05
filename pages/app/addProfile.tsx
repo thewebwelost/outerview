@@ -113,8 +113,6 @@ const AddProfile: NextPage = () => {
           type: FormStateActionEnum.ADD_EDUCATION,
           payload: {},
         });
-      default:
-        return;
     }
     setStep(step + 1);
   };
