@@ -46,6 +46,7 @@ export function useProvideAuth() {
     try {
       const res = await axiosPrivate.get('/refresh');
       setAuth({ accessToken: res.data.accessToken });
+      setIsLoggedIn(true);
 
       return res.data.accessToken;
     } catch (err) {

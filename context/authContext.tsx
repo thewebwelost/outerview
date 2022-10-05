@@ -1,9 +1,11 @@
+import Router from 'next/router';
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
 } from 'react';
 import {
   ILogin,
@@ -28,6 +30,7 @@ export const AuthContext = createContext<IAuthContext | null>(null);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const authContextData = useProvideAuth();
+
   return (
     <AuthContext.Provider value={authContextData}>
       {children}
