@@ -70,7 +70,15 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
-            <button onClick={() => signIn()}>Log In</button>
+            <button
+              onClick={() =>
+                signIn(undefined, {
+                  callbackUrl: `${window.location.origin}/app/dashboard`,
+                })
+              }
+            >
+              Log In
+            </button>
           </div>
         </div>
 

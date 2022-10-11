@@ -10,6 +10,7 @@ import ProfilePanel from '../../components/ProfilePanel';
 import { IProfile } from '../../components/Profile';
 import { IUserEvent } from '../../components/UserEvent';
 import { IApplication } from '../../components/Application';
+import { useSession } from 'next-auth/react';
 
 export interface IDashboard {
   id: number;
@@ -21,7 +22,16 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
+// TODO: move to SSR
+// export async function getServerSideProps() {
+//   const profiles = await axiosPrivate.get('/profiles');
+//   const events = await axiosPrivate.get('/events');
+//   const applications = await axiosPrivate.get('/applications');
+//   return { props: { profiles, events, applications } };
+// }
+
 const Dashboard: NextPage = () => {
+  // const { data: session, status } = useSession();
   const { error, isLoading, getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
 
