@@ -8,7 +8,15 @@ export default NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
+      // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+      // @ts-ignore
+      scope: 'read:user',
     }),
+
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_ID,
+    //   clientSecret: process.env.GOOGLE_SECRET,
+    // }),
 
     CredentialsProvider({
       id: 'credentials',
@@ -31,29 +39,30 @@ export default NextAuth({
       },
     }),
   ],
+
+  // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
+  // https://next-auth.js.org/configuration/databases
+  //
+  // Notes:
+  // * You must install an appropriate node_module for your database
+  // * The Email provider requires a database (OAuth providers do not)
+  // database: process.env.DATABASE_URL,
+
+  secret: process.env.SECRET,
+  session: {
+    strategy: 'jwt',
+  },
+  pages: {
+    // signIn: '/auth/signin',  // Displays signin buttons
+    // signOut: '/auth/signout', // Displays form with sign out button
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // Used for check email page
+    // newUser: null // If set, new users will be directed here on first sign in
+  },
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log('{ user, account, profile, email, credentials }', {
-    //     user,
-    //     account,
-    //     profile,
-    //     email,
-    //     credentials,
-    //   });
-    //   return true;
-    // },
-    // async redirect({ url, baseUrl }) {
-    //   console.log('[Redirect happened]');
-    //   return baseUrl;
-    // },
-    // async session({ session, token, user }) {
-    //   console.log('[Session triggered]');
-    //   console.log('[session]', session);
-    //   return session;
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   console.log('[JWT triggered]');
-    //   return token;
-    // },
+    // async signIn({ user, account, profile, email, credentials }) { return true },
+    // async redirect({ url, baseUrl }) { return baseUrl },
+    // async session({ session, token, user }) { return session },
+    // async jwt({ token, user, account, profile, isNewUser }) { return token }
   },
 });

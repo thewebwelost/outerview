@@ -11,6 +11,7 @@ import { IProfile } from '../../components/Profile';
 import { IUserEvent } from '../../components/UserEvent';
 import { IApplication } from '../../components/Application';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export interface IDashboard {
   id: number;
@@ -31,7 +32,6 @@ export interface IDashboard {
 // }
 
 const Dashboard: NextPage = () => {
-  // const { data: session, status } = useSession();
   const { error, isLoading, getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
 
