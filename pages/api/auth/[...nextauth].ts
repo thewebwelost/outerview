@@ -1,9 +1,13 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
 import { axiosPrivate } from '../../../utils/http/axios';
 
 export default NextAuth({
+  theme: {
+    colorScheme: 'light',
+  },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
