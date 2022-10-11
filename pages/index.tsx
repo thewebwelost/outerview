@@ -2,8 +2,38 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import NavLink from '../components/atoms/NavLink';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 const Home: NextPage = () => {
+  const { data: session, status } = useSession();
+
+  if (status === 'authenticated') {
+    console.log('session', session);
+    return (
+      <>
+        <p>Signed in as {session?.user?.name}</p>
+        <Image
+          src={session?.user?.image || ''}
+          title="Job Search"
+          alt="Job Search"
+          layout="fixed"
+          width={100}
+          height={100}
+          objectFit="contain"
+        />
+        <div className="text-sm">
+          <button
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Log Out
+          </button>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div>
       <Head>
@@ -40,8 +70,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
-            <NavLink href={'/signup'} value={'Sign Up'} />
-            <NavLink href={'/login'} value={'Log In'} />
+            <button onClick={() => signIn()}>Log In</button>
           </div>
         </div>
 
