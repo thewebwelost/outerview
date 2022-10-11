@@ -32,28 +32,28 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log('{ user, account, profile, email, credentials }', {
-        user,
-        account,
-        profile,
-        email,
-        credentials,
-      });
-      return true;
-    },
-    async redirect({ url, baseUrl }) {
-      console.log('[Redirect happened]');
-      return baseUrl;
-    },
-    async session({ session, token, user }) {
-      console.log('[Session triggered]');
-      console.log('[session]', session);
-      return session;
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      console.log('[JWT triggered]');
-      return token;
-    },
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   console.log('{ user, account, profile, email, credentials }', {
+    //     user,
+    //     account,
+    //     profile,
+    //     email,
+    //     credentials,
+    //   });
+    //   return true;
+    // },
+    // async redirect({ url, baseUrl }) {
+    //   console.log('[Redirect happened]');
+    //   return baseUrl;
+    // },
+    // async session({ session, token, user }) {
+    //   console.log('[Session triggered]');
+    //   console.log('[session]', session);
+    //   return session;
+    // },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   console.log('[JWT triggered]');
+    //   return token;
+    // },
   },
 });
