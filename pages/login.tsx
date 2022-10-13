@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import LoginForm from '../components/LoginForm';
 import { AuthContext } from '../context/authContext';
-import { useProvideAuth } from '../hooks/useProvideAuth';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -16,8 +15,6 @@ const Login: NextPage = () => {
       router.push('/app/dashboard');
     }
   };
-
-  console.log('RENDER LOGIN');
 
   return (
     <div className="p-10">

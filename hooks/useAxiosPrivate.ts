@@ -15,10 +15,13 @@ function useAxiosPrivate() {
           config.headers = {};
         }
 
-        if (!config.headers['Authorization']) {
-          config.headers[
-            'Authorization'
-          ] = `Bearer ${authContext?.auth?.accessToken}`;
+        const user = sessionStorage.getItem('__otr_user');
+        if (user !== null) {
+          const localUser = JSON.parse(user);
+
+          if (!config.headers['Authorization']) {
+            config.headers['Authorization'] = `Bearer ${localUser.accessToken}`;
+          }
         }
 
         return config;
@@ -28,7 +31,6 @@ function useAxiosPrivate() {
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => response,
       async (err) => {
-        console.log('err', err);
         const prevRequest = err?.config;
         if (err.response.status === 401) return router.push('/login');
         if (err.response.status === 403 && !prevRequest?.sent) {

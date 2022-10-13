@@ -23,12 +23,14 @@ export function useProvideAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   async function login(authPayload: ILogin) {
+    setErrors([]);
     setIsLoading(true);
 
     try {
       const res = await axiosPrivate.post('/login', authPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
+      sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
       setIsLoggedIn(true);
 
       return res.data;
@@ -46,6 +48,15 @@ export function useProvideAuth() {
     try {
       const res = await axiosPrivate.get('/refresh');
       setAuth({ accessToken: res.data.accessToken });
+
+      const localUser = sessionStorage.getItem('__otr_user');
+
+      if (localUser !== null) {
+        const user = JSON.parse(localUser);
+        user.accessToken = res.data.accessToken;
+        sessionStorage.setItem('__otr_user', user);
+      }
+
       setIsLoggedIn(true);
 
       return res.data.accessToken;
@@ -66,6 +77,7 @@ export function useProvideAuth() {
       const res = await axiosPrivate.post('/register', registerPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
+      sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
       setIsLoggedIn(true);
 
       return res.data;
@@ -86,6 +98,7 @@ export function useProvideAuth() {
       await axiosPrivate.get('/logout');
       setIsLoading(false);
       setAuth({ accessToken: null });
+      sessionStorage.removeItem('__otr_user');
       setIsLoggedIn(false);
     } catch (err) {
       let message = 'Unknown Error';
