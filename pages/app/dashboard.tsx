@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 import { useUser } from '../../hooks/useUser';
 
@@ -10,6 +10,7 @@ import ProfilePanel from '../../components/ProfilePanel';
 import { IProfile } from '../../components/Profile';
 import { IUserEvent } from '../../components/UserEvent';
 import { IApplication } from '../../components/Application';
+import { axiosPrivate } from '../../utils/http/axios';
 
 export interface IDashboard {
   id: number;
@@ -21,22 +22,42 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
-const Dashboard: NextPage = () => {
-  const { error, isLoading, getDashboard } = useUser();
-  const [dashboard, setDashboard] = useState<IDashboard>();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log('context', context.req.headers.cookie);
+  // fetch dashboard here
+  const res = await axiosPrivate.get('/dashboard');
 
-  const fetchUser = useCallback(async () => {
-    const res = await getDashboard();
-    setDashboard(res);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // pass accessToken to request
 
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+  return {
+    props: {
+      dashboard: res.data,
+    },
+  };
+};
+
+interface Props {
+  dashboard: any;
+}
+
+const Dashboard = ({ dashboard }: Props) => {
+  // const { error, isLoading, getDashboard } = useUser();
+  // const [dashboard, setDashboard] = useState<IDashboard>();
+
+  console.log('[FROM SERVER dashboardData]', dashboard);
+
+  // const fetchUser = useCallback(async () => {
+  //   const res = await getDashboard();
+  //   setDashboard(res);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, [fetchUser]);
 
   return (
-    <Layout isLoading={isLoading} isError={error}>
+    <Layout>
       <>
         <h1 className="mt-5 text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}

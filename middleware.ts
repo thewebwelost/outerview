@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const jwt = request.cookies.get('jwt');
-  console.log('jwt', request);
+  // console.log('jwt', request);
   if (!jwt) {
     return NextResponse.redirect(new URL('/login', request.url));
   }

@@ -31,6 +31,7 @@ export function useProvideAuth() {
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
       sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
+      document.cookie = 'sheesh=sheeeeeeeeeeeeeeeeeesh';
       setIsLoggedIn(true);
 
       return res.data;
