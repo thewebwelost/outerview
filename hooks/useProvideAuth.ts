@@ -30,8 +30,8 @@ export function useProvideAuth() {
       const res = await axiosPrivate.post('/login', authPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
-      sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
-      document.cookie = 'sheesh=sheeeeeeeeeeeeeeeeeesh';
+      // sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
+      document.cookie = `authToken=${res.data.accessToken}`;
       setIsLoggedIn(true);
 
       return res.data;

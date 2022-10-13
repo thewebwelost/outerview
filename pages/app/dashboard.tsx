@@ -11,6 +11,7 @@ import { IProfile } from '../../components/Profile';
 import { IUserEvent } from '../../components/UserEvent';
 import { IApplication } from '../../components/Application';
 import { axiosPrivate } from '../../utils/http/axios';
+import cookieParser from '../../utils/cookieParser';
 
 export interface IDashboard {
   id: number;
@@ -23,9 +24,17 @@ export interface IDashboard {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('context', context.req.headers.cookie);
+  console.log('context', context.req.headers);
+
+  const cookieHeaders = context.req.headers.cookie || '';
+  const cookieObj = cookieParser(cookieHeaders);
+
   // fetch dashboard here
-  const res = await axiosPrivate.get('/dashboard');
+  const res = await axiosPrivate.get('/dashboard', {
+    headers: {
+      Authorization: `Bearer ${cookieObj['authToken']}`,
+    },
+  });
 
   // pass accessToken to request
 

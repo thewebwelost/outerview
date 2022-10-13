@@ -44,6 +44,7 @@ axiosPrivate.interceptors.response.use(
   },
   async (err) => {
     const prevRequest = err?.config;
+
     // if (err.response.status === 401) return router.push('/login');
     // if (err.response.status === 403 && !prevRequest?.sent) {
     //   try {
