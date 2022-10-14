@@ -12,3 +12,19 @@ export const axiosPrivate = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+axiosPrivate.interceptors.response.use(
+  (response) => response,
+  async (err) => {
+    const prevRequest = err?.config;
+
+    if (err.response.status === 401) {
+      // no token
+    }
+    if (err.response.status === 403 && !prevRequest?.sent) {
+      // token expired
+      // const response = axiosPrivate.get('/refresh')
+    }
+    return Promise.reject(err);
+  }
+);

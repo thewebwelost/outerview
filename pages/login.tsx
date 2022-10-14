@@ -3,21 +3,33 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import LoginForm from '../components/LoginForm';
 import { AuthContext } from '../context/authContext';
-import { useProvideAuth } from '../hooks/useProvideAuth';
+
+import { useAppDispatch } from '../redux/hooks';
+import { setAuth } from '../redux/slices/authSlice';
+import axios from '../utils/http/axios';
 
 const Login: NextPage = () => {
   const router = useRouter();
   const authContext = useContext(AuthContext);
 
-  const handleLogin = async (email: string, password: string) => {
-    const data = await authContext?.login({ email, password });
+  const dispatch = useAppDispatch();
 
-    if (data) {
+  const handleLogin = async (email: string, password: string) => {
+    const res = await axios.post('/login', { email, password });
+
+    if (res) {
+      console.log('[!data]', res.data);
+
+      dispatch(
+        setAuth({
+          isLoggedIn: true,
+          ...res.data,
+        })
+      );
+
       router.push('/app/dashboard');
     }
   };
-
-  console.log('RENDER LOGIN');
 
   return (
     <div className="p-10">
