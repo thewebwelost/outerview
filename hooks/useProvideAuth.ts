@@ -30,7 +30,6 @@ export function useProvideAuth() {
       const res = await axiosPrivate.post('/login', authPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
-      // sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
       document.cookie = `authToken=${res.data.accessToken}`;
       setIsLoggedIn(true);
 
@@ -55,7 +54,7 @@ export function useProvideAuth() {
       if (localUser !== null) {
         const user = JSON.parse(localUser);
         user.accessToken = res.data.accessToken;
-        sessionStorage.setItem('__otr_user', user);
+        // sessionStorage.setItem('__otr_user', user);
       }
 
       setIsLoggedIn(true);
@@ -78,7 +77,7 @@ export function useProvideAuth() {
       const res = await axiosPrivate.post('/register', registerPayload);
       setIsLoading(false);
       setAuth({ accessToken: res.data.accessToken });
-      sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
+      // sessionStorage.setItem('__otr_user', JSON.stringify(res.data));
       setIsLoggedIn(true);
 
       return res.data;
@@ -99,7 +98,7 @@ export function useProvideAuth() {
       await axiosPrivate.get('/logout');
       setIsLoading(false);
       setAuth({ accessToken: null });
-      sessionStorage.removeItem('__otr_user');
+      // sessionStorage.removeItem('__otr_user');
       setIsLoggedIn(false);
     } catch (err) {
       let message = 'Unknown Error';

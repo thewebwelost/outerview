@@ -24,19 +24,14 @@ export interface IDashboard {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('context', context.req.headers);
-
   const cookieHeaders = context.req.headers.cookie || '';
   const cookieObj = cookieParser(cookieHeaders);
 
-  // fetch dashboard here
   const res = await axiosPrivate.get('/dashboard', {
     headers: {
       Authorization: `Bearer ${cookieObj['authToken']}`,
     },
   });
-
-  // pass accessToken to request
 
   return {
     props: {
@@ -50,26 +45,11 @@ interface Props {
 }
 
 const Dashboard = ({ dashboard }: Props) => {
-  // const { error, isLoading, getDashboard } = useUser();
-  // const [dashboard, setDashboard] = useState<IDashboard>();
-
-  console.log('[FROM SERVER dashboardData]', dashboard);
-
-  // const fetchUser = useCallback(async () => {
-  //   const res = await getDashboard();
-  //   setDashboard(res);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // useEffect(() => {
-  //   fetchUser();
-  // }, [fetchUser]);
-
   return (
     <Layout>
       <>
         <h1 className="mt-5 text-3xl font-bold underline">
-          {`${dashboard?.username}'s profiles`}
+          {dashboard?.username}
         </h1>
         <ProfilePanel profiles={dashboard?.profiles || []} />
 
