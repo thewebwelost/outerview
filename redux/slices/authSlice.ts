@@ -4,7 +4,7 @@ import type { RootState } from '../store';
 
 interface AuthState {
   isLoggedIn: boolean;
-  authToken: string | null;
+  accessToken: string | null;
   user: {
     username: string | null;
     email: string | null;
@@ -13,7 +13,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   isLoggedIn: false,
-  authToken: null,
+  accessToken: null,
   user: {
     username: null,
     email: null,
@@ -26,9 +26,11 @@ export const authSlice = createSlice({
   reducers: {
     setAuth: (state, action: PayloadAction<AuthState>) => {
       state = { ...state, ...action.payload };
+      return state;
     },
     logout: (state) => {
       state = { ...initialState };
+      return state;
     },
   },
 });
