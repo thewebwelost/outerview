@@ -6,6 +6,7 @@ import { AuthContext } from '../context/authContext';
 
 import { useAppDispatch } from '../redux/hooks';
 import { setAuth } from '../redux/slices/authSlice';
+import axios from '../utils/http/axios';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -14,15 +15,15 @@ const Login: NextPage = () => {
   const dispatch = useAppDispatch();
 
   const handleLogin = async (email: string, password: string) => {
-    const data = await authContext?.login({ email, password });
+    const res = await axios.post('/login', { email, password });
 
-    if (data) {
-      console.log('[!data]', data);
+    if (res) {
+      console.log('[!data]', res.data);
 
       dispatch(
         setAuth({
           isLoggedIn: true,
-          ...data,
+          ...res.data,
         })
       );
 
