@@ -1,23 +1,28 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
 import LoginForm from '../components/LoginForm';
-import { AuthContext } from '../context/authContext';
-import { useProvideAuth } from '../hooks/useProvideAuth';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const authContext = useContext(AuthContext);
 
   const handleLogin = async (email: string, password: string) => {
-    const data = await authContext?.login({ email, password });
+    try {
+      const data = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    if (data) {
-      router.push('/app/dashboard');
+      if (data) {
+        router.push('/app/dashboard');
+      }
+    } catch (err) {
+      console.error('[Login]', err);
     }
   };
-
-  console.log('RENDER LOGIN');
 
   return (
     <div className="p-10">

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 interface ILoginForm {
@@ -10,21 +11,24 @@ interface ILoginFormData {
   password: string;
 }
 
-function LoginForm({ handleLogin }: ILoginForm) {
+const LoginForm: React.FC<ILoginForm> = ({ handleLogin }) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<ILoginFormData>();
 
-  const onSubmit: SubmitHandler<ILoginFormData> = (data) =>
+  const onSubmit: SubmitHandler<ILoginFormData> = (data) => {
     handleLogin(data.email, data.password);
+  };
 
   return (
     <div className="max-w-xs p-5 mt-5 border rounded-md bg-white">
       <h1 className="text-3xl font-bold">Log In</h1>
+
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <label className="mt-3 font-bold">Email</label>
+
         <Controller
           name={'email'}
           control={control}
@@ -38,9 +42,11 @@ function LoginForm({ handleLogin }: ILoginForm) {
             />
           )}
         />
+
         {errors.email && <span>This field is required</span>}
 
         <label className="mt-3 font-bold">Password</label>
+
         <Controller
           name={'password'}
           control={control}
@@ -66,6 +72,7 @@ function LoginForm({ handleLogin }: ILoginForm) {
           Log In
         </button>
       </form>
+
       <p className="mt-5">
         Don&apos;t have an account?{' '}
         <Link href={'/signup'}>
@@ -74,6 +81,6 @@ function LoginForm({ handleLogin }: ILoginForm) {
       </p>
     </div>
   );
-}
+};
 
 export default LoginForm;
