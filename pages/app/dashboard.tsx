@@ -22,18 +22,19 @@ export interface IDashboard {
 }
 
 const Dashboard: NextPage = () => {
-  const { error, isLoading, getDashboard } = useUser();
   const [dashboard, setDashboard] = useState<IDashboard>();
 
-  const fetchUser = useCallback(async () => {
-    const res = await getDashboard();
-    setDashboard(res);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { error, isLoading, getDashboard } = useUser();
 
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+  // const fetchUser = useCallback(async () => {
+  //   const res = await getDashboard();
+  //   setDashboard(res);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, [fetchUser]);
 
   return (
     <Layout isLoading={isLoading} isError={error}>
