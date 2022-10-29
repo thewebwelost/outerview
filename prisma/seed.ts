@@ -59,7 +59,18 @@ async function main() {
             location: 'Arkham, Main str.',
             email: 'test2@email.yo',
             website: 'https://www.prisma.io/',
-            socials: {},
+            socials: {
+              create: [
+                {
+                  title: 'test 3',
+                  url: 'https://www.prisma.io/',
+                },
+                {
+                  title: 'test 4',
+                  url: 'https://www.prisma.io/',
+                },
+              ],
+            },
           },
         ],
       },
@@ -70,8 +81,8 @@ async function main() {
             role: 'detective',
             url: 'https://www.prisma.io/',
             description: 'Nice job, good people',
-            salary: '',
-            location: '',
+            salary: '100000 - 200000',
+            location: 'New York',
             contacts: {
               create: [
                 {
