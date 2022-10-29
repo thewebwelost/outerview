@@ -63,9 +63,17 @@ model Profile {
 }
 
 model Experience {
-  id        Int      @id @default(autoincrement())
-  Profile   Profile? @relation(fields: [profileId], references: [id])
-  profileId Int?
+  id               Int      @id @default(autoincrement())
+  Profile          Profile? @relation(fields: [profileId], references: [id])
+  profileId        Int?
+  role             String
+  company          String
+  startDate        DateTime
+  endDate          DateTime
+  isCurrent        Boolean  @default(false)
+  responsibilities String[]
+  acievements      String[]
+  keywords         String[]
 }
 
 model Education {
