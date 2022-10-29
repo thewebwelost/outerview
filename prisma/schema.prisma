@@ -26,6 +26,14 @@ model Credentials {
   userId   Int    @unique
 }
 
+model Link {
+  id            Int          @id @default(autoincrement())
+  title         String
+  url           String
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+}
+
 model Application {
   id          Int     @id @default(autoincrement())
   company     String
@@ -38,14 +46,6 @@ model Application {
   userEvents  Event[]
   User        User?   @relation(fields: [userId], references: [id])
   userId      Int?
-}
-
-model Link {
-  id            Int          @id @default(autoincrement())
-  title         String
-  url           String
-  Application   Application? @relation(fields: [applicationId], references: [id])
-  applicationId Int?
 }
 
 model Profile {
