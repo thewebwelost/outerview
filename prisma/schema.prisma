@@ -72,6 +72,11 @@ model Education {
   id        Int      @id @default(autoincrement())
   Profile   Profile? @relation(fields: [profileId], references: [id])
   profileId Int?
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  degree    String
+  details   String[]
 }
 
 model Event {
