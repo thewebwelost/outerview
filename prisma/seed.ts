@@ -13,7 +13,22 @@ async function main() {
         },
       },
       profiles: {
-        create: [{}],
+        create: [
+          {
+            name: 'John Doe',
+            title: 'the cook',
+            summary: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit',
+            details: ['game changer', 'spirit breaker', 'team player'],
+            hardSkills: ['game changer', 'spirit breaker', 'team player'],
+            softSkills: ['game changer', 'spirit breaker', 'team player'],
+            experience: {},
+            education: {},
+            location: 'Arkham, Main str.',
+            email: 'test2@email.yo',
+            website: 'https://www.prisma.io/',
+            socials: {},
+          },
+        ],
       },
       applications: {
         create: [
