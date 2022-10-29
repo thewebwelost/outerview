@@ -32,6 +32,8 @@ model Link {
   url           String
   Application   Application? @relation(fields: [applicationId], references: [id])
   applicationId Int?
+  Profile       Profile?     @relation(fields: [profileId], references: [id])
+  profileId     Int?
 }
 
 model Application {
@@ -54,12 +56,16 @@ model Profile {
   userId     Int
   name       String
   title      String
+  email      String
+  website    String
+  location   String
   summary    String
   details    String[]
   hardSkills String[]
   softSkills String[]
   experience Experience[]
   education  Education[]
+  socials    Link[]
 }
 
 model Experience {
