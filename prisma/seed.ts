@@ -45,7 +45,17 @@ async function main() {
                 },
               ],
             },
-            education: {},
+            education: {
+              create: [
+                {
+                  name: 'Santa Clause Elf Academy',
+                  startDate: new Date(),
+                  endDate: new Date(),
+                  degree: 'Masters',
+                  details: 'Major in snow arts, minor in delivery services',
+                },
+              ],
+            },
             location: 'Arkham, Main str.',
             email: 'test2@email.yo',
             website: 'https://www.prisma.io/',
