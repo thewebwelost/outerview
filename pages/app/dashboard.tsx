@@ -27,7 +27,7 @@ const Dashboard: NextPage = () => {
     try {
       await fetch('/api/dashboard')
         .then((response) => response.json())
-        .then((data) => console.log({ users: data }));
+        .then((data) => setDashboard(data));
     } catch (err) {
       console.error(err);
     }
