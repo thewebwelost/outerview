@@ -25,10 +25,9 @@ const Dashboard: NextPage = () => {
 
   const handleClick = async () => {
     try {
-      const users = await fetch('/api/user')
+      await fetch('/api/dashboard')
         .then((response) => response.json())
-        .then((data) => console.log(data));
-      console.log({ users });
+        .then((data) => console.log({ users: data }));
     } catch (err) {
       console.error(err);
     }

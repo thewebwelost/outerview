@@ -4,17 +4,13 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log({ req, res });
+  console.log({ query: req.query });
 
-  const newUser = await prisma.user.create({
-    data: {
-      name: 'Alice',
+  const user = await prisma.user.findUnique({
+    where: {
+      id: parseInt(req.query.id as string),
     },
   });
 
-  const users = await prisma.user.findMany();
-
-  console.log({ newUser, users });
-
-  res.status(200).json(users);
+  res.status(200).json(user);
 };
