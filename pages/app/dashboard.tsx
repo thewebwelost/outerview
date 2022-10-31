@@ -23,12 +23,24 @@ export interface IDashboard {
 const Dashboard: NextPage = () => {
   const [dashboard, setDashboard] = useState<IDashboard>();
 
+  const handleClick = async () => {
+    try {
+      const users = await fetch('/api/user')
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+      console.log({ users });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Layout>
       <>
         <h1 className="mt-5 text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
+        <button onClick={handleClick}>push</button>
         <ProfilePanel profiles={dashboard?.profiles || []} />
 
         <h2 className="mt-5 text-xl font-bold underline">Upcoming events:</h2>
