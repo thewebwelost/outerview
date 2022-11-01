@@ -1,7 +1,8 @@
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 
-function SingleProfile() {
+const SingleProfile: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -10,6 +11,6 @@ function SingleProfile() {
       <p>Profile Id: {id}</p>
     </Layout>
   );
-}
+};
 
 export default SingleProfile;

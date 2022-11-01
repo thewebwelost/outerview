@@ -19,7 +19,7 @@ function ProfilePanel({ profiles }: IProfilePanel) {
         ))}
       </ul>
 
-      <Link href={'/app/addProfile'}>
+      <Link href={'/profiles/add'}>
         <a
           className={
             'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
