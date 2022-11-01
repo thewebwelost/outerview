@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Layout from '../../components/Layout';
 import ApplicationsPanel from '../../components/ApplicationsPanel';
@@ -23,7 +23,7 @@ export interface IDashboard {
 const Dashboard: NextPage = () => {
   const [dashboard, setDashboard] = useState<IDashboard>();
 
-  const handleClick = async () => {
+  const fetchDashboard = async () => {
     try {
       await fetch('/api/dashboard')
         .then((response) => response.json())
@@ -33,13 +33,16 @@ const Dashboard: NextPage = () => {
     }
   };
 
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
   return (
     <Layout>
       <>
         <h1 className="mt-5 text-3xl font-bold underline">
           {`${dashboard?.username}'s profiles`}
         </h1>
-        <button onClick={handleClick}>push</button>
         <ProfilePanel profiles={dashboard?.profiles || []} />
 
         <h2 className="mt-5 text-xl font-bold underline">Upcoming events:</h2>

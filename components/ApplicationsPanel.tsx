@@ -1,4 +1,4 @@
-import { IDashboard } from '../pages/app/dashboard';
+import { IDashboard } from '../pages/dashboard';
 import Application from './Application';
 import EmptySection from './EmptySection';
 
