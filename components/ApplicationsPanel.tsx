@@ -8,7 +8,7 @@ interface IApplicationsPanel {
 
 function ApplicationsPanel({ applications }: IApplicationsPanel) {
   if (!applications.length)
-    return <EmptySection type={'application'} href={'/app/addApplication'} />;
+    return <EmptySection type={'application'} href={'/applications/add'} />;
 
   return (
     <section className={'flex mt-3'}>

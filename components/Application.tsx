@@ -16,7 +16,7 @@ function Application({ id, company, role, status }: IApplication) {
         status: <span className="text-white bg-green-400">{status}</span>
       </p>
       {/* TODO: make use of apId to edit certain application */}
-      <Link href={'/app/application'}>
+      <Link href={`/applications/${id}`}>
         <a className={'block mt-2 text-blue-500 underline text-right'}>edit</a>
       </Link>
     </li>

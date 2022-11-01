@@ -9,7 +9,7 @@ interface IEventsPanel {
 
 function EventsPanel({ events }: IEventsPanel) {
   if (!events.length)
-    return <EmptySection type={'event'} href={'/app/addEvent'} />;
+    return <EmptySection type={'event'} href={'/events/add'} />;
 
   return (
     <section className={'p-3 mr-5 border rounded-md'}>
@@ -19,7 +19,7 @@ function EventsPanel({ events }: IEventsPanel) {
         ))}
       </ul>
 
-      <Link href={'/app/addEvent'}>
+      <Link href={'/events/add'}>
         <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
           + add event
         </a>

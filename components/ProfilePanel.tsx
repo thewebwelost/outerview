@@ -9,7 +9,7 @@ interface IProfilePanel {
 
 function ProfilePanel({ profiles }: IProfilePanel) {
   if (!profiles.length)
-    return <EmptySection type={'profile'} href={'/app/addProfile'} />;
+    return <EmptySection type={'profile'} href={'/profiles/add'} />;
 
   return (
     <section className={'flex mt-3'}>
