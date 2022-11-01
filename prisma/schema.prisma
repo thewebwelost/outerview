@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  profiles     Profile[]
+  applications Application[]
+  events       Event[]
+  credentials  Credentials?
+}
+
+model Credentials {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  User     User   @relation(fields: [userId], references: [id])
+  userId   Int    @unique
+}
+
+model Link {
+  id            Int          @id @default(autoincrement())
+  title         String
+  url           String
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+  Profile       Profile?     @relation(fields: [profileId], references: [id])
+  profileId     Int?
+}
+
+model Application {
+  id          Int     @id @default(autoincrement())
+  company     String
+  role        String
+  url         String?
+  description String?
+  salary      String
+  location    String
+  contacts    Link[]
+  userEvents  Event[]
+  User        User?   @relation(fields: [userId], references: [id])
+  userId      Int?
+}
+
+model Profile {
+  id         Int          @id @default(autoincrement())
+  User       User         @relation(fields: [userId], references: [id])
+  userId     Int
+  name       String
+  title      String
+  email      String
+  website    String
+  location   String
+  summary    String
+  details    String[]
+  hardSkills String[]
+  softSkills String[]
+  experience Experience[]
+  education  Education[]
+  socials    Link[]
+}
+
+model Experience {
+  id               Int      @id @default(autoincrement())
+  Profile          Profile? @relation(fields: [profileId], references: [id])
+  profileId        Int?
+  role             String
+  company          String
+  startDate        DateTime
+  endDate          DateTime
+  isCurrent        Boolean  @default(false)
+  responsibilities String[]
+  acievements      String[]
+  keywords         String[]
+}
+
+model Education {
+  id        Int      @id @default(autoincrement())
+  Profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId Int?
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  degree    String
+  details   String[]
+}
+
+model Event {
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  dateStart     DateTime
+  dateEnd       DateTime
+  status        EventStatus  @default(PENDING)
+  meetinUrl     String?
+  description   String?
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+  User          User?        @relation(fields: [userId], references: [id])
+  userId        Int?
+}
+
+enum EventStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}

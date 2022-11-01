@@ -1,17 +1,14 @@
-import type { GetServerSideProps, NextPage } from 'next';
-import { useCallback, useEffect, useState } from 'react';
-import { useUser } from '../../hooks/useUser';
+import type { NextPage } from 'next';
+import { useState } from 'react';
 
 import Layout from '../../components/Layout';
 import ApplicationsPanel from '../../components/ApplicationsPanel';
 import EventsPanel from '../../components/EventsPanel';
 import ProfilePanel from '../../components/ProfilePanel';
 
-import { IProfile } from '../../components/Profile';
-import { IUserEvent } from '../../components/UserEvent';
-import { IApplication } from '../../components/Application';
-import { axiosPrivate } from '../../utils/http/axios';
-import cookieParser from '../../utils/cookieParser';
+import type { IProfile } from '../../components/Profile';
+import type { IUserEvent } from '../../components/UserEvent';
+import type { IApplication } from '../../components/Application';
 
 export interface IDashboard {
   id: number;
@@ -23,34 +20,26 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookieHeaders = context.req.headers.cookie || '';
-  const cookieObj = cookieParser(cookieHeaders);
+const Dashboard: NextPage = () => {
+  const [dashboard, setDashboard] = useState<IDashboard>();
 
-  const res = await axiosPrivate.get('/dashboard', {
-    headers: {
-      Authorization: `Bearer ${cookieObj['authToken']}`,
-    },
-  });
-
-  return {
-    props: {
-      dashboard: res.data,
-    },
+  const handleClick = async () => {
+    try {
+      await fetch('/api/dashboard')
+        .then((response) => response.json())
+        .then((data) => setDashboard(data));
+    } catch (err) {
+      console.error(err);
+    }
   };
-};
 
-interface Props {
-  dashboard: any;
-}
-
-const Dashboard = ({ dashboard }: Props) => {
   return (
     <Layout>
       <>
         <h1 className="mt-5 text-3xl font-bold underline">
-          {dashboard?.username}
+          {`${dashboard?.username}'s profiles`}
         </h1>
+        <button onClick={handleClick}>push</button>
         <ProfilePanel profiles={dashboard?.profiles || []} />
 
         <h2 className="mt-5 text-xl font-bold underline">Upcoming events:</h2>

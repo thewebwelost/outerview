@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { IDashboard } from '../pages/app/dashboard';
-import Profile from '../pages/app/profile';
+import Profile from './Profile';
 import EmptySection from './EmptySection';
 
 interface IProfilePanel {
