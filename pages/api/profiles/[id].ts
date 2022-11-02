@@ -1,10 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../../../prisma/client';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log({ query: req.query });
+  console.log({ id: req.query });
+
+  if (!req.query) {
+    return res.status(400).send({ error: 'Unknown userId' });
+  }
 
   const user = await prisma.profile.findUnique({
     where: {
@@ -13,6 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     include: {
       experience: true,
       education: true,
+      socials: true,
     },
   });
 

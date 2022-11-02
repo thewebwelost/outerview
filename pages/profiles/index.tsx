@@ -1,11 +1,18 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
+import Profile from '../../components/Profile';
 
-interface IProfiles {}
+interface IProfiles {
+  id: number;
+  name: string;
+  avatar: string;
+  username: string;
+  title: string;
+}
 
 const Profiles: NextPage = () => {
-  const [profiles, setProfiles] = useState<IProfiles>();
+  const [profiles, setProfiles] = useState<IProfiles[]>();
 
   const fetchProfiles = async () => {
     try {
@@ -28,7 +35,12 @@ const Profiles: NextPage = () => {
     <Layout>
       <>
         <h1 className="text-3xl font-bold underline">Manage profiles</h1>
-        {JSON.stringify(profiles)}
+        <ul className="mt-3 p-3">
+          {profiles &&
+            profiles.map((profile) => (
+              <Profile key={profile.id} {...profile} />
+            ))}
+        </ul>
       </>
     </Layout>
   );
