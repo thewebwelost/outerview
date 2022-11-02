@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { IDashboard } from '../pages/dashboard';
 import Application from './Application';
 import EmptySection from './EmptySection';
@@ -17,6 +18,16 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
           <Application key={application.id} {...application} />
         ))}
       </ul>
+
+      <Link href={'/applications/add'}>
+        <a
+          className={
+            'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
+          }
+        >
+          + add profile
+        </a>
+      </Link>
     </section>
   );
 }
