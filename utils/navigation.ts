@@ -1,8 +1,8 @@
 export const navigation = [
-  { name: 'Dashboard', href: '/app/dashboard' },
-  { name: 'Profiles', href: '/app/profiles' },
-  { name: 'Applications', href: '/app/applications' },
-  { name: 'Events', href: '/app/events' },
+  { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Profiles', href: '/profiles' },
+  { name: 'Applications', href: '/applications' },
+  { name: 'Events', href: '/events' },
 ];
 
 export const userNavigation = [

@@ -100,6 +100,7 @@ model Event {
   dateStart     DateTime
   dateEnd       DateTime
   status        EventStatus  @default(PENDING)
+  step          EventStep    @default(APPLICATION)
   meetinUrl     String?
   description   String?
   Application   Application? @relation(fields: [applicationId], references: [id])
@@ -112,4 +113,13 @@ enum EventStatus {
   PENDING
   SUCCESS
   FAILED
+}
+
+enum EventStep {
+  APPLICATION
+  INITIAL_CALL
+  PHONE_SCREEN
+  ONSITE_STEP
+  BEHAVIOURAL
+  CLOSER
 }
