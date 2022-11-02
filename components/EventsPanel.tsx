@@ -12,8 +12,8 @@ function EventsPanel({ events }: IEventsPanel) {
     return <EmptySection type={'event'} href={'/events/add'} />;
 
   return (
-    <section className={'p-3 mr-5 border rounded-md'}>
-      <ul className="mt-3 p-3">
+    <section className={'p-3 mr-5'}>
+      <ul className="flex">
         {events.map((userEvent) => (
           <UserEvent key={userEvent.id} {...userEvent} />
         ))}

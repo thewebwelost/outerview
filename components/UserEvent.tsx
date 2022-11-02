@@ -1,20 +1,32 @@
+import Link from 'next/link';
+
 export interface IUserEvent {
   id: number;
-  title: string;
-  type: string;
-  desc: string;
-  date: string;
+  step: string;
+  createdAt: string;
+  dateStart: string;
+  dateEnd: string;
+  status: string;
+  meetinUrl: string;
+  description: string;
+  applicationId: number;
+  userId: number;
 }
 
-function UserEvent({ id, title, type, desc, date }: IUserEvent) {
+function UserEvent({ id, status, dateStart, step }: IUserEvent) {
   return (
-    <li className="flex justify-between items-center border mt-1 p-2">
-      <span>{title}</span>
-      {/* TODO: deal with companies later */}
-      Interview at <a className={'text-blue-500 underline'}>company.link</a>
-      <span className={'text-green-400'}>{type}</span>
-      <span>{desc}</span>
-      <span className="text-xs text-gray-500 italic">{date}</span>
+    <li>
+      <Link href={`/events/${id}`}>
+        <a className="flex flex-col items-left border mt-1 p-3">
+          <span>{step}</span>
+          <span>
+            Interview at{' '}
+            <a className={'text-blue-500 underline'}>company.link</a>
+          </span>
+          <span className={'text-green-400'}>{status}</span>
+          <span className="text-xs text-gray-500 italic">{dateStart}</span>
+        </a>
+      </Link>
     </li>
   );
 }
