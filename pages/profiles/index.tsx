@@ -2,17 +2,10 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Profile from '../../components/Profile';
-
-interface IProfiles {
-  id: number;
-  name: string;
-  avatar: string;
-  username: string;
-  title: string;
-}
+import { IDashboard } from '../dashboard';
 
 const Profiles: NextPage = () => {
-  const [profiles, setProfiles] = useState<IProfiles[]>();
+  const [profiles, setProfiles] = useState<IDashboard['profiles']>();
 
   const fetchProfiles = async () => {
     try {
