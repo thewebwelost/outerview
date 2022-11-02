@@ -15,9 +15,9 @@ export interface IUserEvent {
 
 function UserEvent({ id, status, dateStart, step }: IUserEvent) {
   return (
-    <li>
+    <li className="mr-3">
       <Link href={`/events/${id}`}>
-        <a className="flex flex-col items-left border mt-1 p-3">
+        <a className="flex flex-col items-left p-3 border rounded-md">
           <span>{step}</span>
           <span>
             Interview at{' '}

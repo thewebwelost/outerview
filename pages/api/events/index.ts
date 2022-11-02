@@ -13,10 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       where: {
         userId: body.userId,
       },
-      include: {
-        contacts: true,
-        userEvents: true,
-      },
     });
     res.status(200).json(applications);
   } catch (err) {

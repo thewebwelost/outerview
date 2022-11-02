@@ -13,7 +13,7 @@ const Application: NextPage = () => {
   useEffect(() => {
     if (!id) return;
 
-    const fetchProfile = async () => {
+    const fetchApplication = async () => {
       try {
         await fetch(`/api/applications/${id}`)
           .then((response) => response.json())
@@ -23,8 +23,9 @@ const Application: NextPage = () => {
       }
     };
 
-    fetchProfile();
+    fetchApplication();
   }, [id]);
+
   return (
     <Layout>
       <>

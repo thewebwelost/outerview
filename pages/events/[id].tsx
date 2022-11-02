@@ -1,33 +1,36 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 
+interface IUserEvent {}
+
 const Event: NextPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [userEvent, setUserEvent] = useState<IUserEvent>();
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchEvent = async () => {
+      try {
+        await fetch(`/api/events/${id}`)
+          .then((response) => response.json())
+          .then((data) => setUserEvent(data));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchEvent();
+  }, [id]);
+
   return (
     <Layout>
       <>
-        <h1 className="text-3xl font-bold underline">Single event</h1>
-        {/* this must be a modal */}
-        <p>
-          company: Hooli <span>edit</span>
-        </p>
-
-        <p>
-          role: CEO <span>edit</span>
-        </p>
-
-        <p>
-          step: Phone screen <span>complete step</span> <span>edit</span>
-        </p>
-
-        <p>time: 30min</p>
-
-        <p>date: 01/01/2001</p>
-
-        <p>
-          interviewer: <span>Gavin Bellson</span>
-        </p>
-
-        <p>details: asks about Hooli</p>
+        <h1 className="text-3xl font-bold underline">Single event #{id}</h1>
+        {JSON.stringify(userEvent)}
       </>
     </Layout>
   );
