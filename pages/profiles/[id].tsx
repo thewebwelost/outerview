@@ -23,9 +23,6 @@ interface IProfile {
 const SingleProfile: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-
-  console.log({ q: router.query.id });
-
   const [profile, setProfile] = useState<IProfile>();
 
   useEffect(() => {

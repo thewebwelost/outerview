@@ -113,7 +113,6 @@ async function main() {
       applications: true,
     },
   });
-  console.log(user);
 }
 
 main()
