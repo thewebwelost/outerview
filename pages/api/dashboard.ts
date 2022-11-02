@@ -9,13 +9,21 @@ type ResponseData = {
   events: object[];
 };
 
+type ErrorData = {
+  error: string;
+};
+
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse<ResponseData | ErrorData>
 ) => {
+  if (!req.body.userId) {
+    return res.status(400).send({ error: 'unknown userId' });
+  }
+
   const profiles = await prisma.profile.findMany({
     where: {
-      userId: req.body || 1,
+      userId: req.body.userId,
     },
     include: {
       education: true,
@@ -25,7 +33,7 @@ export default async (
 
   const applications = await prisma.application.findMany({
     where: {
-      userId: req.body || 1,
+      userId: req.body.userId,
     },
     include: {
       contacts: true,
@@ -35,7 +43,7 @@ export default async (
 
   const events = await prisma.event.findMany({
     where: {
-      userId: req.body || 1,
+      userId: req.body.userId,
     },
   });
 
