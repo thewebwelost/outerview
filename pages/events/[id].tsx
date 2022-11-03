@@ -2,8 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-
-interface IUserEvent {}
+import { IUserEvent } from '../../components/UserEvent';
 
 const Event: NextPage = () => {
   const router = useRouter();
@@ -30,7 +29,20 @@ const Event: NextPage = () => {
     <Layout>
       <>
         <h1 className="text-3xl font-bold underline">Single event #{id}</h1>
-        {JSON.stringify(userEvent)}
+
+        <p>{new Date(userEvent?.createdAt as string).toLocaleDateString()}</p>
+        <p>{userEvent?.description}</p>
+        <p>
+          <a
+            href={userEvent?.meetinUrl}
+            target="blank"
+            className={'text-blue-500 underline'}
+          >
+            Meeting
+          </a>
+        </p>
+        <p>{userEvent?.status}</p>
+        <p>{userEvent?.step}</p>
       </>
     </Layout>
   );
