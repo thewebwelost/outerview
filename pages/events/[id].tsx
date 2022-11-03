@@ -9,6 +9,13 @@ const Event: NextPage = () => {
   const { id } = router.query;
   const [userEvent, setUserEvent] = useState<IUserEvent>();
 
+  const dateStart = new Date(userEvent?.dateStart as string);
+  const startPretty = dateStart.toLocaleDateString();
+  const timeStart = dateStart.toLocaleTimeString();
+
+  const dateEnd = new Date(userEvent?.dateEnd as string);
+  const timeEnd = dateEnd.toLocaleTimeString();
+
   useEffect(() => {
     if (!id) return;
 
@@ -28,9 +35,11 @@ const Event: NextPage = () => {
   return (
     <Layout>
       <>
-        <h1 className="text-3xl font-bold underline">Single event #{id}</h1>
+        <h1 className="mb-5 text-3xl font-bold underline">
+          Single event #{id}
+        </h1>
 
-        <p>{new Date(userEvent?.createdAt as string).toLocaleDateString()}</p>
+        <p>{`${startPretty} ${timeStart}-${timeEnd}`}</p>
         <p>{userEvent?.description}</p>
         <p>
           <a
@@ -41,8 +50,8 @@ const Event: NextPage = () => {
             Meeting
           </a>
         </p>
-        <p>{userEvent?.status}</p>
-        <p>{userEvent?.step}</p>
+        <p>Status: {userEvent?.status}</p>
+        <p>Interview step: {userEvent?.step}</p>
       </>
     </Layout>
   );
