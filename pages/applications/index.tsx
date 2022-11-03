@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Application from '../../components/Application';
-
 import { IDashboard } from '../dashboard';
 
 const Applications: NextPage = () => {

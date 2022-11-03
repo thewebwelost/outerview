@@ -9,12 +9,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const applications = await prisma.application.findMany({
+    const userEvent = await prisma.event.findMany({
       where: {
         userId: body.userId,
       },
     });
-    res.status(200).json(applications);
+    res.status(200).json(userEvent);
   } catch (err) {
     console.error(err);
   }
