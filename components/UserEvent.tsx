@@ -19,10 +19,6 @@ function UserEvent({ id, status, dateStart, step }: IUserEvent) {
       <Link href={`/events/${id}`}>
         <a className="flex flex-col items-left p-3 border rounded-md">
           <span>{step}</span>
-          <span>
-            Interview at{' '}
-            <a className={'text-blue-500 underline'}>company.link</a>
-          </span>
           <span className={'text-green-400'}>{status}</span>
           <span className="text-xs text-gray-500 italic">{dateStart}</span>
         </a>
