@@ -26,6 +26,7 @@ const CreateApplication: NextPage = () => {
   const [desc, setDesc] = useState('');
   const [comp, setComp] = useState('');
   const [location, setLocation] = useState('OTHER');
+
   const [credName, setCredName] = useState('');
   const [cred, setCred] = useState('');
 
@@ -35,6 +36,19 @@ const CreateApplication: NextPage = () => {
       contact: string;
     }[]
   >([]);
+
+  const handleAddContact: () => void = () => {
+    setContacts([
+      ...contacts,
+      {
+        name: credName,
+        contact: cred,
+      },
+    ]);
+
+    setCred('');
+    setCredName('');
+  };
 
   const handleSubmit: (e: React.SyntheticEvent) => void = (e) => {
     e.preventDefault();
@@ -47,8 +61,7 @@ const CreateApplication: NextPage = () => {
         desc,
         comp,
         location,
-        credName,
-        cred,
+        contacts,
       },
     });
   };
@@ -98,9 +111,24 @@ const CreateApplication: NextPage = () => {
 
             <fieldset>
               <legend>Contacts</legend>
+              <div>
+                {contacts.map((item, i) => (
+                  <div key={i}>
+                    <p className="font-bold">{item.name}</p>
+                    <p>{item.contact}</p>
+                  </div>
+                ))}
+              </div>
 
               <Input title="Name" handler={setCredName} value={credName} />
               <Input title="Contact" handler={setCred} value={cred} />
+
+              <button
+                className="mt-2 text-white bg-blue-500"
+                onClick={handleAddContact}
+              >
+                Add another
+              </button>
             </fieldset>
 
             <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
