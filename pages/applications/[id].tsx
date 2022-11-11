@@ -34,6 +34,7 @@ const Application: NextPage = () => {
         <p>{application?.location}</p>
         <p>{application?.salary}</p>
         <p>{application?.description}</p>
+        <p>{application?.status}</p>
 
         <p>
           <a
