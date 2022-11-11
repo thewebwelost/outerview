@@ -6,15 +6,17 @@ interface IInput {
   title: string;
   value: string;
   handler: (e: string) => void;
+  required: boolean;
 }
 
-export const Input: React.FC<IInput> = ({ title, handler, value }) => (
+export const Input: React.FC<IInput> = ({ title, handler, value, ...rest }) => (
   <label className="block mt-3 capitalize">
     {title}
     <input
       className="block w-full"
       value={value}
       onChange={(e) => handler(e.currentTarget.value)}
+      {...rest}
     />
   </label>
 );
@@ -38,22 +40,24 @@ const CreateApplication: NextPage = () => {
   >([]);
 
   const handleAddContact: () => void = () => {
-    setContacts([
-      ...contacts,
-      {
-        name: credName,
-        contact: cred,
-      },
-    ]);
+    if (cred || credName) {
+      setContacts([
+        ...contacts,
+        {
+          name: credName,
+          contact: cred,
+        },
+      ]);
 
-    setCred('');
-    setCredName('');
+      setCred('');
+      setCredName('');
+    }
   };
 
   const handleSubmit: (e: React.SyntheticEvent) => void = (e) => {
     e.preventDefault();
 
-    console.log({
+    console.log('submit???', {
       s: {
         title,
         role,
@@ -73,7 +77,12 @@ const CreateApplication: NextPage = () => {
 
         <div className="p-5 mt-5 border">
           <form className="mb-3" onSubmit={handleSubmit}>
-            <Input title="title" handler={setTitle} value={title} />
+            <Input
+              title="title"
+              handler={setTitle}
+              value={title}
+              required={true}
+            />
             <Input title="role" handler={setRole} value={role} />
             <Input title="url" handler={setUrl} value={url} />
             <Input title="description" handler={setDesc} value={desc} />
@@ -87,6 +96,7 @@ const CreateApplication: NextPage = () => {
                 value={'OTHER'}
                 name="location"
                 onChange={(e) => setLocation(e.target.value)}
+                defaultChecked
               />
               <label htmlFor="other">Other</label>
 
@@ -126,6 +136,7 @@ const CreateApplication: NextPage = () => {
               <button
                 className="mt-2 text-white bg-blue-500"
                 onClick={handleAddContact}
+                type="button"
               >
                 Add another
               </button>
