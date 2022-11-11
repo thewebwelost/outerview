@@ -1,113 +1,112 @@
 import type { NextPage } from 'next';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 
+interface IInput {
+  title: string;
+  value: string;
+  handler: (e: string) => void;
+}
+
+export const Input: React.FC<IInput> = ({ title, handler, value }) => (
+  <label className="block mt-3 capitalize">
+    {title}
+    <input
+      className="block w-full"
+      value={value}
+      onChange={(e) => handler(e.currentTarget.value)}
+    />
+  </label>
+);
+
 const CreateApplication: NextPage = () => {
+  const [title, setTitle] = useState('');
+  const [role, setRole] = useState('');
+  const [url, setUrl] = useState('');
+  const [desc, setDesc] = useState('');
+  const [comp, setComp] = useState('');
+  const [location, setLocation] = useState('OTHER');
+  const [credName, setCredName] = useState('');
+  const [cred, setCred] = useState('');
+
+  const [contacts, setContacts] = useState<
+    {
+      name: string;
+      contact: string;
+    }[]
+  >([]);
+
+  const handleSubmit: (e: React.SyntheticEvent) => void = (e) => {
+    e.preventDefault();
+
+    console.log({
+      s: {
+        title,
+        role,
+        url,
+        desc,
+        comp,
+        location,
+        credName,
+        cred,
+      },
+    });
+  };
+
   return (
     <Layout>
       <>
         <h1 className="text-3xl font-bold underline">New Application</h1>
 
         <div className="p-5 mt-5 border">
-          <h2 className="text-xl font-bold mb-2">Company details</h2>
+          <form className="mb-3" onSubmit={handleSubmit}>
+            <Input title="title" handler={setTitle} value={title} />
+            <Input title="role" handler={setRole} value={role} />
+            <Input title="url" handler={setUrl} value={url} />
+            <Input title="description" handler={setDesc} value={desc} />
+            <Input title="compensation" handler={setComp} value={comp} />
 
-          <label className="block">
-            Name
-            <input className="block" />
-          </label>
+            <fieldset>
+              <legend>Location</legend>
+              <input
+                id="other"
+                type="radio"
+                value={'OTHER'}
+                name="location"
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <label htmlFor="other">Other</label>
 
-          <label className="block">
-            Location
-            <input className="block" />
-          </label>
+              <input
+                id="remote"
+                type="radio"
+                value={'REMOTE'}
+                name="location"
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <label htmlFor="remote">Remote</label>
 
-          <label className="block">
-            Company size
-            <input className="block" type="select" />
-          </label>
+              <input
+                id="myLocation"
+                type="radio"
+                value={'MY_LOC'}
+                name="location"
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <label htmlFor="myLocation">My location</label>
+            </fieldset>
 
-          <label className="block">
-            Prestige
-            <input className="block" type="select" />
-          </label>
+            <fieldset>
+              <legend>Contacts</legend>
 
-          <label className="block">
-            Product
-            <textarea className="block" defaultValue={'What do they do'} />
-          </label>
+              <Input title="Name" handler={setCredName} value={credName} />
+              <Input title="Contact" handler={setCred} value={cred} />
+            </fieldset>
 
-          <label className="block">
-            Values
-            <textarea className="block" defaultValue={'Take ownership'} />
-          </label>
-
-          <label className="block">
-            Culture
-            <textarea className="block" defaultValue={'Inclusive'} />
-          </label>
-
-          <label className="block">
-            Technology
-            <textarea
-              className="block"
-              defaultValue={'Atlassian, Ruby, Agile'}
-            />
-          </label>
-
-          <br />
-          <button className="text-white bg-blue-500">Done</button>
-        </div>
-
-        <div className="p-5 mt-5 border">
-          <h2 className="text-xl font-bold mb-2">Job details</h2>
-
-          <label className="block">
-            Key responsibilities
-            <input className="block" />
-            <button>+ add</button>
-          </label>
-
-          <label className="block">
-            Desired skills
-            <input className="block" />
-            <button>+ add</button>
-          </label>
-
-          <br />
-          <button className="text-white bg-blue-500">Done</button>
-        </div>
-
-        <div className="p-5 mt-5 border">
-          <h2 className="text-xl font-bold mb-2">Contact information</h2>
-
-          <label className="block">
-            Name
-            <input className="block" />
-          </label>
-
-          <label className="block">
-            Position
-            <input className="block" />
-          </label>
-
-          <label className="block">
-            email
-            <input className="block" />
-          </label>
-
-          <div>
-            Links:
-            <label className="block">
-              Title
-              <input className="block" />
-            </label>
-            <label className="block">
-              Url
-              <input className="block" />
-            </label>
-            <button>+ add</button>
-          </div>
-
-          <button className="text-white bg-blue-500">Done</button>
+            <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
+              Create application
+            </button>
+          </form>
         </div>
       </>
     </Layout>
