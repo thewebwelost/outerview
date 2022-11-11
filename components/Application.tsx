@@ -13,6 +13,11 @@ export interface IApplication {
   url: string;
   userEvents: IUserEvent[];
   status: string;
+  contacts: {
+    id: string;
+    title: string;
+    url: string;
+  }[];
 }
 
 function Application({

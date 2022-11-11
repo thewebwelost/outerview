@@ -29,10 +29,7 @@ const Application: NextPage = () => {
   return (
     <Layout>
       <>
-        <h1 className="mb-3 mt-3 text-3xl font-bold underline">
-          Applications:
-        </h1>
-        <h2 className="mb-3 mt-3 text-xl font-bold">{application?.company}</h2>
+        <h1 className="mb-3 mt-3 text-xl font-bold">{application?.company}</h1>
         <p>{application?.role}</p>
         <p>{application?.location}</p>
         <p>{application?.salary}</p>
@@ -51,6 +48,16 @@ const Application: NextPage = () => {
         <h2 className="mb-3 mt-3 text-s font-bold">Events:</h2>
 
         <EventsPanel events={application?.userEvents || []} />
+
+        <h2 className="mb-3 mt-3 text-s font-bold">Contacts:</h2>
+
+        {application &&
+          application.contacts.map((item, i) => (
+            <div key={i}>
+              <p className="font-bold">{item.title}</p>
+              <p>{item.url}</p>
+            </div>
+          ))}
       </>
     </Layout>
   );
