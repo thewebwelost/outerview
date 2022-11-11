@@ -25,7 +25,7 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
             'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
           }
         >
-          + add profile
+          + add application
         </a>
       </Link>
     </section>

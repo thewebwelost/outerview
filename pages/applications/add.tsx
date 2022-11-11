@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 
@@ -6,15 +7,14 @@ interface IInput {
   title: string;
   value: string;
   handler: (e: string) => void;
-  required: boolean;
+  required?: boolean;
 }
 
-export const Input: React.FC<IInput> = ({ title, handler, value, ...rest }) => (
+export const Input: React.FC<IInput> = ({ title, handler, ...rest }) => (
   <label className="block mt-3 capitalize">
     {title}
     <input
       className="block w-full"
-      value={value}
       onChange={(e) => handler(e.currentTarget.value)}
       {...rest}
     />
@@ -28,16 +28,16 @@ const CreateApplication: NextPage = () => {
   const [desc, setDesc] = useState('');
   const [comp, setComp] = useState('');
   const [location, setLocation] = useState('OTHER');
-
   const [credName, setCredName] = useState('');
   const [cred, setCred] = useState('');
-
   const [contacts, setContacts] = useState<
     {
       name: string;
       contact: string;
     }[]
   >([]);
+
+  const router = useRouter();
 
   const handleAddContact: () => void = () => {
     if (cred || credName) {
@@ -68,6 +68,8 @@ const CreateApplication: NextPage = () => {
         contacts,
       },
     });
+
+    router.push('/dashboard');
   };
 
   return (
