@@ -1,25 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import Input from '../../components/atoms/Input';
 import Layout from '../../components/Layout';
-
-interface IInput {
-  title: string;
-  value: string;
-  handler: (e: string) => void;
-  required?: boolean;
-}
-
-export const Input: React.FC<IInput> = ({ title, handler, ...rest }) => (
-  <label className="block mt-3 capitalize">
-    {title}
-    <input
-      className="block w-full"
-      onChange={(e) => handler(e.currentTarget.value)}
-      {...rest}
-    />
-  </label>
-);
 
 const CreateApplication: NextPage = () => {
   const [title, setTitle] = useState('');
