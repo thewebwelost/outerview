@@ -6,8 +6,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).send({ error: 'Unknown applicationId' });
   }
 
-  console.log('prisma.application', prisma.application);
-
   const application = await prisma.application.findUnique({
     where: {
       id: parseInt(req.query.id as string),
