@@ -37,7 +37,7 @@ const CreateApplication: NextPage = () => {
     }
   };
 
-  const handleSubmit: (e: React.SyntheticEvent) => void = (e) => {
+  const handleSubmit: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault();
 
     console.log('submit???', {
@@ -52,7 +52,27 @@ const CreateApplication: NextPage = () => {
       },
     });
 
-    router.push('/dashboard');
+    try {
+      await fetch('/api/applications/add', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          userId: 1,
+          title,
+          role,
+          url,
+          desc,
+          comp,
+          location,
+          contacts,
+        }),
+      });
+      router.push('/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
