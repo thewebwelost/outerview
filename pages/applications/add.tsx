@@ -93,6 +93,13 @@ const CreateApplication: NextPage = () => {
             <Input title="description" handler={setDesc} value={desc} />
             <Input title="compensation" handler={setComp} value={comp} />
 
+            <label htmlFor="status">Status</label>
+            <select id="status">
+              <option>option 1</option>
+              <option>option 2</option>
+              <option>option 3</option>
+            </select>
+
             <fieldset>
               <legend>Location</legend>
               <input

@@ -20,6 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         description: body.desc,
         salary: body.comp,
         location: body.location,
+        status: body.status,
         contacts: {
           create: contacts.map((item: any) => ({
             title: item.name,
