@@ -38,17 +38,27 @@ model Link {
 }
 
 model Application {
-  id          Int     @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   company     String
   role        String
   url         String?
   description String?
   salary      String
   location    String
+  status      ApplicationStatus @default(FIRST_TOUCH)
+  // Relations
   contacts    Link[]
   userEvents  Event[]
-  User        User?   @relation(fields: [userId], references: [id])
+  User        User?             @relation(fields: [userId], references: [id])
   userId      Int?
+}
+
+enum ApplicationStatus {
+  FIRST_TOUCH
+  PRESCREEN
+  NON_TECHNICAL
+  TECHNICAL
+  OFFER
 }
 
 model Profile {
