@@ -37,18 +37,6 @@ const CreateApplication: NextPage = () => {
   const handleSubmit: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault();
 
-    console.log('submit???', {
-      s: {
-        title,
-        role,
-        url,
-        desc,
-        comp,
-        location,
-        contacts,
-      },
-    });
-
     try {
       await fetch('/api/applications/add', {
         method: 'POST',
@@ -66,6 +54,7 @@ const CreateApplication: NextPage = () => {
           contacts,
         }),
       });
+
       router.push('/dashboard');
     } catch (err) {
       console.error(err);
