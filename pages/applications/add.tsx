@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import AddContact, { IContact } from '../../components/AddContact';
 import TextInput from '../../components/atoms/TextInput';
 import Layout from '../../components/Layout';
 
@@ -11,14 +12,10 @@ const CreateApplication: NextPage = () => {
   const [desc, setDesc] = useState('');
   const [comp, setComp] = useState('');
   const [location, setLocation] = useState('OTHER');
+
   const [credName, setCredName] = useState('');
   const [cred, setCred] = useState('');
-  const [contacts, setContacts] = useState<
-    {
-      name: string;
-      contact: string;
-    }[]
-  >([]);
+  const [contacts, setContacts] = useState<IContact[]>([]);
 
   const router = useRouter();
 
@@ -131,28 +128,16 @@ const CreateApplication: NextPage = () => {
               <label htmlFor="myLocation">My location</label>
             </fieldset>
 
-            <fieldset>
-              <legend>Contacts</legend>
-              <div>
-                {contacts.map((item, i) => (
-                  <div key={i}>
-                    <p className="font-bold">{item.name}</p>
-                    <p>{item.contact}</p>
-                  </div>
-                ))}
-              </div>
-
-              <TextInput title="Name" handler={setCredName} value={credName} />
-              <TextInput title="Contact" handler={setCred} value={cred} />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={handleAddContact}
-                type="button"
-              >
-                Add another
-              </button>
-            </fieldset>
+            <AddContact
+              title={'Contacts'}
+              contactList={contacts}
+              name={credName}
+              cred={cred}
+              setName={setCredName}
+              setCred={setCred}
+              handleAdd={handleAddContact}
+              btnCopy={'Add contact'}
+            />
 
             <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
               Create application
