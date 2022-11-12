@@ -1,113 +1,137 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import AddContact, { IContact } from '../../components/AddContact';
+import TextInput from '../../components/atoms/TextInput';
 import Layout from '../../components/Layout';
 
 const CreateApplication: NextPage = () => {
+  const [title, setTitle] = useState('');
+  const [role, setRole] = useState('');
+  const [url, setUrl] = useState('');
+  const [desc, setDesc] = useState('');
+  const [comp, setComp] = useState('');
+  const [location, setLocation] = useState('OTHER');
+
+  const [credName, setCredName] = useState('');
+  const [cred, setCred] = useState('');
+  const [contacts, setContacts] = useState<IContact[]>([]);
+
+  const router = useRouter();
+
+  const handleAddContact: () => void = () => {
+    if (cred || credName) {
+      setContacts([
+        ...contacts,
+        {
+          name: credName,
+          contact: cred,
+        },
+      ]);
+
+      setCred('');
+      setCredName('');
+    }
+  };
+
+  const handleSubmit: (e: React.SyntheticEvent) => void = async (e) => {
+    e.preventDefault();
+
+    try {
+      await fetch('/api/applications/add', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          userId: 1,
+          title,
+          role,
+          url,
+          desc,
+          comp,
+          location,
+          contacts,
+        }),
+      });
+
+      router.push('/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Layout>
       <>
         <h1 className="text-3xl font-bold underline">New Application</h1>
 
         <div className="p-5 mt-5 border">
-          <h2 className="text-xl font-bold mb-2">Company details</h2>
-
-          <label className="block">
-            Name
-            <input className="block" />
-          </label>
-
-          <label className="block">
-            Location
-            <input className="block" />
-          </label>
-
-          <label className="block">
-            Company size
-            <input className="block" type="select" />
-          </label>
-
-          <label className="block">
-            Prestige
-            <input className="block" type="select" />
-          </label>
-
-          <label className="block">
-            Product
-            <textarea className="block" defaultValue={'What do they do'} />
-          </label>
-
-          <label className="block">
-            Values
-            <textarea className="block" defaultValue={'Take ownership'} />
-          </label>
-
-          <label className="block">
-            Culture
-            <textarea className="block" defaultValue={'Inclusive'} />
-          </label>
-
-          <label className="block">
-            Technology
-            <textarea
-              className="block"
-              defaultValue={'Atlassian, Ruby, Agile'}
+          <form className="mb-3" onSubmit={handleSubmit}>
+            <TextInput
+              title="title"
+              handler={setTitle}
+              value={title}
+              required={true}
             />
-          </label>
+            <TextInput title="role" handler={setRole} value={role} />
+            <TextInput title="url" handler={setUrl} value={url} />
+            <TextInput title="description" handler={setDesc} value={desc} />
+            <TextInput title="compensation" handler={setComp} value={comp} />
 
-          <br />
-          <button className="text-white bg-blue-500">Done</button>
-        </div>
+            <label htmlFor="status">Status</label>
+            <select id="status">
+              <option>option 1</option>
+              <option>option 2</option>
+              <option>option 3</option>
+            </select>
 
-        <div className="p-5 mt-5 border">
-          <h2 className="text-xl font-bold mb-2">Job details</h2>
+            <fieldset>
+              <legend>Location</legend>
+              <input
+                id="other"
+                type="radio"
+                value={'OTHER'}
+                name="location"
+                onChange={(e) => setLocation(e.target.value)}
+                defaultChecked
+              />
+              <label htmlFor="other">Other</label>
 
-          <label className="block">
-            Key responsibilities
-            <input className="block" />
-            <button>+ add</button>
-          </label>
+              <input
+                id="remote"
+                type="radio"
+                value={'REMOTE'}
+                name="location"
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <label htmlFor="remote">Remote</label>
 
-          <label className="block">
-            Desired skills
-            <input className="block" />
-            <button>+ add</button>
-          </label>
+              <input
+                id="myLocation"
+                type="radio"
+                value={'MY_LOC'}
+                name="location"
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <label htmlFor="myLocation">My location</label>
+            </fieldset>
 
-          <br />
-          <button className="text-white bg-blue-500">Done</button>
-        </div>
+            <AddContact
+              title={'Contacts'}
+              contactList={contacts}
+              name={credName}
+              cred={cred}
+              setName={setCredName}
+              setCred={setCred}
+              handleAdd={handleAddContact}
+              btnCopy={'Add contact'}
+            />
 
-        <div className="p-5 mt-5 border">
-          <h2 className="text-xl font-bold mb-2">Contact information</h2>
-
-          <label className="block">
-            Name
-            <input className="block" />
-          </label>
-
-          <label className="block">
-            Position
-            <input className="block" />
-          </label>
-
-          <label className="block">
-            email
-            <input className="block" />
-          </label>
-
-          <div>
-            Links:
-            <label className="block">
-              Title
-              <input className="block" />
-            </label>
-            <label className="block">
-              Url
-              <input className="block" />
-            </label>
-            <button>+ add</button>
-          </div>
-
-          <button className="text-white bg-blue-500">Done</button>
+            <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
+              Create application
+            </button>
+          </form>
         </div>
       </>
     </Layout>

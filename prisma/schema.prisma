@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -13,6 +12,7 @@ datasource db {
 model User {
   id           Int           @id @default(autoincrement())
   name         String
+  // Relations
   profiles     Profile[]
   applications Application[]
   events       Event[]
@@ -23,37 +23,40 @@ model Credentials {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
-  User     User   @relation(fields: [userId], references: [id])
   userId   Int    @unique
+  // Relations
+  User     User   @relation(fields: [userId], references: [id])
 }
 
 model Link {
   id            Int          @id @default(autoincrement())
   title         String
   url           String
-  Application   Application? @relation(fields: [applicationId], references: [id])
   applicationId Int?
-  Profile       Profile?     @relation(fields: [profileId], references: [id])
   profileId     Int?
+  // Relations
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  Profile       Profile?     @relation(fields: [profileId], references: [id])
 }
 
 model Application {
-  id          Int     @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   company     String
   role        String
   url         String?
   description String?
   salary      String
   location    String
+  status      ApplicationStatus @default(FIRST_TOUCH)
+  userId      Int?
+  // Relations
   contacts    Link[]
   userEvents  Event[]
-  User        User?   @relation(fields: [userId], references: [id])
-  userId      Int?
+  User        User?             @relation(fields: [userId], references: [id])
 }
 
 model Profile {
   id         Int          @id @default(autoincrement())
-  User       User         @relation(fields: [userId], references: [id])
   userId     Int
   name       String
   title      String
@@ -64,6 +67,8 @@ model Profile {
   details    String[]
   hardSkills String[]
   softSkills String[]
+  // Relations
+  User       User         @relation(fields: [userId], references: [id])
   experience Experience[]
   education  Education[]
   socials    Link[]
@@ -71,7 +76,6 @@ model Profile {
 
 model Experience {
   id               Int      @id @default(autoincrement())
-  Profile          Profile? @relation(fields: [profileId], references: [id])
   profileId        Int?
   role             String
   company          String
@@ -81,17 +85,20 @@ model Experience {
   responsibilities String[]
   acievements      String[]
   keywords         String[]
+  // Relations
+  Profile          Profile? @relation(fields: [profileId], references: [id])
 }
 
 model Education {
   id        Int      @id @default(autoincrement())
-  Profile   Profile? @relation(fields: [profileId], references: [id])
   profileId Int?
   name      String
   startDate DateTime
   endDate   DateTime
   degree    String
   details   String[]
+  // Relations
+  Profile   Profile? @relation(fields: [profileId], references: [id])
 }
 
 model Event {
@@ -99,15 +106,18 @@ model Event {
   createdAt     DateTime     @default(now())
   dateStart     DateTime
   dateEnd       DateTime
-  status        EventStatus  @default(PENDING)
-  step          EventStep    @default(APPLICATION)
   meetinUrl     String?
   description   String?
-  Application   Application? @relation(fields: [applicationId], references: [id])
   applicationId Int?
-  User          User?        @relation(fields: [userId], references: [id])
   userId        Int?
+  status        EventStatus  @default(PENDING)
+  step          EventStep    @default(APPLICATION)
+  // Relations
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  User          User?        @relation(fields: [userId], references: [id])
 }
+
+// Enums
 
 enum EventStatus {
   PENDING
@@ -122,4 +132,12 @@ enum EventStep {
   ONSITE_STEP
   BEHAVIOURAL
   CLOSER
+}
+
+enum ApplicationStatus {
+  FIRST_TOUCH
+  PRESCREEN
+  NON_TECHNICAL
+  TECHNICAL
+  OFFER
 }

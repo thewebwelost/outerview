@@ -81,6 +81,7 @@ async function main() {
             description: 'Nice job, good people',
             salary: '100000 - 200000',
             location: 'New York',
+            status: 'OFFER',
             contacts: {
               create: [
                 {
