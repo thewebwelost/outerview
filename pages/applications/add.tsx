@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Input from '../../components/atoms/Input';
+import TextInput from '../../components/atoms/TextInput';
 import Layout from '../../components/Layout';
 
 const CreateApplication: NextPage = () => {
@@ -82,16 +82,16 @@ const CreateApplication: NextPage = () => {
 
         <div className="p-5 mt-5 border">
           <form className="mb-3" onSubmit={handleSubmit}>
-            <Input
+            <TextInput
               title="title"
               handler={setTitle}
               value={title}
               required={true}
             />
-            <Input title="role" handler={setRole} value={role} />
-            <Input title="url" handler={setUrl} value={url} />
-            <Input title="description" handler={setDesc} value={desc} />
-            <Input title="compensation" handler={setComp} value={comp} />
+            <TextInput title="role" handler={setRole} value={role} />
+            <TextInput title="url" handler={setUrl} value={url} />
+            <TextInput title="description" handler={setDesc} value={desc} />
+            <TextInput title="compensation" handler={setComp} value={comp} />
 
             <label htmlFor="status">Status</label>
             <select id="status">
@@ -142,8 +142,8 @@ const CreateApplication: NextPage = () => {
                 ))}
               </div>
 
-              <Input title="Name" handler={setCredName} value={credName} />
-              <Input title="Contact" handler={setCred} value={cred} />
+              <TextInput title="Name" handler={setCredName} value={credName} />
+              <TextInput title="Contact" handler={setCred} value={cred} />
 
               <button
                 className="mt-2 text-white bg-blue-500"

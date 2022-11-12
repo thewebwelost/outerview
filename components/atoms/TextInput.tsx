@@ -5,15 +5,15 @@ interface IInput {
   required?: boolean;
 }
 
-const Input: React.FC<IInput> = ({ title, handler, ...rest }) => (
+const TextInput: React.FC<IInput> = ({ title, handler, ...rest }) => (
   <label className="block mt-3 capitalize">
     {title}
     <input
-      className="block w-full"
+      className="block w-full p-1"
       onChange={(e) => handler(e.currentTarget.value)}
       {...rest}
     />
   </label>
 );
 
-export default Input;
+export default TextInput;

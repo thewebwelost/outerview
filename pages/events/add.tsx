@@ -1,33 +1,43 @@
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import Layout from '../../components/Layout';
 
 const CreateEvent: NextPage = () => {
+  const [] = useState();
   return (
     <Layout>
       <>
-        <h1 className="text-3xl font-bold underline">Single event</h1>
+        <h1 className="text-3xl font-bold underline">New event</h1>
         {/* this must be a modal */}
-        <p>
-          company: Hooli <span>edit</span>
-        </p>
+        <p>Application</p>
 
-        <p>
-          role: CEO <span>edit</span>
-        </p>
+        <div>
+          <input type={'date'} /> <input type={'time'} />{' '}
+          <input type={'time'} />
+        </div>
 
-        <p>
-          step: Phone screen <span>complete step</span> <span>edit</span>
-        </p>
+        {/* <input type={'date'} />
+        <input type={'time'} /> */}
 
-        <p>time: 30min</p>
+        <p>Event length</p>
 
-        <p>date: 01/01/2001</p>
+        <p>Meeting url</p>
 
-        <p>
-          interviewer: <span>Gavin Bellson</span>
-        </p>
+        <p>Description</p>
 
-        <p>details: asks about Hooli</p>
+        <p>interviewers []</p>
+
+        <label htmlFor="step">event step</label>
+        <select name="step" id="step">
+          <option value="APPLICATION">APPLICATION</option>
+          <option value="INITIAL_CALL">INITIAL_CALL</option>
+          <option value="PHONE_SCREEN">PHONE_SCREEN</option>
+          <option value="ONSITE_STEP">ONSITE_STEP</option>
+          <option value="BEHAVIOURAL">BEHAVIOURAL</option>
+          <option value="CLOSER">CLOSER</option>
+        </select>
+
+        <p>status</p>
       </>
     </Layout>
   );
