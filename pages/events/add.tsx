@@ -7,6 +7,13 @@ import TextInput from '../../components/atoms/TextInput';
 import Layout from '../../components/Layout';
 
 const CreateEvent: NextPage = () => {
+  const router = useRouter();
+  const { aId } = router.query;
+
+  const [application, setApplication] = useState<number | undefined>(
+    parseInt(aId as string) || 0
+  );
+
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [desc, setDesc] = useState('');
@@ -18,12 +25,6 @@ const CreateEvent: NextPage = () => {
   const [credName, setCredName] = useState('');
   const [cred, setCred] = useState('');
   const [contacts, setContacts] = useState<IContact[]>([]);
-
-  const router = useRouter();
-
-  console.log('router', router);
-
-  const { aId } = router.query;
 
   const handleAddContact: () => void = () => {
     if (cred || credName) {
@@ -55,7 +56,7 @@ const CreateEvent: NextPage = () => {
           dateEnd: new Date(`${dateStart}, ${timeEnd}`),
           meetinUrl: url, // TODO: fix model typo
           description: desc,
-          applicationId: aId, // TODO:
+          applicationId: application,
           step,
         }),
       });
@@ -78,11 +79,12 @@ const CreateEvent: NextPage = () => {
               name="application"
               id="application"
               className="block"
-              defaultValue={'APPLICATION_' + aId}
+              onChange={(e) => setApplication(parseInt(e.target.value))}
+              value={application}
             >
-              <option value="APPLICATION_1">APPLICATION 1</option>
-              <option value="APPLICATION_2">APPLICATION 2</option>
-              <option value="APPLICATION_3">APPLICATION 3</option>
+              <option value={1}>APPLICATION 1</option>
+              <option value={2}>APPLICATION 2</option>
+              <option value={3}>APPLICATION 3</option>
             </select>
           </label>
 
