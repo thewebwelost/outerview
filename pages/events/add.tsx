@@ -21,6 +21,10 @@ const CreateEvent: NextPage = () => {
 
   const router = useRouter();
 
+  console.log('router', router);
+
+  const { aId } = router.query;
+
   const handleAddContact: () => void = () => {
     if (cred || credName) {
       setContacts([
@@ -51,7 +55,7 @@ const CreateEvent: NextPage = () => {
           dateEnd: new Date(`${dateStart}, ${timeEnd}`),
           meetinUrl: url, // TODO: fix model typo
           description: desc,
-          applicationId: 1, // TODO:
+          applicationId: aId, // TODO:
           step,
         }),
       });
@@ -70,7 +74,12 @@ const CreateEvent: NextPage = () => {
         <form onSubmit={handleSubmit}>
           <label htmlFor="application">
             Application
-            <select name="application" id="application" className="block">
+            <select
+              name="application"
+              id="application"
+              className="block"
+              defaultValue={'APPLICATION_' + aId}
+            >
               <option value="APPLICATION_1">APPLICATION 1</option>
               <option value="APPLICATION_2">APPLICATION 2</option>
               <option value="APPLICATION_3">APPLICATION 3</option>
