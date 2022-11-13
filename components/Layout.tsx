@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { ReactElement, useContext, useEffect } from 'react';
 import { UserContext } from '../context/userContext';
 import Header from './Header';
@@ -8,6 +9,7 @@ interface ILayout {
 
 export default function Layout({ children }: ILayout) {
   const { user, setUser } = useContext(UserContext);
+  const { data: session } = useSession();
 
   const userId = 1; // get user from auth session
 
