@@ -6,7 +6,7 @@ export const UserContext = createContext({
     email: 'Doe',
     imageUrl: 'https://via.placeholder.com/150/FFFF00/000000',
   },
-  setUser: (data) => {},
+  setUser: (data: any) => {},
 });
 
 export default UserContext.Provider;

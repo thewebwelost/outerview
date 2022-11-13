@@ -93,7 +93,7 @@ const Header: React.FC<IHeader> = ({ user }) => {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
                 <div className="relative flex-shrink-0 h-10 w-10">
-                  <img src={user.imageUrl} alt="User avatar" />
+                  <img className="rounded-full" src={user.imageUrl} alt="" />
                 </div>
 
                 <div className="ml-3">
