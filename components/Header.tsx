@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,14 +11,16 @@ import ProfileDropdown from './ProfileDropdown';
 import { navigation, userNavigation } from '../utils/navigation';
 import { classNames } from '../utils/classNames';
 
-function Header() {
-  const router = useRouter();
-  // TODO: hardcoded data tbr
-  const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl: '/images/user.webp',
+export interface IHeader {
+  user: {
+    name: string;
+    email: string;
+    image: string;
   };
+}
+
+const Header: React.FC<IHeader> = ({ user }) => {
+  const router = useRouter();
 
   const Logo = () => (
     <div className="relative flex-shrink-0 h-8 w-8">
@@ -53,7 +56,7 @@ function Header() {
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
                   <NotificationsButton />
-                  <ProfileDropdown />
+                  <ProfileDropdown user={user} />
                 </div>
               </div>
               <div className="-mr-2 flex md:hidden">
@@ -94,21 +97,15 @@ function Header() {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
                 <div className="relative flex-shrink-0 h-10 w-10">
-                  <Image
-                    className="rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
-                  />
+                  <img className="rounded-full" src={user.image} alt="" />
                 </div>
 
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
-                    {user.name}
+                    Name: {user.name}
                   </div>
                   <div className="text-sm font-medium leading-none text-gray-400">
-                    {user.email}
+                    Email: {user.email}
                   </div>
                 </div>
 
@@ -132,6 +129,12 @@ function Header() {
                     </Disclosure.Button>
                   </Link>
                 ))}
+                <Disclosure.Button
+                  as="li"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                >
+                  Log out
+                </Disclosure.Button>
               </ul>
             </div>
           </Disclosure.Panel>
@@ -139,6 +142,6 @@ function Header() {
       )}
     </Disclosure>
   );
-}
+};
 
 export default Header;

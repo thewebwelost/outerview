@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
+import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import NavLink from '../components/atoms/NavLink';
 
 const Home: NextPage = () => {
   return (
@@ -40,8 +40,15 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
-            <NavLink href={'/signup'} value={'Sign Up'} />
-            <NavLink href={'/login'} value={'Log In'} />
+            <button
+              onClick={() =>
+                signIn('', {
+                  callbackUrl: '/dashboard',
+                })
+              }
+            >
+              Log in
+            </button>
           </div>
         </div>
 
