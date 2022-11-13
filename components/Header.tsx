@@ -9,15 +9,14 @@ import ProfileDropdown from './ProfileDropdown';
 
 import { navigation, userNavigation } from '../utils/navigation';
 import { classNames } from '../utils/classNames';
+import React from 'react';
 
-function Header() {
+interface IHeader {
+  user: { name: string; email: string; imageUrl: string };
+}
+
+const Header: React.FC<IHeader> = ({ user }) => {
   const router = useRouter();
-  // TODO: hardcoded data tbr
-  const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl: '/images/user.webp',
-  };
 
   const Logo = () => (
     <div className="relative flex-shrink-0 h-8 w-8">
@@ -94,21 +93,15 @@ function Header() {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
                 <div className="relative flex-shrink-0 h-10 w-10">
-                  <Image
-                    className="rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
-                  />
+                  <img src={user.imageUrl} alt="User avatar" />
                 </div>
 
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
-                    {user.name}
+                    Name: {user.name}
                   </div>
                   <div className="text-sm font-medium leading-none text-gray-400">
-                    {user.email}
+                    Email: {user.email}
                   </div>
                 </div>
 
@@ -139,6 +132,6 @@ function Header() {
       )}
     </Disclosure>
   );
-}
+};
 
 export default Header;

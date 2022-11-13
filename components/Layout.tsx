@@ -1,30 +1,39 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext, useEffect } from 'react';
+import { UserContext } from '../context/userContext';
 import Header from './Header';
 
 interface ILayout {
-  isLoading?: boolean;
-  isError?: string;
   children: ReactElement;
 }
 
-export default function Layout({
-  isLoading = false,
-  isError,
-  children,
-}: ILayout) {
+export default function Layout({ children }: ILayout) {
+  const { user, setUser } = useContext(UserContext);
+
+  const userId = 1; // get user from auth session
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await fetch(`/api/user/${userId}`)
+          .then((response) => response.json())
+          .then((data) => setUser(data));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (!user) {
+      fetchUser();
+    }
+  }, [userId, setUser, user]);
+
   return (
     <>
-      <Header />
+      <Header user={user} />
       <div className="min-h-full">
         <main>
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            {isError ? (
-              <p>Error: {isError}</p>
-            ) : isLoading ? (
-              <p>Loading...</p>
-            ) : (
-              children
-            )}
+            {children}
           </div>
         </main>
       </div>

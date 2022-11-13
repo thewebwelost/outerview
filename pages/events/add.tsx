@@ -11,7 +11,7 @@ const CreateEvent: NextPage = () => {
   const { aId } = router.query;
 
   const [application, setApplication] = useState<number | undefined>(
-    parseInt(aId as string) || 0
+    parseInt(aId as string) || 0 // TODO: pass user context
   );
 
   const [title, setTitle] = useState('');
