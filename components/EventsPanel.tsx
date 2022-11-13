@@ -16,7 +16,7 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
     let href = '/events/add';
 
     if (route.includes('/application')) {
-      return href + query.id;
+      return href + `/?aId=${query.id}`;
     }
 
     return href;
