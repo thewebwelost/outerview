@@ -26,7 +26,7 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
 
   return (
     <section className={'p-3 mr-5'}>
-      <ul className="flex">
+      <ul className="flex overflow-x-scroll">
         {events.map((userEvent) => (
           <UserEvent key={userEvent.id} {...userEvent} />
         ))}
