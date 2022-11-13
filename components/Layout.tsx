@@ -9,14 +9,21 @@ interface ILayout {
 }
 
 export default function Layout({ children }: ILayout) {
-  const { user, setUser } = useContext(UserContext);
-  const { data: session } = useSession();
   const router = useRouter();
+  const { user, setUser } = useContext(UserContext);
+
+  // status "loading" | "authenticated" | "unauthenticated"
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // The user is not authenticated, handle it here.
+      router.push('/');
+    },
+  });
 
   const userId = 1; // get user from auth session
 
   useEffect(() => {
-    console.log('session :>> ', session);
     const fetchUser = async () => {
       try {
         await fetch(`/api/user/${userId}`)

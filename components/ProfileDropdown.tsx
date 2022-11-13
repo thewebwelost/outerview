@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Menu, Transition } from '@headlessui/react';
 import { classNames } from '../utils/classNames';
 import { userNavigation } from '../utils/navigation';
+import { signOut } from 'next-auth/react';
 
 interface IProfileDropdown {
   user: {
@@ -48,6 +49,19 @@ const ProfileDropdown: React.FC<IProfileDropdown> = ({ user }) => {
               )}
             </Menu.Item>
           ))}
+          <Menu.Item key={'_logout'}>
+            {({ active }) => (
+              <a
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'block px-4 py-2 text-sm text-gray-700'
+                )}
+                onClick={() => signOut()}
+              >
+                Log out
+              </a>
+            )}
+          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>

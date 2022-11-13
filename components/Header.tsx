@@ -129,6 +129,12 @@ const Header: React.FC<IHeader> = ({ user }) => {
                     </Disclosure.Button>
                   </Link>
                 ))}
+                <Disclosure.Button
+                  as="li"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                >
+                  Log out
+                </Disclosure.Button>
               </ul>
             </div>
           </Disclosure.Panel>
