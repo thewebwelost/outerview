@@ -1,30 +1,24 @@
 import React, { Fragment } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, Transition } from '@headlessui/react';
 import { classNames } from '../utils/classNames';
 import { userNavigation } from '../utils/navigation';
 
-function ProfileDropdown() {
-  // TODO: hardcoded data to be removed
-  const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl: '/images/user.webp',
+interface IProfileDropdown {
+  user: {
+    name: string;
+    email: string;
+    image: string;
   };
+}
 
+const ProfileDropdown: React.FC<IProfileDropdown> = ({ user }) => {
   return (
     <Menu as="div" className="ml-3 relative">
       <div>
         <Menu.Button className="relative h-8 w-8 max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          <Image
-            className="rounded-full"
-            src={user.imageUrl}
-            alt=""
-            layout="fill"
-            objectFit="cover"
-          />
+          <img className="rounded-full" src={user.image} alt="" />
         </Menu.Button>
       </div>
 
@@ -58,6 +52,6 @@ function ProfileDropdown() {
       </Transition>
     </Menu>
   );
-}
+};
 
 export default ProfileDropdown;
