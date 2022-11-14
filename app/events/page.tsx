@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import UserEvent from '../../components/UserEvent';
-import { IDashboard } from '../dashboard';
+import { IDashboard } from '../dashboard/page';
 
 const Events: NextPage = () => {
   const [userEvents, setUserEvents] = useState<IDashboard['events']>();

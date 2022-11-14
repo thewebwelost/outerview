@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { IDashboard } from '../pages/dashboard';
+import { IDashboard } from '../app/dashboard/page';
 import EmptySection from './EmptySection';
 import UserEvent from './UserEvent';
 

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Profile from '../../components/Profile';
-import { IDashboard } from '../dashboard';
+import { IDashboard } from '../dashboard/page';
 
 const Profiles: NextPage = () => {
   const [profiles, setProfiles] = useState<IDashboard['profiles']>();

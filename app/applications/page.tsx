@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Application from '../../components/Application';
-import { IDashboard } from '../dashboard';
+import { IDashboard } from '../dashboard/page';
 
 const Applications: NextPage = () => {
   const [applications, setApplications] =
