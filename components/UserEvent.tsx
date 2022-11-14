@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Link from 'next/link';
 
 export interface IUserEvent {
@@ -22,7 +23,9 @@ function UserEvent({ id, status, dateStart, step }: IUserEvent) {
       >
         <span>{step}</span>
         <span className={'text-green-400'}>{status}</span>
-        <span className="text-xs text-gray-500 italic">{dateStart}</span>
+        <span className="text-xs text-gray-500 italic">
+          {moment(dateStart).format('MM/DD, hh:mm')}
+        </span>
       </Link>
     </li>
   );
