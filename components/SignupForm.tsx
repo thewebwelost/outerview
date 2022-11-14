@@ -114,8 +114,8 @@ function SignupForm({ handleSignup }: ISignupForm) {
       </form>
       <p className="mt-5">
         Already have an account?{' '}
-        <Link href={'/login'}>
-          <a className={'text-blue-400'}>Log in</a>
+        <Link href={'/login'} className={'text-blue-400'}>
+          Log in
         </Link>
       </p>
     </div>

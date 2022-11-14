@@ -8,8 +8,8 @@ interface NavLink {
 
 function NavLink({ href, value, classNames }: NavLink) {
   return (
-    <Link href={href}>
-      <a className={classNames}>{value}</a>
+    <Link href={href} className={classNames}>
+      {value}
     </Link>
   );
 }

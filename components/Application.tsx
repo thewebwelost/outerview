@@ -41,8 +41,11 @@ function Application({
       </p>
 
       <p>Events: {userEvents.length}</p>
-      <Link href={`/applications/${id}`}>
-        <a className={'block mt-2 text-blue-500 underline text-right'}>edit</a>
+      <Link
+        href={`/applications/${id}`}
+        className={'block mt-2 text-blue-500 underline text-right'}
+      >
+        edit
       </Link>
     </li>
   );

@@ -13,14 +13,13 @@ function ProfilePanel({ profiles }: IProfilePanel) {
 
   return (
     <section className={'flex mt-3'}>
-      <Link href={'/profiles/add'}>
-        <a
-          className={
-            'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
-          }
-        >
-          + new profile
-        </a>
+      <Link
+        href={'/profiles/add'}
+        className={
+          'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
+        }
+      >
+        + new profile
       </Link>
 
       <ul className="mt-3 p-3">

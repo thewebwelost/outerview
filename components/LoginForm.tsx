@@ -75,8 +75,8 @@ const LoginForm: React.FC<ILoginForm> = ({ handleLogin }) => {
 
       <p className="mt-5">
         Don&apos;t have an account?{' '}
-        <Link href={'/signup'}>
-          <a className={'text-blue-400'}>Sign up</a>
+        <Link href={'/signup'} className={'text-blue-400'}>
+          Sign up
         </Link>
       </p>
     </div>

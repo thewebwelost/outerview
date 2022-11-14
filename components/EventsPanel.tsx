@@ -32,10 +32,11 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
         ))}
       </ul>
 
-      <Link href={getHref()}>
-        <a className="block mt-3 text-right text-blue-500 underline cursor-pointer">
-          + add event
-        </a>
+      <Link
+        href={getHref()}
+        className="block mt-3 text-right text-blue-500 underline cursor-pointer"
+      >
+        + add event
       </Link>
     </section>
   );

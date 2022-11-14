@@ -13,14 +13,13 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
 
   return (
     <section className={'flex mt-3'}>
-      <Link href={'/applications/add'}>
-        <a
-          className={
-            'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
-          }
-        >
-          + new application
-        </a>
+      <Link
+        href={'/applications/add'}
+        className={
+          'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
+        }
+      >
+        + new application
       </Link>
 
       <ul className="mt-3 p-3 flex">

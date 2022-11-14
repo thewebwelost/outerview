@@ -17,8 +17,11 @@ function Profile({ id, name, avatar, username, title, location }: IProfile) {
       <h3 className={'font-bold'}>{name}</h3>
       <p>{title}</p>
       <p>{location}</p>
-      <Link href={`/profiles/${id}`}>
-        <a className={'block mt-2 text-blue-500 underline text-right'}>edit</a>
+      <Link
+        href={`/profiles/${id}`}
+        className={'block mt-2 text-blue-500 underline text-right'}
+      >
+        edit
       </Link>
     </li>
   );
