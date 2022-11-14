@@ -27,15 +27,13 @@ const Applications: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <h1 className="text-3xl font-bold underline">Manage profiles</h1>
-        <ul className="mt-3 p-3">
-          {applications &&
-            applications.map((application) => (
-              <Application key={application.id} {...application} />
-            ))}
-        </ul>
-      </>
+      <h1 className="text-3xl font-bold underline">Manage profiles</h1>
+      <ul className="mt-3 p-3">
+        {applications &&
+          applications.map((application) => (
+            <Application key={application.id} {...application} />
+          ))}
+      </ul>
     </Layout>
   );
 };

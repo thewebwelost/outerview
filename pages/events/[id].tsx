@@ -34,25 +34,21 @@ const Event: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <h1 className="mb-5 text-3xl font-bold underline">
-          Single event #{id}
-        </h1>
+      <h1 className="mb-5 text-3xl font-bold underline">Single event #{id}</h1>
 
-        <p>{`${startPretty} ${timeStart}-${timeEnd}`}</p>
-        <p>{userEvent?.description}</p>
-        <p>
-          <a
-            href={userEvent?.meetinUrl}
-            target="blank"
-            className={'text-blue-500 underline'}
-          >
-            Meeting
-          </a>
-        </p>
-        <p>Status: {userEvent?.status}</p>
-        <p>Interview step: {userEvent?.step}</p>
-      </>
+      <p>{`${startPretty} ${timeStart}-${timeEnd}`}</p>
+      <p>{userEvent?.description}</p>
+      <p>
+        <a
+          href={userEvent?.meetinUrl}
+          target="blank"
+          className={'text-blue-500 underline'}
+        >
+          Meeting
+        </a>
+      </p>
+      <p>Status: {userEvent?.status}</p>
+      <p>Interview step: {userEvent?.step}</p>
     </Layout>
   );
 };

@@ -26,15 +26,13 @@ const Events: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <h1 className="text-3xl font-bold underline">Manage events</h1>
-        <ul className="mt-3 p-3">
-          {userEvents &&
-            userEvents.map((userEvent) => (
-              <UserEvent key={userEvent.id} {...userEvent} />
-            ))}
-        </ul>
-      </>
+      <h1 className="text-3xl font-bold underline">Manage events</h1>
+      <ul className="mt-3 p-3">
+        {userEvents &&
+          userEvents.map((userEvent) => (
+            <UserEvent key={userEvent.id} {...userEvent} />
+          ))}
+      </ul>
     </Layout>
   );
 };

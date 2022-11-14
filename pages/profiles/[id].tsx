@@ -43,45 +43,43 @@ const SingleProfile: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <p>Profile Id: {id}</p>
-        <p>{profile?.name}</p>
-        <p>{profile?.title}</p>
-        <p>{profile?.email}</p>
-        <p>{profile?.website}</p>
-        <p>{profile?.location}</p>
-        <p>{profile?.summary}</p>
+      <p>Profile Id: {id}</p>
+      <p>{profile?.name}</p>
+      <p>{profile?.title}</p>
+      <p>{profile?.email}</p>
+      <p>{profile?.website}</p>
+      <p>{profile?.location}</p>
+      <p>{profile?.summary}</p>
 
-        <ul className="mt-3">
-          {profile && profile.details.map((item) => <li key={item}>{item}</li>)}
-        </ul>
-        <ul className="mt-3">
-          {profile &&
-            profile.hardSkills.map((item) => <li key={item}>{item}</li>)}
-        </ul>
-        <ul className="mt-3">
-          {profile &&
-            profile.softSkills.map((item) => <li key={item}>{item}</li>)}
-        </ul>
-        <ul className="mt-3">
-          {profile &&
-            profile.experience.map((item, i) => (
-              <li key={i}>{JSON.stringify(item)}</li>
-            ))}
-        </ul>
-        <ul className="mt-3">
-          {profile &&
-            profile.education.map((item, i) => (
-              <li key={i}>{JSON.stringify(item)}</li>
-            ))}
-        </ul>
-        <ul className="mt-3">
-          {profile &&
-            profile.socials.map((item, i) => (
-              <li key={i}>{JSON.stringify(item)}</li>
-            ))}
-        </ul>
-      </>
+      <ul className="mt-3">
+        {profile && profile.details.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+      <ul className="mt-3">
+        {profile &&
+          profile.hardSkills.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+      <ul className="mt-3">
+        {profile &&
+          profile.softSkills.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+      <ul className="mt-3">
+        {profile &&
+          profile.experience.map((item, i) => (
+            <li key={i}>{JSON.stringify(item)}</li>
+          ))}
+      </ul>
+      <ul className="mt-3">
+        {profile &&
+          profile.education.map((item, i) => (
+            <li key={i}>{JSON.stringify(item)}</li>
+          ))}
+      </ul>
+      <ul className="mt-3">
+        {profile &&
+          profile.socials.map((item, i) => (
+            <li key={i}>{JSON.stringify(item)}</li>
+          ))}
+      </ul>
     </Layout>
   );
 };

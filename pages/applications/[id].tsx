@@ -28,30 +28,30 @@ const Application: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <h1 className="mb-3 mt-3 text-xl font-bold">{application?.company}</h1>
-        <p>{application?.role}</p>
-        <p>{application?.location}</p>
-        <p>{application?.salary}</p>
-        <p>{application?.description}</p>
-        <p>{application?.status}</p>
+      <h1 className="mb-3 mt-3 text-xl font-bold">{application?.company}</h1>
+      <p>{application?.role}</p>
+      <p>{application?.location}</p>
+      <p>{application?.salary}</p>
+      <p>{application?.description}</p>
+      <p>{application?.status}</p>
 
-        <p>
-          <a
-            href={application?.url}
-            target="blank"
-            className={'text-blue-500 underline'}
-          >
-            {application?.url}
-          </a>
-        </p>
+      <p>
+        <a
+          href={application?.url}
+          target="blank"
+          className={'text-blue-500 underline'}
+        >
+          {application?.url}
+        </a>
+      </p>
 
-        <h2 className="mb-3 mt-3 text-s font-bold">Events:</h2>
+      <h2 className="mb-3 mt-3 text-s font-bold">Events:</h2>
 
-        <EventsPanel events={application?.userEvents || []} />
+      <EventsPanel events={application?.userEvents || []} />
 
-        <h2 className="mb-3 mt-3 text-s font-bold">Contacts:</h2>
+      <h2 className="mb-3 mt-3 text-s font-bold">Contacts:</h2>
 
+      <div>
         {application &&
           application.contacts.map((item, i) => (
             <div key={i}>
@@ -59,7 +59,7 @@ const Application: NextPage = () => {
               <p>{item.url}</p>
             </div>
           ))}
-      </>
+      </div>
     </Layout>
   );
 };

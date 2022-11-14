@@ -69,81 +69,79 @@ const CreateEvent: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <h1 className="text-3xl font-bold underline">New event</h1>
+      <h1 className="text-3xl font-bold underline">New event</h1>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="application">
-            Application
-            <select
-              name="application"
-              id="application"
-              className="block"
-              onChange={(e) => setApplication(parseInt(e.target.value))}
-              value={application}
-            >
-              <option value={1}>APPLICATION 1</option>
-              <option value={2}>APPLICATION 2</option>
-              <option value={3}>APPLICATION 3</option>
-            </select>
-          </label>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="application">
+          Application
+          <select
+            name="application"
+            id="application"
+            className="block"
+            onChange={(e) => setApplication(parseInt(e.target.value))}
+            value={application}
+          >
+            <option value={1}>APPLICATION 1</option>
+            <option value={2}>APPLICATION 2</option>
+            <option value={3}>APPLICATION 3</option>
+          </select>
+        </label>
 
-          <div>
-            <input
-              type={'date'}
-              defaultValue={dateStart}
-              onChange={(e) => setDateStart(e.target.value)}
-            />{' '}
-            <input
-              type={'time'}
-              defaultValue={timeStart}
-              onChange={(e) => setTimeStart(e.target.value)}
-            />{' '}
-            <input
-              type={'time'}
-              defaultValue={timeEnd}
-              onChange={(e) => setTimeEnd(e.target.value)}
-            />
-          </div>
-
-          <TextInput title={'Title'} value={title} handler={setTitle} />
-          <TextInput title={'Meeting url'} value={url} handler={setUrl} />
-          <TextInput title={'Description'} value={desc} handler={setDesc} />
-
-          <AddContact
-            title={'Interviewers'}
-            contactList={contacts}
-            name={credName}
-            cred={cred}
-            setName={setCredName}
-            setCred={setCred}
-            handleAdd={handleAddContact}
-            btnCopy={'Add contact'}
+        <div>
+          <input
+            type={'date'}
+            defaultValue={dateStart}
+            onChange={(e) => setDateStart(e.target.value)}
+          />{' '}
+          <input
+            type={'time'}
+            defaultValue={timeStart}
+            onChange={(e) => setTimeStart(e.target.value)}
+          />{' '}
+          <input
+            type={'time'}
+            defaultValue={timeEnd}
+            onChange={(e) => setTimeEnd(e.target.value)}
           />
+        </div>
 
-          <label htmlFor="step">
-            Step
-            <select
-              name="step"
-              id="step"
-              className="block"
-              defaultValue={step}
-              onChange={(e) => setStep(e.target.value)}
-            >
-              <option value="APPLICATION">APPLICATION</option>
-              <option value="INITIAL_CALL">INITIAL_CALL</option>
-              <option value="PHONE_SCREEN">PHONE_SCREEN</option>
-              <option value="ONSITE_STEP">ONSITE_STEP</option>
-              <option value="BEHAVIOURAL">BEHAVIOURAL</option>
-              <option value="CLOSER">CLOSER</option>
-            </select>
-          </label>
+        <TextInput title={'Title'} value={title} handler={setTitle} />
+        <TextInput title={'Meeting url'} value={url} handler={setUrl} />
+        <TextInput title={'Description'} value={desc} handler={setDesc} />
 
-          <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
-            Create event
-          </button>
-        </form>
-      </>
+        <AddContact
+          title={'Interviewers'}
+          contactList={contacts}
+          name={credName}
+          cred={cred}
+          setName={setCredName}
+          setCred={setCred}
+          handleAdd={handleAddContact}
+          btnCopy={'Add contact'}
+        />
+
+        <label htmlFor="step">
+          Step
+          <select
+            name="step"
+            id="step"
+            className="block"
+            defaultValue={step}
+            onChange={(e) => setStep(e.target.value)}
+          >
+            <option value="APPLICATION">APPLICATION</option>
+            <option value="INITIAL_CALL">INITIAL_CALL</option>
+            <option value="PHONE_SCREEN">PHONE_SCREEN</option>
+            <option value="ONSITE_STEP">ONSITE_STEP</option>
+            <option value="BEHAVIOURAL">BEHAVIOURAL</option>
+            <option value="CLOSER">CLOSER</option>
+          </select>
+        </label>
+
+        <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
+          Create event
+        </button>
+      </form>
     </Layout>
   );
 };

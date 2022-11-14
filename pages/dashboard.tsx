@@ -45,20 +45,16 @@ const Dashboard: NextPage = () => {
 
   return (
     <Layout>
-      <>
-        <h2 className="mt-5 text-m text-gray-400 font-light">
-          Your applications:
-        </h2>
-        <ApplicationsPanel applications={dashboard?.applications || []} />
+      <h2 className="mt-5 text-m text-gray-400 font-light">
+        Your applications:
+      </h2>
+      <ApplicationsPanel applications={dashboard?.applications || []} />
 
-        <h2 className="mt-5 text-m text-gray-400 font-light">
-          Upcoming events:
-        </h2>
-        <EventsPanel events={dashboard?.events || []} />
+      <h2 className="mt-5 text-m text-gray-400 font-light">Upcoming events:</h2>
+      <EventsPanel events={dashboard?.events || []} />
 
-        <h2 className="mt-5 text-m text-gray-400 font-light">Your profiles:</h2>
-        <ProfilePanel profiles={dashboard?.profiles || []} />
-      </>
+      <h2 className="mt-5 text-m text-gray-400 font-light">Your profiles:</h2>
+      <ProfilePanel profiles={dashboard?.profiles || []} />
     </Layout>
   );
 };

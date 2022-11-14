@@ -5,7 +5,7 @@ import { UserContext } from '../context/userContext';
 import Header, { IHeader } from './Header';
 
 interface ILayout {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 }
 
 export default function Layout({ children }: ILayout) {
