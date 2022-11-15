@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 
 interface IProfile {
   id: number;
@@ -22,28 +21,28 @@ interface IProfile {
 
 const SingleProfile: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
+  // const { id } = router.query;
   const [profile, setProfile] = useState<IProfile>();
 
-  useEffect(() => {
-    if (!id) return;
+  // useEffect(() => {
+  //   if (!id) return;
 
-    const fetchProfile = async () => {
-      try {
-        await fetch(`/api/profiles/${id}`)
-          .then((response) => response.json())
-          .then((data) => setProfile(data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  //   const fetchProfile = async () => {
+  //     try {
+  //       await fetch(`/api/profiles/${id}`)
+  //         .then((response) => response.json())
+  //         .then((data) => setProfile(data));
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
-    fetchProfile();
-  }, [id]);
+  //   fetchProfile();
+  // }, [id]);
 
   return (
-    <Layout>
-      <p>Profile Id: {id}</p>
+    <>
+      <p>Profile Id:</p>
       <p>{profile?.name}</p>
       <p>{profile?.title}</p>
       <p>{profile?.email}</p>
@@ -80,7 +79,7 @@ const SingleProfile: NextPage = () => {
             <li key={i}>{JSON.stringify(item)}</li>
           ))}
       </ul>
-    </Layout>
+    </>
   );
 };
 

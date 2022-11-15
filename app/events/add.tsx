@@ -4,14 +4,14 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AddContact, { IContact } from '../../components/AddContact';
 import TextInput from '../../components/atoms/TextInput';
-import Layout from '../../components/Layout';
 
 const CreateEvent: NextPage = () => {
   const router = useRouter();
-  const { aId } = router.query;
+  // const { aId } = router.query;
 
   const [application, setApplication] = useState<number | undefined>(
-    parseInt(aId as string) || 0 // TODO: pass user context
+    // parseInt(aId as string) || 0 // TODO: pass user context
+    0
   );
 
   const [title, setTitle] = useState('');
@@ -68,7 +68,7 @@ const CreateEvent: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <>
       <h1 className="text-3xl font-bold underline">New event</h1>
 
       <form onSubmit={handleSubmit}>
@@ -142,7 +142,7 @@ const CreateEvent: NextPage = () => {
           Create event
         </button>
       </form>
-    </Layout>
+    </>
   );
 };
 

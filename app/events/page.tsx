@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 import UserEvent from '../../components/UserEvent';
 import { IDashboard } from '../dashboard/page';
 
@@ -25,7 +24,7 @@ const Events: NextPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <>
       <h1 className="text-3xl font-bold underline">Manage events</h1>
       <ul className="mt-3 p-3">
         {userEvents &&
@@ -33,7 +32,7 @@ const Events: NextPage = () => {
             <UserEvent key={userEvent.id} {...userEvent} />
           ))}
       </ul>
-    </Layout>
+    </>
   );
 };
 

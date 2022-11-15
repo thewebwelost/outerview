@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 import Application from '../../components/Application';
 import { IDashboard } from '../dashboard/page';
 
@@ -26,7 +25,7 @@ const Applications: NextPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <>
       <h1 className="text-3xl font-bold underline">Manage profiles</h1>
       <ul className="mt-3 p-3">
         {applications &&
@@ -34,7 +33,7 @@ const Applications: NextPage = () => {
             <Application key={application.id} {...application} />
           ))}
       </ul>
-    </Layout>
+    </>
   );
 };
 

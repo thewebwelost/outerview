@@ -3,7 +3,6 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import AddContact, { IContact } from '../../components/AddContact';
 import TextInput from '../../components/atoms/TextInput';
-import Layout from '../../components/Layout';
 
 const CreateApplication: NextPage = () => {
   const [title, setTitle] = useState('');
@@ -62,7 +61,7 @@ const CreateApplication: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <>
       <h1 className="text-3xl font-bold underline">New Application</h1>
 
       <div className="p-5 mt-5 border">
@@ -132,7 +131,7 @@ const CreateApplication: NextPage = () => {
           </button>
         </form>
       </div>
-    </Layout>
+    </>
   );
 };
 

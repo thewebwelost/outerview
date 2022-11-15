@@ -1,35 +1,33 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { IApplication } from '../../../components/Application';
 import EventsPanel from '../../../components/EventsPanel';
-import Layout from '../../../components/Layout';
 
 const Application: NextPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const pathname = usePathname();
   const [application, setApplication] = useState<IApplication>();
 
-  useEffect(() => {
-    if (!id) return;
+  // useEffect(() => {
+  //   if (!pathname.id) return;
 
-    const fetchApplication = async () => {
-      try {
-        await fetch(`/api/applications/${id}`)
-          .then((response) => response.json())
-          .then((data) => setApplication(data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  //   const fetchApplication = async () => {
+  //     try {
+  //       await fetch(`/api/applications/${id}`)
+  //         .then((response) => response.json())
+  //         .then((data) => setApplication(data));
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
-    fetchApplication();
-  }, [id]);
+  //   fetchApplication();
+  // }, [id]);
 
   return (
-    <Layout>
+    <>
       <h1 className="mb-3 mt-3 text-xl font-bold">{application?.company}</h1>
       <p>{application?.role}</p>
       <p>{application?.location}</p>
@@ -62,7 +60,7 @@ const Application: NextPage = () => {
             </div>
           ))}
       </div>
-    </Layout>
+    </>
   );
 };
 
