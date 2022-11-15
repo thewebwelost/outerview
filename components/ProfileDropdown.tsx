@@ -19,7 +19,7 @@ const ProfileDropdown: React.FC<IProfileDropdown> = ({ user }) => {
       <div>
         <Menu.Button className="relative h-8 w-8 max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          <img className="rounded-full" src={user.image} alt="" />
+          <img className="rounded-full" src={user?.image} alt="" />
         </Menu.Button>
       </div>
 

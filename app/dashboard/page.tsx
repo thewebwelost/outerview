@@ -1,7 +1,8 @@
+'use client';
+
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 
-import Layout from '../../components/Layout';
 import ApplicationsPanel from '../../components/ApplicationsPanel';
 import EventsPanel from '../../components/EventsPanel';
 import ProfilePanel from '../../components/ProfilePanel';
@@ -44,7 +45,7 @@ const Dashboard: NextPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <>
       <h2 className="mt-5 text-m text-gray-400 font-light">
         Your applications:
       </h2>
@@ -55,7 +56,7 @@ const Dashboard: NextPage = () => {
 
       <h2 className="mt-5 text-m text-gray-400 font-light">Your profiles:</h2>
       <ProfilePanel profiles={dashboard?.profiles || []} />
-    </Layout>
+    </>
   );
 };
 

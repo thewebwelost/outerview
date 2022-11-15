@@ -1,7 +1,9 @@
+'use client';
+
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -10,17 +12,27 @@ import ProfileDropdown from './ProfileDropdown';
 
 import { navigation, userNavigation } from '../utils/navigation';
 import { classNames } from '../utils/classNames';
+import { useSession } from 'next-auth/react';
 
-export interface IHeader {
-  user: {
-    name: string;
-    email: string;
-    image: string;
-  };
+export interface IHeader {}
+export interface IUser {
+  name: string;
+  email: string;
+  image: string;
 }
 
-const Header: React.FC<IHeader> = ({ user }) => {
+const Header: React.FC<IHeader> = () => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  // status "loading" | "authenticated" | "unauthenticated"
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // The user is not authenticated, handle it here.
+      router.push('/');
+    },
+  });
 
   const Logo = () => (
     <div className="relative flex-shrink-0 h-8 w-8">
@@ -56,7 +68,7 @@ const Header: React.FC<IHeader> = ({ user }) => {
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
                   <NotificationsButton />
-                  <ProfileDropdown user={user} />
+                  <ProfileDropdown user={session?.user as IUser} />
                 </div>
               </div>
               <div className="-mr-2 flex md:hidden">
@@ -79,14 +91,12 @@ const Header: React.FC<IHeader> = ({ user }) => {
                   <Disclosure.Button
                     as="li"
                     className={classNames(
-                      router.pathname === item.href
+                      pathname === item.href
                         ? 'bg-gray-900 text-white'
                         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'block px-3 py-2 rounded-md text-base font-medium'
                     )}
-                    aria-current={
-                      router.pathname === item.href ? 'page' : undefined
-                    }
+                    aria-current={pathname === item.href ? 'page' : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
@@ -97,15 +107,19 @@ const Header: React.FC<IHeader> = ({ user }) => {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
                 <div className="relative flex-shrink-0 h-10 w-10">
-                  <img className="rounded-full" src={user.image} alt="" />
+                  <Image
+                    className="rounded-full"
+                    src={session?.user?.image as string}
+                    alt=""
+                  />
                 </div>
 
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
-                    Name: {user.name}
+                    Name: {session?.user?.name}
                   </div>
                   <div className="text-sm font-medium leading-none text-gray-400">
-                    Email: {user.email}
+                    Email: {session?.user?.email}
                   </div>
                 </div>
 

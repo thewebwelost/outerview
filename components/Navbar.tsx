@@ -1,11 +1,10 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { classNames } from '../utils/classNames';
 import { navigation } from '../utils/navigation';
 import NavLink from './atoms/NavLink';
 
 export default function Navbar() {
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <nav className="hidden md:block">
@@ -16,7 +15,7 @@ export default function Navbar() {
             href={item.href}
             value={item.name}
             classNames={classNames(
-              router.pathname === item.href
+              pathname === item.href
                 ? 'bg-gray-900 text-white'
                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
               'px-3 py-2 rounded-md text-sm font-medium cursor-pointer'
