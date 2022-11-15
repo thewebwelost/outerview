@@ -1,10 +1,11 @@
+'use client';
+
 import type { NextPage } from 'next';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { IUserEvent } from '../../../components/UserEvent';
+import { IUserEvent } from '../../../../components/UserEvent';
 
 const Event: NextPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
   // const { id } = router.query;
   const [userEvent, setUserEvent] = useState<IUserEvent>();
 

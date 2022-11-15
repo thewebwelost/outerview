@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { IDashboard } from '../app/dashboard/page';
 import EmptySection from './EmptySection';
@@ -12,15 +12,15 @@ interface IEventsPanel {
 }
 
 const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  console.log('object :>> ', {
-    pathname,
-    searchParams: searchParams.getAll('id'),
-    router,
-  });
+  // console.log('object :>> ', {
+  //   pathname,
+  //   searchParams: searchParams.getAll('id'),
+  //   router,
+  // });
 
   const getHref = () => {
     let href = '/events/add';

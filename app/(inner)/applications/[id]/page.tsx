@@ -1,30 +1,29 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { IApplication } from '../../../components/Application';
-import EventsPanel from '../../../components/EventsPanel';
+import { IApplication } from '../../../../components/Application';
+import EventsPanel from '../../../../components/EventsPanel';
 
 const Application: NextPage = () => {
-  const pathname = usePathname();
+  const id = 1;
   const [application, setApplication] = useState<IApplication>();
 
-  // useEffect(() => {
-  //   if (!pathname.id) return;
+  useEffect(() => {
+    if (!id) return;
 
-  //   const fetchApplication = async () => {
-  //     try {
-  //       await fetch(`/api/applications/${id}`)
-  //         .then((response) => response.json())
-  //         .then((data) => setApplication(data));
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
+    const fetchApplication = async () => {
+      try {
+        await fetch(`/api/applications/${id}`)
+          .then((response) => response.json())
+          .then((data) => setApplication(data));
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  //   fetchApplication();
-  // }, [id]);
+    fetchApplication();
+  }, [id]);
 
   return (
     <>

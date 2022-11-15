@@ -1,12 +1,13 @@
+'use client';
+
 import moment from 'moment';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import AddContact, { IContact } from '../../components/AddContact';
-import TextInput from '../../components/atoms/TextInput';
+import AddContact, { IContact } from '../../../components/AddContact';
+import TextInput from '../../../components/atoms/TextInput';
 
 const CreateEvent: NextPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
   // const { aId } = router.query;
 
   const [application, setApplication] = useState<number | undefined>(
@@ -61,7 +62,7 @@ const CreateEvent: NextPage = () => {
         }),
       });
 
-      router.push('/dashboard');
+      // router.push('/dashboard');
     } catch (err) {
       console.error(err);
     }

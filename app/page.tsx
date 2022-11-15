@@ -1,7 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/legacy/image';
 

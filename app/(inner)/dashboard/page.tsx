@@ -3,13 +3,13 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 
-import ApplicationsPanel from '../../components/ApplicationsPanel';
-import EventsPanel from '../../components/EventsPanel';
-import ProfilePanel from '../../components/ProfilePanel';
+import ApplicationsPanel from '../../../components/ApplicationsPanel';
+import EventsPanel from '../../../components/EventsPanel';
+import ProfilePanel from '../../../components/ProfilePanel';
 
-import type { IProfile } from '../../components/Profile';
-import type { IUserEvent } from '../../components/UserEvent';
-import type { IApplication } from '../../components/Application';
+import type { IProfile } from '../../../components/Profile';
+import type { IUserEvent } from '../../../components/UserEvent';
+import type { IApplication } from '../../../components/Application';
 
 export interface IDashboard {
   id: number;

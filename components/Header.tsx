@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -13,6 +13,7 @@ import ProfileDropdown from './ProfileDropdown';
 import { navigation, userNavigation } from '../utils/navigation';
 import { classNames } from '../utils/classNames';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export interface IHeader {}
 export interface IUser {
@@ -107,19 +108,19 @@ const Header: React.FC<IHeader> = () => {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5">
                 <div className="relative flex-shrink-0 h-10 w-10">
-                  <Image
+                  {/* <Image
                     className="rounded-full"
                     src={session?.user?.image as string}
                     alt=""
-                  />
+                  /> */}
                 </div>
 
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
-                    Name: {session?.user?.name}
+                    {/* Name: {session?.user?.name} */}
                   </div>
                   <div className="text-sm font-medium leading-none text-gray-400">
-                    Email: {session?.user?.email}
+                    {/* Email: {session?.user?.email} */}
                   </div>
                 </div>
 

@@ -1,6 +1,8 @@
+'use client';
+
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Profile from '../../components/Profile';
+import Profile from '../../../components/Profile';
 import { IDashboard } from '../dashboard/page';
 
 const Profiles: NextPage = () => {

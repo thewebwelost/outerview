@@ -1,6 +1,8 @@
+'use client';
+
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import UserEvent from '../../components/UserEvent';
+import UserEvent from '../../../components/UserEvent';
 import { IDashboard } from '../dashboard/page';
 
 const Events: NextPage = () => {

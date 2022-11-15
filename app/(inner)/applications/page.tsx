@@ -1,6 +1,8 @@
+'use client';
+
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Application from '../../components/Application';
+import Application from '../../../components/Application';
 import { IDashboard } from '../dashboard/page';
 
 const Applications: NextPage = () => {

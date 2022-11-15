@@ -1,5 +1,6 @@
+'use client';
+
 import { NextPage } from 'next';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface IProfile {
@@ -20,7 +21,7 @@ interface IProfile {
 }
 
 const SingleProfile: NextPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
   // const { id } = router.query;
   const [profile, setProfile] = useState<IProfile>();
 
