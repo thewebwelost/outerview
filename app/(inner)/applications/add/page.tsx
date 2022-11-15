@@ -2,8 +2,8 @@
 
 import type { NextPage } from 'next';
 import React, { useState } from 'react';
-import AddContact, { IContact } from '../../../components/AddContact';
-import TextInput from '../../../components/atoms/TextInput';
+import AddContact, { IContact } from '../../../../components/AddContact';
+import TextInput from '../../../../components/atoms/TextInput';
 
 const CreateApplication: NextPage = () => {
   const [title, setTitle] = useState('');
