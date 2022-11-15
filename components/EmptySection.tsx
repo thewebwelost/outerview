@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 function EmptySection({ type, href }: { type: string; href: string }) {
   return (

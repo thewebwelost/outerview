@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ReactElement, useContext, useEffect } from 'react';
 import { UserContext } from '../context/userContext';
 import Header, { IHeader } from './Header';

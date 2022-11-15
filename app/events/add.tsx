@@ -1,6 +1,6 @@
 import moment from 'moment';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AddContact, { IContact } from '../../components/AddContact';
 import TextInput from '../../components/atoms/TextInput';

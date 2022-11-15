@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { IUserEvent } from '../../components/UserEvent';
