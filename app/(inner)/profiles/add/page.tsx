@@ -161,34 +161,36 @@ const AddProfile: NextPage = () => {
 
   return (
     <>
-      <>
-        <h1 className="text-3xl font-bold underline">New Profile</h1>
+      <h1 className="text-3xl font-bold underline">New Profile</h1>
 
-        <div className="flex justify-between">
-          <div>{renderForm()}</div>
-          <div className="border text-xl font-bold">
-            <p>Name: {name}</p>
-            <p>Role: {role}</p>
-            <p>Summary: {summary}</p>
+      <div className="flex justify-between">
+        <div>{renderForm()}</div>
+        <div className="border font-bold">
+          <p className="text-2xl">{name || 'Your Name'}</p>
+          <p className="font-light italic">
+            {role || 'role'}, {location || 'location'}
+          </p>
+          <p className="font-light text-blue-500 underline">{website}</p>
+          <p className="font-light text-blue-500">{email}</p>
+          <p>Summary: {summary}</p>
 
-            <ul>
-              {detailsList.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
+          <ul>
+            {detailsList.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
 
-            <ul>
-              {socialsList.map((item, i) => (
-                <li key={i}>
-                  <a href={item.contact} target="_blank" rel="noreferrer">
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul>
+            {socialsList.map((item, i) => (
+              <li key={i}>
+                <a href={item.contact} target="_blank" rel="noreferrer">
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-      </>
+      </div>
     </>
   );
 };
