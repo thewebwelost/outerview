@@ -103,12 +103,12 @@ const AddProfile: NextPage = () => {
           <div className="p-5 mt-5 border">
             <h2 className="text-xl font-bold mb-2">Introduce yourself first</h2>
 
-            <div className="flex">
+            <div className="w-full flex justify-between">
               <TextInput title={'Name'} value={name} handler={setName} />
               <TextInput title={'Role'} value={role} handler={setRole} />
             </div>
 
-            <div className="flex">
+            <div className="w-full flex justify-between">
               <TextInput title={'Email'} value={email} handler={setEmail} />
               <TextInput
                 title={'Location'}
