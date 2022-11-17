@@ -7,6 +7,7 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     domains: ['via.placeholder.com', 'via.placeholder.com/150.png'],
   },
+  experimental: { appDir: true },
 };
 
 module.exports = nextConfig;

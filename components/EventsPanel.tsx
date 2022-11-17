@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
-import { IDashboard } from '../pages/dashboard';
+import { IDashboard } from '../app/dashboard/page';
 import EmptySection from './EmptySection';
 import UserEvent from './UserEvent';
 
@@ -10,13 +12,21 @@ interface IEventsPanel {
 }
 
 const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
-  const { route, query } = useRouter();
+  // const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // console.log('object :>> ', {
+  //   pathname,
+  //   searchParams: searchParams.getAll('id'),
+  //   router,
+  // });
 
   const getHref = () => {
     let href = '/events/add';
 
-    if (route.includes('/application')) {
-      return href + `/?aId=${query.id}`;
+    if (pathname?.includes('/application')) {
+      return href + `/?aId=${1}`;
     }
 
     return href;

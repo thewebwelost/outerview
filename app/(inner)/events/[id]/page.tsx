@@ -1,12 +1,12 @@
+'use client';
+
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
-import { IUserEvent } from '../../components/UserEvent';
+import { IUserEvent } from '../../../../components/UserEvent';
 
 const Event: NextPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  // const router = useRouter();
+  // const { id } = router.query;
   const [userEvent, setUserEvent] = useState<IUserEvent>();
 
   const dateStart = new Date(userEvent?.dateStart as string);
@@ -16,25 +16,25 @@ const Event: NextPage = () => {
   const dateEnd = new Date(userEvent?.dateEnd as string);
   const timeEnd = dateEnd.toLocaleTimeString();
 
-  useEffect(() => {
-    if (!id) return;
+  // useEffect(() => {
+  //   if (!id) return;
 
-    const fetchEvent = async () => {
-      try {
-        await fetch(`/api/events/${id}`)
-          .then((response) => response.json())
-          .then((data) => setUserEvent(data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  //   const fetchEvent = async () => {
+  //     try {
+  //       await fetch(`/api/events/${id}`)
+  //         .then((response) => response.json())
+  //         .then((data) => setUserEvent(data));
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
-    fetchEvent();
-  }, [id]);
+  //   fetchEvent();
+  // }, [id]);
 
   return (
-    <Layout>
-      <h1 className="mb-5 text-3xl font-bold underline">Single event #{id}</h1>
+    <>
+      <h1 className="mb-5 text-3xl font-bold underline">Single event</h1>
 
       <p>{`${startPretty} ${timeStart}-${timeEnd}`}</p>
       <p>{userEvent?.description}</p>
@@ -49,7 +49,7 @@ const Event: NextPage = () => {
       </p>
       <p>Status: {userEvent?.status}</p>
       <p>Interview step: {userEvent?.step}</p>
-    </Layout>
+    </>
   );
 };
 

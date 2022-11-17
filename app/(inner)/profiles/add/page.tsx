@@ -1,6 +1,7 @@
+'use client';
+
 import type { NextPage } from 'next';
 import { ChangeEvent, useReducer, useState } from 'react';
-import Layout from '../../components/Layout';
 
 const defaultNewProfileFormState = {
   name: '',
@@ -430,7 +431,7 @@ const AddProfile: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <>
       <>
         <h1 className="text-3xl font-bold underline">New Profile</h1>
 
@@ -439,7 +440,7 @@ const AddProfile: NextPage = () => {
           <div>preview</div>
         </div>
       </>
-    </Layout>
+    </>
   );
 };
 

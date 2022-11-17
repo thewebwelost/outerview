@@ -1,7 +1,9 @@
+'use client';
+
 import type { NextPage } from 'next';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 const Home: NextPage = () => {
   return (
@@ -42,7 +44,7 @@ const Home: NextPage = () => {
           <div className="text-sm">
             <button
               onClick={() =>
-                signIn('', {
+                signIn('login', {
                   callbackUrl: '/dashboard',
                 })
               }
