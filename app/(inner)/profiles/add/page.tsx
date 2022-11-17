@@ -85,6 +85,10 @@ const AddProfile: NextPage = () => {
     setStep(step + 1);
   };
 
+  const handlePrevStep = () => {
+    if (step > 0) setStep(step - 1);
+  };
+
   const [hardSkills, setHardSkills] = useState('');
   const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
 
@@ -136,6 +140,19 @@ const AddProfile: NextPage = () => {
               </button>
             </div>
 
+            <div className="flex justify-end mt-10">
+              <button
+                className="p-1 text-white bg-blue-500"
+                onClick={handleNextStep}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        );
+      case 1:
+        return (
+          <div className="p-5 mt-5 border">
             <label htmlFor="summary" className="block mt-3 capitalize">
               Summary
               <textarea
@@ -161,20 +178,74 @@ const AddProfile: NextPage = () => {
               </button>
             </div>
 
-            <hr />
-            <button className="text-white bg-blue-500" onClick={handleNextStep}>
-              Next
-            </button>
+            <div>
+              <TextInput
+                title={'Hard skills'}
+                value={details}
+                handler={setDetails}
+              />
+
+              <button
+                className="mt-2 text-white bg-blue-500"
+                onClick={addDetail}
+                type="button"
+              >
+                + add
+              </button>
+            </div>
+
+            <div>
+              <TextInput
+                title={'Soft skills'}
+                value={details}
+                handler={setDetails}
+              />
+
+              <button
+                className="mt-2 text-white bg-blue-500"
+                onClick={addDetail}
+                type="button"
+              >
+                + add
+              </button>
+            </div>
+
+            {/* FORM NAVIGATION */}
+            <div className="flex justify-between mt-10">
+              <button
+                className="p-1 text-white bg-blue-500"
+                onClick={handlePrevStep}
+              >
+                Prev
+              </button>
+              <button
+                className="p-1 text-white bg-blue-500"
+                onClick={handleNextStep}
+              >
+                Next
+              </button>
+            </div>
           </div>
         );
-      case 1:
+      case 2:
         return (
           <div className="p-5 mt-5 border">
             <h2 className="text-xl font-bold mb-2">Experience</h2>
-            <hr />
-            <button className="text-white bg-blue-500" onClick={handleNextStep}>
-              Next
-            </button>
+
+            <div className="flex justify-between mt-10">
+              <button
+                className="p-1 text-white bg-blue-500"
+                onClick={handlePrevStep}
+              >
+                Prev
+              </button>
+              <button
+                className="p-1 text-white bg-blue-500"
+                onClick={handleNextStep}
+              >
+                Next
+              </button>
+            </div>
           </div>
         );
 
@@ -190,17 +261,18 @@ const AddProfile: NextPage = () => {
       <div className="flex justify-between">
         <div className="basis-2/5">{renderForm()}</div>
 
-        <div className="basis-3/5 p-5 border font-bold">
+        {/* PREVIEW */}
+        <div className="basis-3/5 p-5 font-light">
           <span className="text-right">
-            <p className="text-2xl">{name || 'Your Name'}</p>
-            <p className="font-light italic">
+            <p className="font-bold text-2xl">{name || 'Your Name'}</p>
+            <p className="italic">
               {role || 'role'}, {location || 'location'}
             </p>
-            <p className="font-light text-blue-500 underline">{website}</p>
-            <p className="font-light text-blue-500">{email}</p>
+            <p className=" text-blue-500 underline">{website}</p>
+            <p className=" text-blue-500">{email}</p>
           </span>
 
-          <h2 className="text-xl mt-3 mb-1">Socials</h2>
+          <h2 className="font-bold text-xl mt-3 mb-1">Socials</h2>
           <ul className="flex">
             {socialsList.map((item, i) => (
               <li key={i} className="mr-2 text-blue-400">
@@ -209,19 +281,20 @@ const AddProfile: NextPage = () => {
             ))}
           </ul>
 
-          <h2 className="text-xl mt-3 mb-1">Experience</h2>
-          <p className="font-light ">{summary}</p>
-
-          <h2 className="text-xl mt-3 mb-1">Details</h2>
+          <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">
             {detailsList.map((item, i) => (
-              <li key={i} className="font-light">
+              <li key={i} className="">
                 {item}
               </li>
             ))}
           </ul>
 
-          <h2 className="text-xl mt-3 mb-1">Summary</h2>
+          <h2 className="font-bold text-xl mt-3 mb-1">Experience</h2>
+          {/* <Experience /> */}
+
+          <h2 className="text-xl mt-3 mb-1">Education</h2>
+          {/* <Education /> */}
         </div>
       </div>
     </>
