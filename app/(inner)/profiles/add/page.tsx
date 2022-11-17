@@ -49,9 +49,23 @@ const AddProfile: NextPage = () => {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [summary, setSummary] = useState('');
-
   const [details, setDetails] = useState('');
   const [detailsList, setDetailsList] = useState<string[]>([]);
+
+  const [email, setEmail] = useState('');
+  const [location, setLocation] = useState('');
+  const [url, setUrl] = useState('');
+  const [urlsList, setUrlsList] = useState<string[]>([]);
+
+  const addDetail = () => {
+    setDetailsList([...detailsList, details]);
+    setDetails('');
+  };
+
+  const addLink = () => {
+    setUrlsList([...urlsList, url]);
+    setUrl('');
+  };
 
   const [hardSkills, setHardSkills] = useState('');
   const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
@@ -68,6 +82,10 @@ const AddProfile: NextPage = () => {
         <TextInput title={'Name'} value={name} handler={setName} />
         <TextInput title={'Role'} value={role} handler={setRole} />
 
+        <TextInput title={'Email'} value={email} handler={setEmail} />
+        <TextInput title={'Location'} value={location} handler={setLocation} />
+        <TextInput title={'Links'} value={url} handler={setUrl} />
+
         <label htmlFor="summary" className="block mt-3 capitalize">
           Summary
           <textarea
@@ -76,6 +94,18 @@ const AddProfile: NextPage = () => {
             onChange={(e) => setSummary(e.target.value)}
           />
         </label>
+
+        <div>
+          <TextInput title={'Details'} value={details} handler={setDetails} />
+
+          <button
+            className="mt-2 text-white bg-blue-500"
+            onClick={addDetail}
+            type="button"
+          >
+            + add
+          </button>
+        </div>
 
         <hr />
         {/* <button className="text-white bg-blue-500" onClick={handleNextStep}>
@@ -90,9 +120,19 @@ const AddProfile: NextPage = () => {
       <>
         <h1 className="text-3xl font-bold underline">New Profile</h1>
 
-        <div className="flex">
+        <div className="flex justify-between">
           <div>{renderForm()}</div>
-          <div>preview</div>
+          <div className="border text-xl font-bold">
+            <p>Name: {name}</p>
+            <p>Role: {role}</p>
+            <p>Summary: {summary}</p>
+
+            <ul>
+              {detailsList.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </>
     </>
