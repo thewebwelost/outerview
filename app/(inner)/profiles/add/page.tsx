@@ -280,9 +280,8 @@ const AddProfile: NextPage = () => {
               </li>
             ))}
           </ul>
-
           <h2 className="font-bold text-xl mt-3 mb-1">Summary</h2>
-          <p>{summary}</p>
+          <pre className="font-sans font-light">{summary}</pre>
 
           <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">
