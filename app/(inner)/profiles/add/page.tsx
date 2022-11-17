@@ -281,6 +281,9 @@ const AddProfile: NextPage = () => {
             ))}
           </ul>
 
+          <h2 className="font-bold text-xl mt-3 mb-1">Summary</h2>
+          <p>{summary}</p>
+
           <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">
             {detailsList.map((item, i) => (
