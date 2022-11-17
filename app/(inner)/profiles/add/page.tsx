@@ -3,6 +3,7 @@
 import type { NextPage } from 'next';
 import { ChangeEvent, useReducer, useState } from 'react';
 import TextInput from '../../../../components/atoms/TextInput';
+import AddContact, { IContact } from '../../../../components/AddContact';
 
 const defaultNewProfileFormState = {
   name: '',
@@ -23,7 +24,6 @@ const defaultNewProfileFormState = {
 
 interface IExperience {}
 interface IEducation {}
-interface ILink {}
 
 interface IProfileForm {
   id: number;
@@ -33,13 +33,15 @@ interface IProfileForm {
   email: string;
   website: string;
   location: string;
+
   summary: string;
   details: string[];
+  socials: IContact[];
+
   hardSkills: string[];
   softSkills: string[];
   experience: IExperience[];
   education: IEducation[];
-  socials: ILink[];
 }
 
 const AddProfile: NextPage = () => {
@@ -54,17 +56,29 @@ const AddProfile: NextPage = () => {
 
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
-  const [url, setUrl] = useState('');
-  const [urlsList, setUrlsList] = useState<string[]>([]);
+  const [website, setWebsite] = useState('');
+
+  const [socialsTitle, setSocialsTitle] = useState('');
+  const [socialsContact, setSocialsContact] = useState('');
+  const [socialsList, setSocialsList] = useState<
+    { title: string; contact: string }[]
+  >([]);
 
   const addDetail = () => {
     setDetailsList([...detailsList, details]);
     setDetails('');
   };
 
-  const addLink = () => {
-    setUrlsList([...urlsList, url]);
-    setUrl('');
+  const addSocial = () => {
+    setSocialsList([
+      ...socialsList,
+      {
+        title: socialsTitle,
+        contact: socialsContact,
+      },
+    ]);
+    setSocialsTitle('');
+    setSocialsContact('');
   };
 
   const [hardSkills, setHardSkills] = useState('');
@@ -84,7 +98,29 @@ const AddProfile: NextPage = () => {
 
         <TextInput title={'Email'} value={email} handler={setEmail} />
         <TextInput title={'Location'} value={location} handler={setLocation} />
-        <TextInput title={'Links'} value={url} handler={setUrl} />
+
+        <TextInput title={'Website'} value={website} handler={setWebsite} />
+
+        <div>
+          <TextInput
+            title={'Socials title'}
+            value={socialsTitle}
+            handler={setSocialsTitle}
+          />
+          <TextInput
+            title={'Socials Contact'}
+            value={socialsContact}
+            handler={setSocialsContact}
+          />
+
+          <button
+            className="mt-2 text-white bg-blue-500"
+            onClick={addSocial}
+            type="button"
+          >
+            + add
+          </button>
+        </div>
 
         <label htmlFor="summary" className="block mt-3 capitalize">
           Summary
@@ -130,6 +166,16 @@ const AddProfile: NextPage = () => {
             <ul>
               {detailsList.map((item, i) => (
                 <li key={i}>{item}</li>
+              ))}
+            </ul>
+
+            <ul>
+              {socialsList.map((item, i) => (
+                <li key={i}>
+                  <a href={item.contact} target="_blank" rel="noreferrer">
+                    {item.title}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
