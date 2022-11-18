@@ -51,8 +51,13 @@ const AddProfile: NextPage = () => {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [summary, setSummary] = useState('');
+
   const [details, setDetails] = useState('');
   const [detailsList, setDetailsList] = useState<string[]>([]);
+  const addDetail = () => {
+    setDetailsList([...detailsList, details]);
+    setDetails('');
+  };
 
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
@@ -63,11 +68,6 @@ const AddProfile: NextPage = () => {
   const [socialsList, setSocialsList] = useState<
     { title: string; contact: string }[]
   >([]);
-
-  const addDetail = () => {
-    setDetailsList([...detailsList, details]);
-    setDetails('');
-  };
 
   const addSocial = () => {
     setSocialsList([
@@ -81,6 +81,23 @@ const AddProfile: NextPage = () => {
     setSocialsContact('');
   };
 
+  const [hardSkill, setHardSkill] = useState('');
+  const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
+
+  const addHardSkill = () => {
+    setHardSkillsList([...hardSkillsList, hardSkill]);
+    setHardSkill('');
+  };
+
+  const [softSkill, setSoftSkill] = useState('');
+  const [softSkillsList, setSoftSkillsList] = useState<string[]>([]);
+
+  const addSoftSkill = () => {
+    setSoftSkillsList([...softSkillsList, softSkill]);
+    setSoftSkill('');
+  };
+  // Step #2
+
   const handleNextStep = () => {
     setStep(step + 1);
   };
@@ -88,13 +105,6 @@ const AddProfile: NextPage = () => {
   const handlePrevStep = () => {
     if (step > 0) setStep(step - 1);
   };
-
-  const [hardSkills, setHardSkills] = useState('');
-  const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
-
-  const [softSkills, setSoftSkills] = useState('');
-  const [softSkillsList, setSoftSkillsList] = useState<string[]>([]);
-  // Step #2
 
   const renderForm = () => {
     switch (step) {
@@ -181,13 +191,29 @@ const AddProfile: NextPage = () => {
             <div>
               <TextInput
                 title={'Hard skills'}
-                value={details}
-                handler={setDetails}
+                value={hardSkill}
+                handler={setHardSkill}
               />
 
               <button
                 className="mt-2 text-white bg-blue-500"
-                onClick={addDetail}
+                onClick={addHardSkill}
+                type="button"
+              >
+                + add
+              </button>
+            </div>
+
+            <div>
+              <TextInput
+                title={'Soft skills'}
+                value={softSkill}
+                handler={setSoftSkill}
+              />
+
+              <button
+                className="mt-2 text-white bg-blue-500"
+                onClick={addSoftSkill}
                 type="button"
               >
                 + add
@@ -231,6 +257,9 @@ const AddProfile: NextPage = () => {
         return (
           <div className="p-5 mt-5 border">
             <h2 className="text-xl font-bold mb-2">Experience</h2>
+
+            <TextInput title={'Company'} value={details} handler={setDetails} />
+            <TextInput title={'Company'} value={details} handler={setDetails} />
 
             <div className="flex justify-between mt-10">
               <button
