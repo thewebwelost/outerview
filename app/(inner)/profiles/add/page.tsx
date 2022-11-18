@@ -28,7 +28,7 @@ interface IExperience {
   startDate: string;
   endDate: string;
   isCurrent: boolean;
-  responsibilities: string[];
+  responsibilities: string;
   acievements: string[]; // TODO: fix typo
   keywords: string[];
 }
@@ -128,6 +128,24 @@ const AddProfile: NextPage = () => {
   const addKeyword = () => {
     setKeywordsList([...keywordsList, keyword]);
     setKeyword('');
+  };
+
+  const [experienceList, setExperienceList] = useState<IExperience[]>([]);
+
+  const handleAddExperience = () => {
+    setExperienceList([
+      ...experienceList,
+      {
+        company,
+        role,
+        startDate,
+        endDate,
+        isCurrent,
+        responsibilities: resps,
+        acievements: acievesList,
+        keywords: keywordsList,
+      },
+    ]);
   };
 
   // Navigation
@@ -340,6 +358,13 @@ const AddProfile: NextPage = () => {
                 + add
               </button>
             </div>
+
+            <button
+              className="p-1 mt-3 text-white bg-blue-500"
+              onClick={handleAddExperience}
+            >
+              Add experience
+            </button>
 
             <div className="flex justify-between mt-10">
               <button
