@@ -1,9 +1,9 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { ChangeEvent, useReducer, useState } from 'react';
+import { useState } from 'react';
 import TextInput from '../../../../components/atoms/TextInput';
-import AddContact, { IContact } from '../../../../components/AddContact';
+import { IContact } from '../../../../components/AddContact';
 
 const defaultNewProfileFormState = {
   name: '',
@@ -22,7 +22,17 @@ const defaultNewProfileFormState = {
   socials: [],
 };
 
-interface IExperience {}
+interface IExperience {
+  company: string;
+  role: string;
+  startDate: string;
+  endDate: string;
+  isCurrent: boolean;
+  responsibilities: string[];
+  acievements: string[]; // TODO: fix typo
+  keywords: string[];
+}
+
 interface IEducation {}
 
 interface IProfileForm {
@@ -96,7 +106,14 @@ const AddProfile: NextPage = () => {
     setSoftSkillsList([...softSkillsList, softSkill]);
     setSoftSkill('');
   };
-  // Step #2
+
+  const [company, setCompany] = useState('');
+  const [expRole, setExpRole] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [isCurrent, setIsCurrent] = useState(false);
+
+  // Navigation
 
   const handleNextStep = () => {
     setStep(step + 1);
@@ -220,23 +237,6 @@ const AddProfile: NextPage = () => {
               </button>
             </div>
 
-            <div>
-              <TextInput
-                title={'Soft skills'}
-                value={details}
-                handler={setDetails}
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addDetail}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            {/* FORM NAVIGATION */}
             <div className="flex justify-between mt-10">
               <button
                 className="p-1 text-white bg-blue-500"
@@ -258,8 +258,30 @@ const AddProfile: NextPage = () => {
           <div className="p-5 mt-5 border">
             <h2 className="text-xl font-bold mb-2">Experience</h2>
 
-            <TextInput title={'Company'} value={details} handler={setDetails} />
-            <TextInput title={'Company'} value={details} handler={setDetails} />
+            <TextInput title={'Company'} value={company} handler={setCompany} />
+            <TextInput title={'Role'} value={expRole} handler={setExpRole} />
+
+            <div className="w-full flex justify-between">
+              <TextInput
+                title={'Date start'}
+                value={startDate}
+                handler={setStartDate}
+              />
+              <TextInput
+                title={'Date end'}
+                value={endDate}
+                handler={setEndDate}
+              />
+            </div>
+
+            <label>
+              <input
+                type="checkbox"
+                checked={isCurrent}
+                onChange={() => setIsCurrent(!isCurrent)}
+              />{' '}
+              currently work here
+            </label>
 
             <div className="flex justify-between mt-10">
               <button

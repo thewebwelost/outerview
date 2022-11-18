@@ -83,7 +83,7 @@ model Experience {
   endDate          DateTime
   isCurrent        Boolean  @default(false)
   responsibilities String[]
-  acievements      String[]
+  acievements      String[] // TODO: fix typo
   keywords         String[]
   // Relations
   Profile          Profile? @relation(fields: [profileId], references: [id])
