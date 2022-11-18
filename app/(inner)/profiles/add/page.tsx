@@ -112,6 +112,23 @@ const AddProfile: NextPage = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isCurrent, setIsCurrent] = useState(false);
+  const [resps, setResps] = useState('');
+
+  const [achieve, setAchieve] = useState('');
+  const [acievesList, setAchievesList] = useState<string[]>([]);
+
+  const addAchieve = () => {
+    setAchievesList([...acievesList, achieve]);
+    setAchieve('');
+  };
+
+  const [keyword, setKeyword] = useState('');
+  const [keywordsList, setKeywordsList] = useState<string[]>([]);
+
+  const addKeyword = () => {
+    setKeywordsList([...keywordsList, keyword]);
+    setKeyword('');
+  };
 
   // Navigation
 
@@ -283,6 +300,47 @@ const AddProfile: NextPage = () => {
               currently work here
             </label>
 
+            <label htmlFor="summary" className="block mt-3 capitalize">
+              Responsibilities
+              <textarea
+                className="block w-full px-2 py-1 border border-gray-200"
+                value={resps}
+                onChange={(e) => setResps(e.target.value)}
+              />
+            </label>
+
+            <div>
+              <TextInput
+                title={'Achievements'}
+                value={achieve}
+                handler={setAchieve}
+              />
+
+              <button
+                className="mt-2 text-white bg-blue-500"
+                onClick={addAchieve}
+                type="button"
+              >
+                + add
+              </button>
+            </div>
+
+            <div>
+              <TextInput
+                title={'Keywords'}
+                value={keyword}
+                handler={setKeyword}
+              />
+
+              <button
+                className="mt-2 text-white bg-blue-500"
+                onClick={addKeyword}
+                type="button"
+              >
+                + add
+              </button>
+            </div>
+
             <div className="flex justify-between mt-10">
               <button
                 className="p-1 text-white bg-blue-500"
@@ -290,11 +348,8 @@ const AddProfile: NextPage = () => {
               >
                 Prev
               </button>
-              <button
-                className="p-1 text-white bg-blue-500"
-                onClick={handleNextStep}
-              >
-                Next
+              <button className="p-1 text-white bg-blue-500" onClick={() => {}}>
+                Submit
               </button>
             </div>
           </div>
