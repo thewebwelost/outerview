@@ -55,9 +55,8 @@ interface IProfileForm {
 }
 
 const AddProfile: NextPage = () => {
-  // const [state, dispatch] = useReducer(reducer, defaultNewProfileFormState);
   const [step, setStep] = useState(0);
-  // Step #1
+
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [summary, setSummary] = useState('');
@@ -65,8 +64,10 @@ const AddProfile: NextPage = () => {
   const [details, setDetails] = useState('');
   const [detailsList, setDetailsList] = useState<string[]>([]);
   const addDetail = () => {
-    setDetailsList([...detailsList, details]);
-    setDetails('');
+    if (!!details) {
+      setDetailsList([...detailsList, details]);
+      setDetails('');
+    }
   };
 
   const [email, setEmail] = useState('');
@@ -80,31 +81,37 @@ const AddProfile: NextPage = () => {
   >([]);
 
   const addSocial = () => {
-    setSocialsList([
-      ...socialsList,
-      {
-        title: socialsTitle,
-        contact: socialsContact,
-      },
-    ]);
-    setSocialsTitle('');
-    setSocialsContact('');
+    if (!!socialsTitle || !!socialsContact) {
+      setSocialsList([
+        ...socialsList,
+        {
+          title: socialsTitle,
+          contact: socialsContact,
+        },
+      ]);
+      setSocialsTitle('');
+      setSocialsContact('');
+    }
   };
 
   const [hardSkill, setHardSkill] = useState('');
   const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
 
   const addHardSkill = () => {
-    setHardSkillsList([...hardSkillsList, hardSkill]);
-    setHardSkill('');
+    if (!!hardSkill) {
+      setHardSkillsList([...hardSkillsList, hardSkill]);
+      setHardSkill('');
+    }
   };
 
   const [softSkill, setSoftSkill] = useState('');
   const [softSkillsList, setSoftSkillsList] = useState<string[]>([]);
 
   const addSoftSkill = () => {
-    setSoftSkillsList([...softSkillsList, softSkill]);
-    setSoftSkill('');
+    if (!!softSkill) {
+      setSoftSkillsList([...softSkillsList, softSkill]);
+      setSoftSkill('');
+    }
   };
 
   const [company, setCompany] = useState('');
@@ -118,34 +125,49 @@ const AddProfile: NextPage = () => {
   const [acievesList, setAchievesList] = useState<string[]>([]);
 
   const addAchieve = () => {
-    setAchievesList([...acievesList, achieve]);
-    setAchieve('');
+    if (!!achieve) {
+      setAchievesList([...acievesList, achieve]);
+      setAchieve('');
+    }
   };
 
   const [keyword, setKeyword] = useState('');
   const [keywordsList, setKeywordsList] = useState<string[]>([]);
 
   const addKeyword = () => {
-    setKeywordsList([...keywordsList, keyword]);
-    setKeyword('');
+    if (!!keyword) {
+      setKeywordsList([...keywordsList, keyword]);
+      setKeyword('');
+    }
   };
 
   const [experienceList, setExperienceList] = useState<IExperience[]>([]);
 
   const handleAddExperience = () => {
-    setExperienceList([
-      ...experienceList,
-      {
-        company,
-        role,
-        startDate,
-        endDate,
-        isCurrent,
-        responsibilities: resps,
-        acievements: acievesList,
-        keywords: keywordsList,
-      },
-    ]);
+    if (!!company && !!role) {
+      setExperienceList([
+        ...experienceList,
+        {
+          company,
+          role,
+          startDate,
+          endDate,
+          isCurrent,
+          responsibilities: resps,
+          acievements: acievesList,
+          keywords: keywordsList,
+        },
+      ]);
+
+      setCompany('');
+      setExpRole('');
+      setStartDate('');
+      setEndDate('');
+      setIsCurrent(false);
+      setResps('');
+      setAchieve('');
+      setKeyword('');
+    }
   };
 
   // Navigation
