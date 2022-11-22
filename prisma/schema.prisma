@@ -82,8 +82,8 @@ model Experience {
   startDate        DateTime
   endDate          DateTime
   isCurrent        Boolean  @default(false)
-  responsibilities String[] // TODO: fix type to String
-  acievements      String[] // TODO: fix typo
+  responsibilities String
+  achievements     String[]
   keywords         String[]
   // Relations
   Profile          Profile? @relation(fields: [profileId], references: [id])

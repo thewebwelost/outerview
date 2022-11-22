@@ -209,6 +209,7 @@ const AddProfile: NextPage = () => {
                 value={socialsTitle}
                 handler={setSocialsTitle}
               />
+
               <TextInput
                 title={'Socials Contact'}
                 value={socialsContact}
@@ -301,6 +302,7 @@ const AddProfile: NextPage = () => {
               >
                 Prev
               </button>
+
               <button
                 className="p-1 text-white bg-blue-500"
                 onClick={handleNextStep}
@@ -324,6 +326,7 @@ const AddProfile: NextPage = () => {
                 value={startDate}
                 handler={setStartDate}
               />
+
               <TextInput
                 title={'Date end'}
                 value={endDate}
@@ -395,6 +398,7 @@ const AddProfile: NextPage = () => {
               >
                 Prev
               </button>
+
               <button className="p-1 text-white bg-blue-500" onClick={() => {}}>
                 Submit
               </button>
