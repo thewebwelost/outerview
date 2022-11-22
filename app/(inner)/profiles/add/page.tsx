@@ -29,7 +29,7 @@ interface IExperience {
   endDate: string;
   isCurrent: boolean;
   responsibilities: string;
-  acievements: string[]; // TODO: fix typo
+  achievements: string[]; // TODO: fix typo
   keywords: string[];
 }
 
@@ -53,6 +53,17 @@ interface IProfileForm {
   experience: IExperience[];
   education: IEducation[];
 }
+
+const initialState = {
+  name: '',
+  role: '',
+  summary: 'string',
+  details: 'string',
+  detailsList: ['string'],
+  email: '',
+  location: '',
+  website: '',
+};
 
 const AddProfile: NextPage = () => {
   const [step, setStep] = useState(0);
@@ -154,7 +165,7 @@ const AddProfile: NextPage = () => {
           endDate,
           isCurrent,
           responsibilities: resps,
-          acievements: acievesList,
+          achievements: acievesList,
           keywords: keywordsList,
         },
       ]);

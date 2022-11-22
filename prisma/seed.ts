@@ -28,7 +28,7 @@ async function main() {
                   endDate: new Date(),
                   isCurrent: true,
                   responsibilities: ['cook', 'clean', 'repeat'],
-                  acievements: ['best bagel 2020'],
+                  achievements: ['best bagel 2020'],
                   keywords: ['jira', 'osx', 'microsoft office'],
                 },
                 {
@@ -38,7 +38,7 @@ async function main() {
                   endDate: new Date(),
                   isCurrent: false,
                   responsibilities: ['cook', 'clean', 'repeat'],
-                  acievements: ['best burger 2018'],
+                  achievements: ['best burger 2018'],
                   keywords: ['jira', 'osx', 'microsoft office'],
                 },
               ],
