@@ -1,7 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import TextInput from '../../../../components/atoms/TextInput';
 
 const defaultNewProfileFormState = {
@@ -208,352 +208,349 @@ const AddProfile: NextPage = () => {
     if (step > 0) setStep(step - 1);
   };
 
+  const PersonalInfo: React.FC<{
+    formState: IProfileForm;
+    setFormState: React.Dispatch<React.SetStateAction<IProfileForm>>;
+  }> = ({ formState, setFormState }) => (
+    <div className="p-5 mt-5 border">
+      <h2 className="text-xl font-bold mb-2">Introduce yourself first</h2>
+
+      <div className="w-full flex justify-between">
+        <TextInput
+          title={'Name'}
+          value={formState.name}
+          handler={(name: string) =>
+            setFormState({
+              ...formState,
+              name,
+            })
+          }
+        />
+        <TextInput
+          title={'Role'}
+          value={formState.role}
+          handler={(role: string) =>
+            setFormState({
+              ...formState,
+              role,
+            })
+          }
+        />
+      </div>
+
+      <div className="w-full flex justify-between">
+        <TextInput
+          title={'Email'}
+          value={formState.email}
+          handler={(email: string) =>
+            setFormState({
+              ...formState,
+              email,
+            })
+          }
+        />
+        <TextInput
+          title={'Location'}
+          value={formState.location}
+          handler={(location: string) =>
+            setFormState({
+              ...formState,
+              location,
+            })
+          }
+        />
+      </div>
+
+      <TextInput
+        title={'Website'}
+        value={formState.website}
+        handler={(website: string) =>
+          setFormState({
+            ...formState,
+            website,
+          })
+        }
+      />
+
+      <div>
+        <TextInput
+          title={'Socials title'}
+          value={formState.socialsTitle}
+          handler={(socialsTitle: string) =>
+            setFormState({
+              ...formState,
+              socialsTitle,
+            })
+          }
+        />
+
+        <TextInput
+          title={'Socials Contact'}
+          value={formState.socialsContact}
+          handler={(socialsContact: string) =>
+            setFormState({
+              ...formState,
+              socialsContact,
+            })
+          }
+        />
+
+        <button
+          className="mt-2 text-white bg-blue-500"
+          onClick={addSocial}
+          type="button"
+        >
+          + add
+        </button>
+      </div>
+
+      <div className="flex justify-end mt-10">
+        <button className="p-1 text-white bg-blue-500" onClick={handleNextStep}>
+          Next
+        </button>
+      </div>
+    </div>
+  );
+
+  const ProfessionalInfo = () => (
+    <div className="p-5 mt-5 border">
+      <label htmlFor="summary" className="block mt-3 capitalize">
+        Summary
+        <textarea
+          className="block w-full px-2 py-1 border border-gray-200"
+          value={formState.summary}
+          onChange={(e) => {
+            setFormState({
+              ...formState,
+              summary: e.target.value,
+            });
+          }}
+        />
+      </label>
+
+      <div>
+        <TextInput
+          title={'Details'}
+          value={formState.details}
+          handler={(details: string) =>
+            setFormState({
+              ...formState,
+              details,
+            })
+          }
+        />
+
+        <button
+          className="mt-2 text-white bg-blue-500"
+          onClick={addDetail}
+          type="button"
+        >
+          + add
+        </button>
+      </div>
+
+      <div>
+        <TextInput
+          title={'Hard skills'}
+          value={formState.hardSkill}
+          handler={(hardSkill: string) =>
+            setFormState({
+              ...formState,
+              hardSkill,
+            })
+          }
+        />
+
+        <button
+          className="mt-2 text-white bg-blue-500"
+          onClick={addHardSkill}
+          type="button"
+        >
+          + add
+        </button>
+      </div>
+
+      <div>
+        <TextInput
+          title={'Soft skills'}
+          value={formState.softSkill}
+          handler={(softSkill: string) =>
+            setFormState({
+              ...formState,
+              softSkill,
+            })
+          }
+        />
+
+        <button
+          className="mt-2 text-white bg-blue-500"
+          onClick={addSoftSkill}
+          type="button"
+        >
+          + add
+        </button>
+      </div>
+
+      <div className="flex justify-between mt-10">
+        <button className="p-1 text-white bg-blue-500" onClick={handlePrevStep}>
+          Prev
+        </button>
+
+        <button className="p-1 text-white bg-blue-500" onClick={handleNextStep}>
+          Next
+        </button>
+      </div>
+    </div>
+  );
+
+  const Experience = () => (
+    <div className="p-5 mt-5 border">
+      <h2 className="text-xl font-bold mb-2">Experience</h2>
+
+      <TextInput
+        title={'Company'}
+        value={formState.company}
+        handler={(company: string) =>
+          setFormState({
+            ...formState,
+            company,
+          })
+        }
+      />
+      <TextInput
+        title={'Role'}
+        value={formState.expRole}
+        handler={(expRole: string) =>
+          setFormState({
+            ...formState,
+            expRole,
+          })
+        }
+      />
+
+      <div className="w-full flex justify-between">
+        <TextInput
+          title={'Date start'}
+          value={formState.startDate}
+          handler={(startDate: string) =>
+            setFormState({
+              ...formState,
+              startDate,
+            })
+          }
+        />
+
+        <TextInput
+          title={'Date end'}
+          value={formState.endDate}
+          handler={(endDate: string) =>
+            setFormState({
+              ...formState,
+              endDate,
+            })
+          }
+        />
+      </div>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={formState.isCurrent}
+          onChange={() =>
+            setFormState({
+              ...formState,
+              isCurrent: !formState.isCurrent,
+            })
+          }
+        />{' '}
+        currently work here
+      </label>
+
+      <label htmlFor="summary" className="block mt-3 capitalize">
+        Responsibilities
+        <textarea
+          className="block w-full px-2 py-1 border border-gray-200"
+          value={formState.resps}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              resps: e.target.value,
+            })
+          }
+        />
+      </label>
+
+      <div>
+        <TextInput
+          title={'Achievements'}
+          value={formState.achieve}
+          handler={(achieve: string) =>
+            setFormState({
+              ...formState,
+              achieve,
+            })
+          }
+        />
+
+        <button
+          className="mt-2 text-white bg-blue-500"
+          onClick={addAchieve}
+          type="button"
+        >
+          + add
+        </button>
+      </div>
+
+      <div>
+        <TextInput
+          title={'Keywords'}
+          value={formState.keyword}
+          handler={(keyword: string) =>
+            setFormState({
+              ...formState,
+              keyword,
+            })
+          }
+        />
+
+        <button
+          className="mt-2 text-white bg-blue-500"
+          onClick={addKeyword}
+          type="button"
+        >
+          + add
+        </button>
+      </div>
+
+      <button
+        className="p-1 mt-3 text-white bg-blue-500"
+        onClick={handleAddExperience}
+      >
+        Add experience
+      </button>
+
+      <div className="flex justify-between mt-10">
+        <button className="p-1 text-white bg-blue-500" onClick={handlePrevStep}>
+          Prev
+        </button>
+
+        <button className="p-1 text-white bg-blue-500" onClick={() => {}}>
+          Submit
+        </button>
+      </div>
+    </div>
+  );
+
   const renderForm = () => {
     switch (step) {
       case 0:
         return (
-          <div className="p-5 mt-5 border">
-            <h2 className="text-xl font-bold mb-2">Introduce yourself first</h2>
-
-            <div className="w-full flex justify-between">
-              <TextInput
-                title={'Name'}
-                value={formState.name}
-                handler={(name: string) =>
-                  setFormState({
-                    ...formState,
-                    name,
-                  })
-                }
-              />
-              <TextInput
-                title={'Role'}
-                value={formState.role}
-                handler={(role: string) =>
-                  setFormState({
-                    ...formState,
-                    role,
-                  })
-                }
-              />
-            </div>
-
-            <div className="w-full flex justify-between">
-              <TextInput
-                title={'Email'}
-                value={formState.email}
-                handler={(email: string) =>
-                  setFormState({
-                    ...formState,
-                    email,
-                  })
-                }
-              />
-              <TextInput
-                title={'Location'}
-                value={formState.location}
-                handler={(location: string) =>
-                  setFormState({
-                    ...formState,
-                    location,
-                  })
-                }
-              />
-            </div>
-
-            <TextInput
-              title={'Website'}
-              value={formState.website}
-              handler={(website: string) =>
-                setFormState({
-                  ...formState,
-                  website,
-                })
-              }
-            />
-
-            <div>
-              <TextInput
-                title={'Socials title'}
-                value={formState.socialsTitle}
-                handler={(socialsTitle: string) =>
-                  setFormState({
-                    ...formState,
-                    socialsTitle,
-                  })
-                }
-              />
-
-              <TextInput
-                title={'Socials Contact'}
-                value={formState.socialsContact}
-                handler={(socialsContact: string) =>
-                  setFormState({
-                    ...formState,
-                    socialsContact,
-                  })
-                }
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addSocial}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            <div className="flex justify-end mt-10">
-              <button
-                className="p-1 text-white bg-blue-500"
-                onClick={handleNextStep}
-              >
-                Next
-              </button>
-            </div>
-          </div>
+          <PersonalInfo formState={formState} setFormState={setFormState} />
         );
-
       case 1:
-        return (
-          <div className="p-5 mt-5 border">
-            <label htmlFor="summary" className="block mt-3 capitalize">
-              Summary
-              <textarea
-                className="block w-full px-2 py-1 border border-gray-200"
-                value={formState.summary}
-                onChange={(e) => {
-                  setFormState({
-                    ...formState,
-                    summary: e.target.value,
-                  });
-                }}
-              />
-            </label>
-
-            <div>
-              <TextInput
-                title={'Details'}
-                value={formState.details}
-                handler={(details: string) =>
-                  setFormState({
-                    ...formState,
-                    details,
-                  })
-                }
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addDetail}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            <div>
-              <TextInput
-                title={'Hard skills'}
-                value={formState.hardSkill}
-                handler={(hardSkill: string) =>
-                  setFormState({
-                    ...formState,
-                    hardSkill,
-                  })
-                }
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addHardSkill}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            <div>
-              <TextInput
-                title={'Soft skills'}
-                value={formState.softSkill}
-                handler={(softSkill: string) =>
-                  setFormState({
-                    ...formState,
-                    softSkill,
-                  })
-                }
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addSoftSkill}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            <div className="flex justify-between mt-10">
-              <button
-                className="p-1 text-white bg-blue-500"
-                onClick={handlePrevStep}
-              >
-                Prev
-              </button>
-
-              <button
-                className="p-1 text-white bg-blue-500"
-                onClick={handleNextStep}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        );
-
+        return <ProfessionalInfo />;
       case 2:
-        return (
-          <div className="p-5 mt-5 border">
-            <h2 className="text-xl font-bold mb-2">Experience</h2>
-
-            <TextInput
-              title={'Company'}
-              value={formState.company}
-              handler={(company: string) =>
-                setFormState({
-                  ...formState,
-                  company,
-                })
-              }
-            />
-            <TextInput
-              title={'Role'}
-              value={formState.expRole}
-              handler={(expRole: string) =>
-                setFormState({
-                  ...formState,
-                  expRole,
-                })
-              }
-            />
-
-            <div className="w-full flex justify-between">
-              <TextInput
-                title={'Date start'}
-                value={formState.startDate}
-                handler={(startDate: string) =>
-                  setFormState({
-                    ...formState,
-                    startDate,
-                  })
-                }
-              />
-
-              <TextInput
-                title={'Date end'}
-                value={formState.endDate}
-                handler={(endDate: string) =>
-                  setFormState({
-                    ...formState,
-                    endDate,
-                  })
-                }
-              />
-            </div>
-
-            <label>
-              <input
-                type="checkbox"
-                checked={formState.isCurrent}
-                onChange={() =>
-                  setFormState({
-                    ...formState,
-                    isCurrent: !formState.isCurrent,
-                  })
-                }
-              />{' '}
-              currently work here
-            </label>
-
-            <label htmlFor="summary" className="block mt-3 capitalize">
-              Responsibilities
-              <textarea
-                className="block w-full px-2 py-1 border border-gray-200"
-                value={formState.resps}
-                onChange={(e) =>
-                  setFormState({
-                    ...formState,
-                    resps: e.target.value,
-                  })
-                }
-              />
-            </label>
-
-            <div>
-              <TextInput
-                title={'Achievements'}
-                value={formState.achieve}
-                handler={(achieve: string) =>
-                  setFormState({
-                    ...formState,
-                    achieve,
-                  })
-                }
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addAchieve}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            <div>
-              <TextInput
-                title={'Keywords'}
-                value={formState.keyword}
-                handler={(keyword: string) =>
-                  setFormState({
-                    ...formState,
-                    keyword,
-                  })
-                }
-              />
-
-              <button
-                className="mt-2 text-white bg-blue-500"
-                onClick={addKeyword}
-                type="button"
-              >
-                + add
-              </button>
-            </div>
-
-            <button
-              className="p-1 mt-3 text-white bg-blue-500"
-              onClick={handleAddExperience}
-            >
-              Add experience
-            </button>
-
-            <div className="flex justify-between mt-10">
-              <button
-                className="p-1 text-white bg-blue-500"
-                onClick={handlePrevStep}
-              >
-                Prev
-              </button>
-
-              <button className="p-1 text-white bg-blue-500" onClick={() => {}}>
-                Submit
-              </button>
-            </div>
-          </div>
-        );
+        return <Experience />;
 
       default:
         break;
