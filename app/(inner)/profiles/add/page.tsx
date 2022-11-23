@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import { SetStateAction, useState } from 'react';
 import TextInput from '../../../../components/atoms/TextInput';
 import ExperienceInfo from '../../../../components/ExperienceInfo';
+import FormStep from '../../../../components/FormStep';
 import PersonalInfo from '../../../../components/PersonalInfo';
 import ProfessionalInfo from '../../../../components/ProfessionalInfo';
 
@@ -186,6 +187,12 @@ const AddProfile: NextPage = () => {
 
   // Navigation
 
+  const handleFirstStep = () => {
+    setStep(step + 1);
+    // and create initial profile
+    // and set profile as incomplete
+  };
+
   const handleNextStep = () => {
     setStep(step + 1);
   };
@@ -198,36 +205,43 @@ const AddProfile: NextPage = () => {
     switch (step) {
       case 0:
         return (
-          <PersonalInfo
-            formState={formState}
-            setFormState={setFormState}
-            addSocial={addSocial}
-            handleNextStep={handleNextStep}
-          />
+          <FormStep handleNextStep={handleFirstStep}>
+            <PersonalInfo
+              formState={formState}
+              setFormState={setFormState}
+              addSocial={addSocial}
+            />
+          </FormStep>
         );
       case 1:
         return (
-          <ProfessionalInfo
-            formState={formState}
-            setFormState={setFormState}
-            addDetail={addDetail}
-            addHardSkill={addHardSkill}
-            addSoftSkill={addSoftSkill}
+          <FormStep
             handleNextStep={handleNextStep}
             handlePrevStep={handlePrevStep}
-          />
+          >
+            <ProfessionalInfo
+              formState={formState}
+              setFormState={setFormState}
+              addDetail={addDetail}
+              addHardSkill={addHardSkill}
+              addSoftSkill={addSoftSkill}
+            />
+          </FormStep>
         );
       case 2:
         return (
-          <ExperienceInfo
-            formState={formState}
-            setFormState={setFormState}
-            addAchieve={addAchieve}
-            addKeyword={addKeyword}
-            handleAddExperience={handleAddExperience}
+          <FormStep
             handleNextStep={handleNextStep}
             handlePrevStep={handlePrevStep}
-          />
+          >
+            <ExperienceInfo
+              formState={formState}
+              setFormState={setFormState}
+              addAchieve={addAchieve}
+              addKeyword={addKeyword}
+              handleAddExperience={handleAddExperience}
+            />
+          </FormStep>
         );
 
       default:

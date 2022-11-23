@@ -1,7 +1,6 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
-import FormNavigation from './FormNavigation';
 
 interface IProfessionalInfo {
   formState: IProfileForm;
@@ -9,8 +8,6 @@ interface IProfessionalInfo {
   addDetail: () => void;
   addHardSkill: () => void;
   addSoftSkill: () => void;
-  handleNextStep: () => void;
-  handlePrevStep: () => void;
 }
 
 const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
@@ -19,8 +16,6 @@ const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
   addDetail,
   addHardSkill,
   addSoftSkill,
-  handleNextStep,
-  handlePrevStep,
 }) => (
   <div className="p-5 mt-5 border">
     <label htmlFor="summary" className="block mt-3 capitalize">
@@ -99,11 +94,6 @@ const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
         + add
       </button>
     </div>
-
-    <FormNavigation
-      handleNextStep={handleNextStep}
-      handlePrevStep={handlePrevStep}
-    />
   </div>
 );
 

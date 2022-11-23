@@ -9,8 +9,6 @@ interface IExperienceInfo {
   addAchieve: () => void;
   addKeyword: () => void;
   handleAddExperience: () => void;
-  handleNextStep: () => void;
-  handlePrevStep: () => void;
 }
 
 const ExperienceInfo: React.FC<IExperienceInfo> = ({
@@ -19,8 +17,6 @@ const ExperienceInfo: React.FC<IExperienceInfo> = ({
   addAchieve,
   addKeyword,
   handleAddExperience,
-  handleNextStep,
-  handlePrevStep,
 }) => (
   <div className="p-5 mt-5 border">
     <h2 className="text-xl font-bold mb-2">Experience</h2>
@@ -146,11 +142,6 @@ const ExperienceInfo: React.FC<IExperienceInfo> = ({
     >
       Add experience
     </button>
-
-    <FormNavigation
-      handleNextStep={handleNextStep}
-      handlePrevStep={handlePrevStep}
-    />
   </div>
 );
 

@@ -67,6 +67,7 @@ model Profile {
   details    String[]
   hardSkills String[]
   softSkills String[]
+  isComplete Boolean      @default(false)
   // Relations
   User       User         @relation(fields: [userId], references: [id])
   experience Experience[]

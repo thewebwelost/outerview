@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
-import FormNavigation from './FormNavigation';
 
 interface IPersonalInfo {
   formState: IProfileForm;
   setFormState: React.Dispatch<React.SetStateAction<IProfileForm>>;
   addSocial: () => void;
-  handleNextStep: () => void;
 }
 
 const PersonalInfo: React.FC<IPersonalInfo> = ({
   formState,
   setFormState,
   addSocial,
-  handleNextStep,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   return (
@@ -111,8 +108,6 @@ const PersonalInfo: React.FC<IPersonalInfo> = ({
           + add
         </button>
       </div>
-
-      <FormNavigation handleNextStep={handleNextStep} />
     </div>
   );
 };
