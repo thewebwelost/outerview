@@ -3,7 +3,6 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import TextInput from '../../../../components/atoms/TextInput';
-import { IContact } from '../../../../components/AddContact';
 
 const defaultNewProfileFormState = {
   name: '',
@@ -36,148 +35,166 @@ interface IExperience {
 interface IEducation {}
 
 interface IProfileForm {
-  id: number;
-  userId: number;
   name: string;
-  title: string;
-  email: string;
-  website: string;
-  location: string;
-
+  role: string;
   summary: string;
-  details: string[];
-  socials: IContact[];
-
-  hardSkills: string[];
-  softSkills: string[];
-  experience: IExperience[];
-  education: IEducation[];
+  details: string;
+  detailsList: string[];
+  email: string;
+  location: string;
+  website: string;
+  socialsTitle: string;
+  socialsContact: string;
+  socialsList: { title: string; contact: string }[];
+  hardSkill: string;
+  hardSkillsList: string[];
+  softSkill: string;
+  softSkillsList: string[];
+  // experience
+  company: string;
+  expRole: string;
+  startDate: string;
+  endDate: string;
+  isCurrent: boolean;
+  resps: string;
+  const: string;
+  achieve: string;
+  achievesList: string[];
+  keyword: string;
+  keywordsList: string[];
+  experienceList: IExperience[];
+  // education
 }
 
 const initialState = {
   name: '',
   role: '',
-  summary: 'string',
-  details: 'string',
-  detailsList: ['string'],
+  summary: '',
+  details: '',
+  detailsList: [],
   email: '',
   location: '',
   website: '',
+  socialsTitle: '',
+  socialsContact: '',
+  socialsList: [],
+  hardSkill: '',
+  hardSkillsList: [],
+  softSkill: '',
+  softSkillsList: [],
+
+  company: '',
+  expRole: '',
+  startDate: '',
+  endDate: '',
+  isCurrent: false,
+  resps: '',
+  const: '',
+  achieve: '',
+  achievesList: [],
+  keyword: '',
+  keywordsList: [],
+  experienceList: [],
 };
 
 const AddProfile: NextPage = () => {
   const [step, setStep] = useState(0);
 
-  const [name, setName] = useState('');
-  const [role, setRole] = useState('');
-  const [summary, setSummary] = useState('');
+  const [formState, setFormState] = useState<IProfileForm>(initialState);
 
-  const [details, setDetails] = useState('');
-  const [detailsList, setDetailsList] = useState<string[]>([]);
   const addDetail = () => {
-    if (!!details) {
-      setDetailsList([...detailsList, details]);
-      setDetails('');
+    if (!!formState.details) {
+      setFormState({
+        ...formState,
+        detailsList: [...formState.detailsList, formState.details],
+        details: '',
+      });
     }
   };
-
-  const [email, setEmail] = useState('');
-  const [location, setLocation] = useState('');
-  const [website, setWebsite] = useState('');
-
-  const [socialsTitle, setSocialsTitle] = useState('');
-  const [socialsContact, setSocialsContact] = useState('');
-  const [socialsList, setSocialsList] = useState<
-    { title: string; contact: string }[]
-  >([]);
 
   const addSocial = () => {
-    if (!!socialsTitle || !!socialsContact) {
-      setSocialsList([
-        ...socialsList,
-        {
-          title: socialsTitle,
-          contact: socialsContact,
-        },
-      ]);
-      setSocialsTitle('');
-      setSocialsContact('');
+    if (!!formState.socialsTitle || !!formState.socialsContact) {
+      setFormState({
+        ...formState,
+        socialsList: [
+          ...formState.socialsList,
+          {
+            title: formState.socialsTitle,
+            contact: formState.socialsContact,
+          },
+        ],
+        socialsTitle: '',
+        socialsContact: '',
+      });
     }
   };
-
-  const [hardSkill, setHardSkill] = useState('');
-  const [hardSkillsList, setHardSkillsList] = useState<string[]>([]);
 
   const addHardSkill = () => {
-    if (!!hardSkill) {
-      setHardSkillsList([...hardSkillsList, hardSkill]);
-      setHardSkill('');
+    if (!!formState.hardSkill) {
+      setFormState({
+        ...formState,
+        hardSkillsList: [...formState.hardSkillsList, formState.hardSkill],
+        hardSkill: '',
+      });
     }
   };
-
-  const [softSkill, setSoftSkill] = useState('');
-  const [softSkillsList, setSoftSkillsList] = useState<string[]>([]);
 
   const addSoftSkill = () => {
-    if (!!softSkill) {
-      setSoftSkillsList([...softSkillsList, softSkill]);
-      setSoftSkill('');
+    if (!!formState.softSkill) {
+      setFormState({
+        ...formState,
+        softSkillsList: [...formState.softSkillsList, formState.softSkill],
+        softSkill: '',
+      });
     }
   };
-
-  const [company, setCompany] = useState('');
-  const [expRole, setExpRole] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [isCurrent, setIsCurrent] = useState(false);
-  const [resps, setResps] = useState('');
-
-  const [achieve, setAchieve] = useState('');
-  const [acievesList, setAchievesList] = useState<string[]>([]);
 
   const addAchieve = () => {
-    if (!!achieve) {
-      setAchievesList([...acievesList, achieve]);
-      setAchieve('');
+    if (!!formState.achieve) {
+      setFormState({
+        ...formState,
+        achievesList: [...formState.achievesList, formState.achieve],
+        achieve: '',
+      });
     }
   };
-
-  const [keyword, setKeyword] = useState('');
-  const [keywordsList, setKeywordsList] = useState<string[]>([]);
 
   const addKeyword = () => {
-    if (!!keyword) {
-      setKeywordsList([...keywordsList, keyword]);
-      setKeyword('');
+    if (!!formState.keyword) {
+      setFormState({
+        ...formState,
+        keywordsList: [...formState.keywordsList, formState.keyword],
+        keyword: '',
+      });
     }
   };
 
-  const [experienceList, setExperienceList] = useState<IExperience[]>([]);
-
   const handleAddExperience = () => {
-    if (!!company && !!role) {
-      setExperienceList([
-        ...experienceList,
-        {
-          company,
-          role,
-          startDate,
-          endDate,
-          isCurrent,
-          responsibilities: resps,
-          achievements: acievesList,
-          keywords: keywordsList,
-        },
-      ]);
-
-      setCompany('');
-      setExpRole('');
-      setStartDate('');
-      setEndDate('');
-      setIsCurrent(false);
-      setResps('');
-      setAchieve('');
-      setKeyword('');
+    if (!!formState.company && !!formState.role) {
+      setFormState({
+        ...formState,
+        experienceList: [
+          ...formState.experienceList,
+          {
+            company: formState.company,
+            role: formState.role,
+            startDate: formState.startDate,
+            endDate: formState.endDate,
+            isCurrent: formState.isCurrent,
+            responsibilities: formState.resps,
+            achievements: formState.achievesList,
+            keywords: formState.keywordsList,
+          },
+        ],
+        company: '',
+        role: '',
+        startDate: '',
+        endDate: '',
+        isCurrent: false,
+        resps: '',
+        achievesList: [],
+        keywordsList: [],
+      });
     }
   };
 
@@ -199,32 +216,83 @@ const AddProfile: NextPage = () => {
             <h2 className="text-xl font-bold mb-2">Introduce yourself first</h2>
 
             <div className="w-full flex justify-between">
-              <TextInput title={'Name'} value={name} handler={setName} />
-              <TextInput title={'Role'} value={role} handler={setRole} />
-            </div>
-
-            <div className="w-full flex justify-between">
-              <TextInput title={'Email'} value={email} handler={setEmail} />
               <TextInput
-                title={'Location'}
-                value={location}
-                handler={setLocation}
+                title={'Name'}
+                value={formState.name}
+                handler={(name: string) =>
+                  setFormState({
+                    ...formState,
+                    name,
+                  })
+                }
+              />
+              <TextInput
+                title={'Role'}
+                value={formState.role}
+                handler={(role: string) =>
+                  setFormState({
+                    ...formState,
+                    role,
+                  })
+                }
               />
             </div>
 
-            <TextInput title={'Website'} value={website} handler={setWebsite} />
+            <div className="w-full flex justify-between">
+              <TextInput
+                title={'Email'}
+                value={formState.email}
+                handler={(email: string) =>
+                  setFormState({
+                    ...formState,
+                    email,
+                  })
+                }
+              />
+              <TextInput
+                title={'Location'}
+                value={formState.location}
+                handler={(location: string) =>
+                  setFormState({
+                    ...formState,
+                    location,
+                  })
+                }
+              />
+            </div>
+
+            <TextInput
+              title={'Website'}
+              value={formState.website}
+              handler={(website: string) =>
+                setFormState({
+                  ...formState,
+                  website,
+                })
+              }
+            />
 
             <div>
               <TextInput
                 title={'Socials title'}
-                value={socialsTitle}
-                handler={setSocialsTitle}
+                value={formState.socialsTitle}
+                handler={(socialsTitle: string) =>
+                  setFormState({
+                    ...formState,
+                    socialsTitle,
+                  })
+                }
               />
 
               <TextInput
                 title={'Socials Contact'}
-                value={socialsContact}
-                handler={setSocialsContact}
+                value={formState.socialsContact}
+                handler={(socialsContact: string) =>
+                  setFormState({
+                    ...formState,
+                    socialsContact,
+                  })
+                }
               />
 
               <button
@@ -246,6 +314,7 @@ const AddProfile: NextPage = () => {
             </div>
           </div>
         );
+
       case 1:
         return (
           <div className="p-5 mt-5 border">
@@ -253,16 +322,26 @@ const AddProfile: NextPage = () => {
               Summary
               <textarea
                 className="block w-full px-2 py-1 border border-gray-200"
-                value={summary}
-                onChange={(e) => setSummary(e.target.value)}
+                value={formState.summary}
+                onChange={(e) => {
+                  setFormState({
+                    ...formState,
+                    summary: e.target.value,
+                  });
+                }}
               />
             </label>
 
             <div>
               <TextInput
                 title={'Details'}
-                value={details}
-                handler={setDetails}
+                value={formState.details}
+                handler={(details: string) =>
+                  setFormState({
+                    ...formState,
+                    details,
+                  })
+                }
               />
 
               <button
@@ -277,8 +356,13 @@ const AddProfile: NextPage = () => {
             <div>
               <TextInput
                 title={'Hard skills'}
-                value={hardSkill}
-                handler={setHardSkill}
+                value={formState.hardSkill}
+                handler={(hardSkill: string) =>
+                  setFormState({
+                    ...formState,
+                    hardSkill,
+                  })
+                }
               />
 
               <button
@@ -293,8 +377,13 @@ const AddProfile: NextPage = () => {
             <div>
               <TextInput
                 title={'Soft skills'}
-                value={softSkill}
-                handler={setSoftSkill}
+                value={formState.softSkill}
+                handler={(softSkill: string) =>
+                  setFormState({
+                    ...formState,
+                    softSkill,
+                  })
+                }
               />
 
               <button
@@ -323,33 +412,67 @@ const AddProfile: NextPage = () => {
             </div>
           </div>
         );
+
       case 2:
         return (
           <div className="p-5 mt-5 border">
             <h2 className="text-xl font-bold mb-2">Experience</h2>
 
-            <TextInput title={'Company'} value={company} handler={setCompany} />
-            <TextInput title={'Role'} value={expRole} handler={setExpRole} />
+            <TextInput
+              title={'Company'}
+              value={formState.company}
+              handler={(company: string) =>
+                setFormState({
+                  ...formState,
+                  company,
+                })
+              }
+            />
+            <TextInput
+              title={'Role'}
+              value={formState.expRole}
+              handler={(expRole: string) =>
+                setFormState({
+                  ...formState,
+                  expRole,
+                })
+              }
+            />
 
             <div className="w-full flex justify-between">
               <TextInput
                 title={'Date start'}
-                value={startDate}
-                handler={setStartDate}
+                value={formState.startDate}
+                handler={(startDate: string) =>
+                  setFormState({
+                    ...formState,
+                    startDate,
+                  })
+                }
               />
 
               <TextInput
                 title={'Date end'}
-                value={endDate}
-                handler={setEndDate}
+                value={formState.endDate}
+                handler={(endDate: string) =>
+                  setFormState({
+                    ...formState,
+                    endDate,
+                  })
+                }
               />
             </div>
 
             <label>
               <input
                 type="checkbox"
-                checked={isCurrent}
-                onChange={() => setIsCurrent(!isCurrent)}
+                checked={formState.isCurrent}
+                onChange={() =>
+                  setFormState({
+                    ...formState,
+                    isCurrent: !formState.isCurrent,
+                  })
+                }
               />{' '}
               currently work here
             </label>
@@ -358,16 +481,26 @@ const AddProfile: NextPage = () => {
               Responsibilities
               <textarea
                 className="block w-full px-2 py-1 border border-gray-200"
-                value={resps}
-                onChange={(e) => setResps(e.target.value)}
+                value={formState.resps}
+                onChange={(e) =>
+                  setFormState({
+                    ...formState,
+                    resps: e.target.value,
+                  })
+                }
               />
             </label>
 
             <div>
               <TextInput
                 title={'Achievements'}
-                value={achieve}
-                handler={setAchieve}
+                value={formState.achieve}
+                handler={(achieve: string) =>
+                  setFormState({
+                    ...formState,
+                    achieve,
+                  })
+                }
               />
 
               <button
@@ -382,8 +515,13 @@ const AddProfile: NextPage = () => {
             <div>
               <TextInput
                 title={'Keywords'}
-                value={keyword}
-                handler={setKeyword}
+                value={formState.keyword}
+                handler={(keyword: string) =>
+                  setFormState({
+                    ...formState,
+                    keyword,
+                  })
+                }
               />
 
               <button
@@ -432,28 +570,30 @@ const AddProfile: NextPage = () => {
         {/* PREVIEW */}
         <div className="basis-3/5 p-5 font-light">
           <span className="text-right">
-            <p className="font-bold text-2xl">{name || 'Your Name'}</p>
-            <p className="italic">
-              {role || 'role'}, {location || 'location'}
+            <p className="font-bold text-2xl">
+              {formState.name || 'Your Name'}
             </p>
-            <p className=" text-blue-500 underline">{website}</p>
-            <p className=" text-blue-500">{email}</p>
+            <p className="italic">
+              {formState.role || 'role'}, {formState.location || 'location'}
+            </p>
+            <p className=" text-blue-500 underline">{formState.website}</p>
+            <p className=" text-blue-500">{formState.email}</p>
           </span>
 
           <h2 className="font-bold text-xl mt-3 mb-1">Socials</h2>
           <ul className="flex">
-            {socialsList.map((item, i) => (
+            {formState.socialsList.map((item, i) => (
               <li key={i} className="mr-2 text-blue-400">
                 {item.title}
               </li>
             ))}
           </ul>
           <h2 className="font-bold text-xl mt-3 mb-1">Summary</h2>
-          <pre className="font-sans font-light">{summary}</pre>
+          <pre className="font-sans font-light">{formState.summary}</pre>
 
           <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">
-            {detailsList.map((item, i) => (
+            {formState.detailsList.map((item, i) => (
               <li key={i} className="">
                 {item}
               </li>
