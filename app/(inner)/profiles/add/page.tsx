@@ -269,9 +269,7 @@ const AddProfile: NextPage = () => {
           <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">
             {formState.detailsList.map((item, i) => (
-              <li key={i} className="">
-                {item}
-              </li>
+              <li key={i}>{item}</li>
             ))}
           </ul>
 

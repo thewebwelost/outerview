@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
 
@@ -15,8 +15,9 @@ const PersonalInfo: React.FC<IPersonalInfo> = ({
   addSocial,
   handleNextStep,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
   return (
-    <div className="p-5 mt-5 border">
+    <div className="p-5 mt-5 border" onAnimationEnd={() => setIsVisible(true)}>
       <h2 className="text-xl font-bold mb-2">Introduce yourself first</h2>
 
       <div className="w-full flex justify-between">
@@ -30,6 +31,7 @@ const PersonalInfo: React.FC<IPersonalInfo> = ({
             })
           }
         />
+
         <TextInput
           title={'Role'}
           value={formState.role}
@@ -53,6 +55,7 @@ const PersonalInfo: React.FC<IPersonalInfo> = ({
             })
           }
         />
+
         <TextInput
           title={'Location'}
           value={formState.location}
