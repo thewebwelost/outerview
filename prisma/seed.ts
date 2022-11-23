@@ -1,5 +1,7 @@
 import prisma from './client';
 
+// TODO: FIX SEED
+
 async function main() {
   const user = await prisma.user.create({
     data: {
