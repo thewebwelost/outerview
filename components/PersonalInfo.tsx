@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
+import FormNavigation from './FormNavigation';
 
 interface IPersonalInfo {
   formState: IProfileForm;
@@ -111,11 +112,7 @@ const PersonalInfo: React.FC<IPersonalInfo> = ({
         </button>
       </div>
 
-      <div className="flex justify-end mt-10">
-        <button className="p-1 text-white bg-blue-500" onClick={handleNextStep}>
-          Next
-        </button>
-      </div>
+      <FormNavigation handleNextStep={handleNextStep} />
     </div>
   );
 };

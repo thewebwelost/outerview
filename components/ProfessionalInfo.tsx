@@ -1,6 +1,7 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
+import FormNavigation from './FormNavigation';
 
 interface IProfessionalInfo {
   formState: IProfileForm;
@@ -99,15 +100,10 @@ const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
       </button>
     </div>
 
-    <div className="flex justify-between mt-10">
-      <button className="p-1 text-white bg-blue-500" onClick={handlePrevStep}>
-        Prev
-      </button>
-
-      <button className="p-1 text-white bg-blue-500" onClick={handleNextStep}>
-        Next
-      </button>
-    </div>
+    <FormNavigation
+      handleNextStep={handleNextStep}
+      handlePrevStep={handlePrevStep}
+    />
   </div>
 );
 

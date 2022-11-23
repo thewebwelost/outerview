@@ -1,6 +1,7 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
+import FormNavigation from './FormNavigation';
 
 interface IExperienceInfo {
   formState: IProfileForm;
@@ -146,15 +147,10 @@ const ExperienceInfo: React.FC<IExperienceInfo> = ({
       Add experience
     </button>
 
-    <div className="flex justify-between mt-10">
-      <button className="p-1 text-white bg-blue-500" onClick={handlePrevStep}>
-        Prev
-      </button>
-
-      <button className="p-1 text-white bg-blue-500" onClick={() => {}}>
-        Submit
-      </button>
-    </div>
+    <FormNavigation
+      handleNextStep={handleNextStep}
+      handlePrevStep={handlePrevStep}
+    />
   </div>
 );
 
