@@ -1,7 +1,5 @@
 import prisma from './client';
 
-// TODO: FIX SEED
-
 async function main() {
   const user = await prisma.user.create({
     data: {
@@ -29,7 +27,7 @@ async function main() {
                   startDate: new Date(),
                   endDate: new Date(),
                   isCurrent: true,
-                  responsibilities: ['cook', 'clean', 'repeat'],
+                  responsibilities: 'long responsibilities string',
                   achievements: ['best bagel 2020'],
                   keywords: ['jira', 'osx', 'microsoft office'],
                 },
@@ -39,7 +37,7 @@ async function main() {
                   startDate: new Date(),
                   endDate: new Date(),
                   isCurrent: false,
-                  responsibilities: ['cook', 'clean', 'repeat'],
+                  responsibilities: 'long responsibilities string',
                   achievements: ['best burger 2018'],
                   keywords: ['jira', 'osx', 'microsoft office'],
                 },
