@@ -260,7 +260,7 @@ const AddProfile: NextPage = () => {
           <h2 className="font-bold text-xl mt-3 mb-1">Socials</h2>
           <ul className="flex">
             {formState.socialsList.map((item, i) => (
-              <li key={i} className="mr-2 text-blue-400">
+              <li key={i} className="mr-2 text-blue-400 animate-fade-in">
                 {item.title}
               </li>
             ))}
@@ -271,11 +271,48 @@ const AddProfile: NextPage = () => {
           <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">
             {formState.detailsList.map((item, i) => (
-              <li key={i}>{item}</li>
+              <li key={i} className="animate-fade-in">
+                {item}
+              </li>
             ))}
           </ul>
 
+          <div className="flex justify-around">
+            <div>
+              <h2 className="font-bold text-xl mt-3 mb-1">Hard Skills</h2>
+              <ul className="pl-5 list-disc ">
+                {formState.hardSkillsList.map((item, i) => (
+                  <li key={i} className="animate-fade-in">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="font-bold text-xl mt-3 mb-1">Soft Skills</h2>
+              <ul className="pl-5 list-disc ">
+                {formState.softSkillsList.map((item, i) => (
+                  <li key={i} className="animate-fade-in">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <h2 className="font-bold text-xl mt-3 mb-1">Experience</h2>
+
+          <ul className="pl-5 list-disc ">
+            {formState.softSkillsList.map((item, i) => (
+              <li
+                key={i}
+                className="p-3 border border-gray-400 animate-fade-in"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+
           {/* <Experience /> */}
 
           <h2 className="text-xl mt-3 mb-1">Education</h2>

@@ -1,6 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import AddContact, { IContact } from '../../../../components/AddContact';
 import TextInput from '../../../../components/atoms/TextInput';
@@ -17,7 +18,7 @@ const CreateApplication: NextPage = () => {
   const [cred, setCred] = useState('');
   const [contacts, setContacts] = useState<IContact[]>([]);
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const handleAddContact: () => void = () => {
     if (cred || credName) {
@@ -55,7 +56,7 @@ const CreateApplication: NextPage = () => {
         }),
       });
 
-      // router.push('/dashboard');
+      router.push('/dashboard');
     } catch (err) {
       console.error(err);
     }
