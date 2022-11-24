@@ -12,7 +12,7 @@ const FormNavigation: React.FC<IFormNavigation> = ({
   handleSubmit,
 }) => {
   return (
-    <div className="flex justify-between mt-10">
+    <div className="w-full flex justify-between mt-10">
       {handlePrevStep && (
         <button className="p-1 text-white bg-blue-500" onClick={handlePrevStep}>
           Prev

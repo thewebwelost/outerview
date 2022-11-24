@@ -189,7 +189,7 @@ const AddProfile: NextPage = () => {
 
   const handleFirstStep = () => {
     setStep(step + 1);
-    // and create initial profile
+    // TODO: and create initial profile
     // and set profile as incomplete
   };
 
@@ -201,60 +201,48 @@ const AddProfile: NextPage = () => {
     if (step > 0) setStep(step - 1);
   };
 
-  const renderForm = () => {
-    switch (step) {
-      case 0:
-        return (
-          <FormStep handleNextStep={handleFirstStep}>
-            <PersonalInfo
-              formState={formState}
-              setFormState={setFormState}
-              addSocial={addSocial}
-            />
-          </FormStep>
-        );
-      case 1:
-        return (
-          <FormStep
-            handleNextStep={handleNextStep}
-            handlePrevStep={handlePrevStep}
-          >
-            <ProfessionalInfo
-              formState={formState}
-              setFormState={setFormState}
-              addDetail={addDetail}
-              addHardSkill={addHardSkill}
-              addSoftSkill={addSoftSkill}
-            />
-          </FormStep>
-        );
-      case 2:
-        return (
-          <FormStep
-            handleNextStep={handleNextStep}
-            handlePrevStep={handlePrevStep}
-          >
-            <ExperienceInfo
-              formState={formState}
-              setFormState={setFormState}
-              addAchieve={addAchieve}
-              addKeyword={addKeyword}
-              handleAddExperience={handleAddExperience}
-            />
-          </FormStep>
-        );
-
-      default:
-        break;
-    }
-  };
+  const steps = [
+    <FormStep key={'personal'} handleNextStep={handleFirstStep}>
+      <PersonalInfo
+        formState={formState}
+        setFormState={setFormState}
+        addSocial={addSocial}
+      />
+    </FormStep>,
+    <FormStep
+      key={'professional'}
+      handleNextStep={handleNextStep}
+      handlePrevStep={handlePrevStep}
+    >
+      <ProfessionalInfo
+        formState={formState}
+        setFormState={setFormState}
+        addDetail={addDetail}
+        addHardSkill={addHardSkill}
+        addSoftSkill={addSoftSkill}
+      />
+    </FormStep>,
+    <FormStep
+      key={'experience'}
+      handleNextStep={handleNextStep}
+      handlePrevStep={handlePrevStep}
+    >
+      <ExperienceInfo
+        formState={formState}
+        setFormState={setFormState}
+        addAchieve={addAchieve}
+        addKeyword={addKeyword}
+        handleAddExperience={handleAddExperience}
+      />
+    </FormStep>,
+  ];
 
   return (
     <>
       <h1 className="text-3xl font-bold underline">New Profile</h1>
 
       <div className="flex justify-between">
-        <div className="basis-2/5">{renderForm()}</div>
+        <div className="basis-2/5">{steps[step]}</div>
 
         {/* PREVIEW */}
         <div className="basis-3/5 p-5 font-light">
@@ -278,7 +266,7 @@ const AddProfile: NextPage = () => {
             ))}
           </ul>
           <h2 className="font-bold text-xl mt-3 mb-1">Summary</h2>
-          <pre className="font-sans font-light">{formState.summary}</pre>
+          <div className="font-sans font-light">{formState.summary}</div>
 
           <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
           <ul className="pl-5 list-disc ">

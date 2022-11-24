@@ -15,7 +15,7 @@ const FormStep: React.FC<IFormStep> = ({
   children,
 }) => {
   return (
-    <div>
+    <div className="animate-fade-in">
       {children}
       <FormNavigation
         handlePrevStep={handlePrevStep}
