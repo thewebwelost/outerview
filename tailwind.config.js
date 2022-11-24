@@ -8,12 +8,12 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'fade-in': 'fade .5s linear',
+        'fade-in': 'fade .15s ease-in',
       },
       keyframes: {
         fade: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+          '0%': { opacity: 0, transform: 'translateX(-1rem)' },
+          '100%': { opacity: 1, transform: 'translateX(0)' },
         },
       },
     },
