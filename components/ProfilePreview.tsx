@@ -35,27 +35,28 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
         ))}
       </ul>
 
-      <div className="flex justify-around">
-        <div>
-          <h2 className="font-bold text-xl mt-3 mb-1">Hard Skills</h2>
-          <ul className="pl-5 list-disc ">
-            {formState.hardSkillsList.map((item, i) => (
-              <li key={i} className="animate-fade-in">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="font-bold text-xl mt-3 mb-1">Soft Skills</h2>
-          <ul className="pl-5 list-disc ">
-            {formState.softSkillsList.map((item, i) => (
-              <li key={i} className="animate-fade-in">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="flex p-5">
+        <ul className="basis-1/2 flex pl-5">
+          {formState.hardSkillsList.map((item, i) => (
+            <li
+              key={i}
+              className="py-1 px-2 mr-1 bg-blue-400 text-white rounded-lg"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <ul className="basis-1/2 flex pl-5">
+          {formState.softSkillsList.map((item, i) => (
+            <li
+              key={i}
+              className="py-1 px-2 mr-1 bg-orange-400 text-white rounded-lg"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <h2 className="font-bold text-xl mt-3 mb-1">Experience</h2>
