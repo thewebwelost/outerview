@@ -260,7 +260,7 @@ const AddProfile: NextPage = () => {
 
   const handleSubmit = async () => {
     try {
-      await fetch('/api/applications/add', {
+      await fetch('/api/profiles/add', {
         method: 'POST',
         headers: {
           'content-type': 'application/json;charset=UTF-8',
@@ -269,7 +269,9 @@ const AddProfile: NextPage = () => {
           userId: 1,
         }),
       });
-    } catch {}
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Navigation
