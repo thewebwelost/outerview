@@ -8,6 +8,7 @@ import PersonalInfo from '../../../../components/PersonalInfo';
 import ProfessionalInfo from '../../../../components/ProfessionalInfo';
 import EducationInfo from '../../../../components/EducationInfo';
 import ProfilePreview from '../../../../components/ProfilePreview';
+import { useRouter } from 'next/navigation';
 
 export interface IExperience {
   company: string;
@@ -127,8 +128,8 @@ const initialState = {
     {
       company: 'Test comp',
       role: 'manager',
-      startDate: 'test',
-      endDate: 'test',
+      startDate: new Date().toDateString(),
+      endDate: new Date().toDateString(),
       isCurrent: false,
       resps:
         'event - compiled client and server successfully in 377 ms (1210 modules)',
@@ -146,14 +147,16 @@ const initialState = {
     {
       edName: 'string',
       edDegree: 'string',
-      edStart: '2016',
-      edEnd: '2020',
+      edStart: new Date().toDateString(),
+      edEnd: new Date().toDateString(),
       edDesc: 'string',
     },
   ],
 };
 
 const AddProfile: NextPage = () => {
+  const router = useRouter();
+
   const [step, setStep] = useState(0);
 
   const [formState, setFormState] = useState<IProfileForm>(initialState);
@@ -267,8 +270,22 @@ const AddProfile: NextPage = () => {
         },
         body: JSON.stringify({
           userId: 1,
+          name: formState.name,
+          title: formState.role,
+          email: formState.email,
+          website: formState.website,
+          location: formState.location,
+          summary: formState.summary,
+          details: formState.details,
+          hardSkills: formState.hardSkillsList,
+          softSkills: formState.softSkillsList,
+          isComplete: true,
+          experience: formState.experienceList,
+          education: formState.edList,
         }),
       });
+
+      router.push('/dashboard');
     } catch (err) {
       console.error(err);
     }
@@ -326,7 +343,7 @@ const AddProfile: NextPage = () => {
     </FormStep>,
     <FormStep
       key={'education'}
-      handleNextStep={handleNextStep}
+      handlePrevStep={handlePrevStep}
       handleSubmit={handleSubmit}
     >
       <EducationInfo

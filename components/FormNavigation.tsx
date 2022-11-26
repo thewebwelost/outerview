@@ -27,7 +27,7 @@ const FormNavigation: React.FC<IFormNavigation> = ({
 
       {handleSubmit && (
         <button className="p-1 text-white bg-blue-500" onClick={handleSubmit}>
-          Next
+          Submit
         </button>
       )}
     </div>

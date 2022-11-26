@@ -28,12 +28,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         hardSkills: body.hardSkills,
         softSkills: body.softSkills,
         isComplete: true,
+        // TODO: SOCIALS
         experience: {
           create: body.experience.map((experience: IExperience) => ({
             role: experience.role,
             company: experience.company,
-            startDate: experience.startDate,
-            endDate: experience.endDate,
+            startDate: new Date(experience.startDate),
+            endDate: new Date(experience.endDate),
             isCurrent: experience.isCurrent,
             responsibilities: experience.resps,
             achievements: experience.achievesList,
@@ -43,8 +44,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         education: {
           create: body.education.map((education: IEducation) => ({
             name: education.edName,
-            startDate: education.edStart,
-            endDate: education.edEnd,
+            startDate: new Date(education.edStart),
+            endDate: new Date(education.edEnd),
             degree: education.edDegree,
             details: education.edDesc,
           })),
