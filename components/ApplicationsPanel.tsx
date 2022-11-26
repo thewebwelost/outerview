@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { IDashboard } from '../app/dashboard/page';
+import { IDashboard } from '../app/(inner)/dashboard/page';
 import Application from './Application';
 import EmptySection from './EmptySection';
 

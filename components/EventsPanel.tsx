@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
-import { IDashboard } from '../app/dashboard/page';
+import { IDashboard } from '../app/(inner)/dashboard/page';
 import EmptySection from './EmptySection';
 import UserEvent from './UserEvent';
 

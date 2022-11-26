@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { IDashboard } from '../app/dashboard/page';
-import Profile from './Profile';
+import Profile, { IProfile } from './Profile';
 import EmptySection from './EmptySection';
+import { IDashboard } from '../app/(inner)/dashboard/page';
 
 interface IProfilePanel {
   profiles: IDashboard['profiles'];
@@ -23,7 +23,7 @@ function ProfilePanel({ profiles }: IProfilePanel) {
       </Link>
 
       <ul className="flex mt-3 p-3">
-        {profiles?.map((profile) => (
+        {profiles?.map((profile: IProfile) => (
           <Profile key={profile.id} {...profile} />
         ))}
       </ul>
