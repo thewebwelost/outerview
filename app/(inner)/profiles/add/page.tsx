@@ -7,6 +7,7 @@ import FormStep from '../../../../components/FormStep';
 import PersonalInfo from '../../../../components/PersonalInfo';
 import ProfessionalInfo from '../../../../components/ProfessionalInfo';
 import EducationInfo from '../../../../components/EducationInfo';
+import ProfilePreview from '../../../../components/ProfilePreview';
 
 interface IExperience {
   company: string;
@@ -228,7 +229,7 @@ const AddProfile: NextPage = () => {
     if (!!formState.company && !!formState.role) {
       setFormState({
         ...formState,
-        experienceList: [...formState.experienceList, formState],
+        experienceList: [...formState.experienceList, formState].reverse(),
         company: '',
         role: '',
         startDate: '',
@@ -328,110 +329,7 @@ const AddProfile: NextPage = () => {
       <div className="flex justify-between">
         <div className="basis-2/5">{steps[step]}</div>
 
-        {/* PREVIEW */}
-        <div className="basis-3/5 p-5 font-light">
-          <span className="text-right">
-            <p className="font-bold text-2xl">
-              {formState.name || 'Your Name'}
-            </p>
-            <p className="italic">
-              {formState.role || 'role'}, {formState.location || 'location'}
-            </p>
-            <p className=" text-blue-500 underline">{formState.website}</p>
-            <p className=" text-blue-500">{formState.email}</p>
-          </span>
-
-          <h2 className="font-bold text-xl mt-3 mb-1">Socials</h2>
-          <ul className="flex">
-            {formState.socialsList.map((item, i) => (
-              <li key={i} className="mr-2 text-blue-400 animate-fade-in">
-                {item.title}
-              </li>
-            ))}
-          </ul>
-          <h2 className="font-bold text-xl mt-3 mb-1">Summary</h2>
-          <div className="font-sans font-light">{formState.summary}</div>
-
-          <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
-          <ul className="pl-5 list-disc ">
-            {formState.detailsList.map((item, i) => (
-              <li key={i} className="animate-fade-in">
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex justify-around">
-            <div>
-              <h2 className="font-bold text-xl mt-3 mb-1">Hard Skills</h2>
-              <ul className="pl-5 list-disc ">
-                {formState.hardSkillsList.map((item, i) => (
-                  <li key={i} className="animate-fade-in">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="font-bold text-xl mt-3 mb-1">Soft Skills</h2>
-              <ul className="pl-5 list-disc ">
-                {formState.softSkillsList.map((item, i) => (
-                  <li key={i} className="animate-fade-in">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <h2 className="font-bold text-xl mt-3 mb-1">Experience</h2>
-
-          <ul>
-            {formState.experienceList.map((item, i) => (
-              <li
-                key={i}
-                className="p-3 mt-1 border border-gray-400 animate-fade-in"
-              >
-                <h5 className="font-bold">{item.role}</h5>
-                <p>{item.company}</p>
-                <p>
-                  start {item.startDate}{' '}
-                  {!item.isCurrent && `end ${item.endDate}`}
-                </p>
-                <p>{item.resps}</p>
-                <ul>
-                  {item.achievesList.map((item, j) => {
-                    return <li key={j}>{item}</li>;
-                  })}
-                </ul>
-                <ul className="flex">
-                  {item.keywordsList.map((item, n) => {
-                    return (
-                      <li key={n} className="p-1 mr-1 bg-gray-400">
-                        {item}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="font-bold text-xl mt-3 mb-1">Education</h2>
-          {/* <Education /> */}
-          <ul>
-            {formState.edList.map((item, i) => (
-              <li key={i} className="p-3 mt-1 animate-fade-in">
-                <h5 className="font-bold">{item.edName}</h5>
-                <p>{item.edDegree}</p>
-                <p>
-                  start {item.edStart} start {item.edEnd}{' '}
-                </p>
-                <p>{item.edDesc}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ProfilePreview formState={formState} />
       </div>
     </>
   );
