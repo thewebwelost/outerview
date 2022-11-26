@@ -417,10 +417,20 @@ const AddProfile: NextPage = () => {
             ))}
           </ul>
 
-          {/* <Experience /> */}
-
-          <h2 className="text-xl mt-3 mb-1">Education</h2>
+          <h2 className="font-bold text-xl mt-3 mb-1">Education</h2>
           {/* <Education /> */}
+          <ul>
+            {formState.edList.map((item, i) => (
+              <li key={i} className="p-3 mt-1 animate-fade-in">
+                <h5 className="font-bold">{item.edName}</h5>
+                <p>{item.edDegree}</p>
+                <p>
+                  start {item.edStart} start {item.edEnd}{' '}
+                </p>
+                <p>{item.edDesc}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </>
