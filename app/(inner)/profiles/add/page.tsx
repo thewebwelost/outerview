@@ -14,9 +14,9 @@ interface IExperience {
   startDate: string;
   endDate: string;
   isCurrent: boolean;
-  responsibilities: string;
-  achievements: string[]; // TODO: fix typo
-  keywords: string[];
+  resps: string;
+  achievesList: string[]; // TODO: fix typo
+  keywordsList: string[];
 }
 
 interface IEducation {}
@@ -44,7 +44,6 @@ export interface IProfileForm {
   endDate: string;
   isCurrent: boolean;
   resps: string;
-  const: string;
   achieve: string;
   achievesList: string[];
   keyword: string;
@@ -53,22 +52,53 @@ export interface IProfileForm {
   // education
 }
 
+// const initialState = {
+//   name: '',
+//   role: '',
+//   summary: '',
+//   details: '',
+//   detailsList: [],
+//   email: '',
+//   location: '',
+//   website: '',
+//   socialsTitle: '',
+//   socialsContact: '',
+//   socialsList: [],
+//   hardSkill: '',
+//   hardSkillsList: [],
+//   softSkill: '',
+//   softSkillsList: [],
+
+//   company: '',
+//   expRole: '',
+//   startDate: '',
+//   endDate: '',
+//   isCurrent: false,
+//   resps: '',
+//   achieve: '',
+//   achievesList: [],
+//   keyword: '',
+//   keywordsList: [],
+//   experienceList: [],
+// };
+
 const initialState = {
-  name: '',
-  role: '',
-  summary: '',
+  name: 'Test Name',
+  role: 'sales manager',
+  summary:
+    'wait  - compiling /(inner)/applications/page (client and server)... wait  - compiling /(inner)/events/page (client and server)... event - compiled client and server successfully in 687 ms (1231 modules)',
   details: '',
-  detailsList: [],
-  email: '',
-  location: '',
-  website: '',
+  detailsList: ['detail 1', 'detail 2', 'detail 3'],
+  email: 'test@email.com',
+  location: 'San Diego, CA',
+  website: 'website.com',
   socialsTitle: '',
   socialsContact: '',
-  socialsList: [],
+  socialsList: [{ title: 'twitter', contact: 'contact' }],
   hardSkill: '',
-  hardSkillsList: [],
+  hardSkillsList: ['detail 1', 'detail 2', 'detail 3'],
   softSkill: '',
-  softSkillsList: [],
+  softSkillsList: ['detail 1', 'detail 2', 'detail 3'],
 
   company: '',
   expRole: '',
@@ -76,12 +106,23 @@ const initialState = {
   endDate: '',
   isCurrent: false,
   resps: '',
-  const: '',
   achieve: '',
   achievesList: [],
   keyword: '',
   keywordsList: [],
-  experienceList: [],
+  experienceList: [
+    {
+      company: 'Test comp',
+      role: 'manager',
+      startDate: 'test',
+      endDate: 'test',
+      isCurrent: false,
+      resps:
+        'event - compiled client and server successfully in 377 ms (1210 modules)',
+      achievesList: ['detail 1', 'detail 2', 'detail 3'],
+      keywordsList: ['detail 1', 'detail 2', 'detail 3'],
+    },
+  ],
 };
 
 const AddProfile: NextPage = () => {
@@ -160,19 +201,7 @@ const AddProfile: NextPage = () => {
     if (!!formState.company && !!formState.role) {
       setFormState({
         ...formState,
-        experienceList: [
-          ...formState.experienceList,
-          {
-            company: formState.company,
-            role: formState.role,
-            startDate: formState.startDate,
-            endDate: formState.endDate,
-            isCurrent: formState.isCurrent,
-            responsibilities: formState.resps,
-            achievements: formState.achievesList,
-            keywords: formState.keywordsList,
-          },
-        ],
+        experienceList: [...formState.experienceList, formState],
         company: '',
         role: '',
         startDate: '',
@@ -302,13 +331,33 @@ const AddProfile: NextPage = () => {
 
           <h2 className="font-bold text-xl mt-3 mb-1">Experience</h2>
 
-          <ul className="pl-5 list-disc ">
-            {formState.softSkillsList.map((item, i) => (
+          <ul>
+            {formState.experienceList.map((item, i) => (
               <li
                 key={i}
-                className="p-3 border border-gray-400 animate-fade-in"
+                className="p-3 mt-1 border border-gray-400 animate-fade-in"
               >
-                {item}
+                <h5 className="font-bold">{item.role}</h5>
+                <p>{item.company}</p>
+                <p>
+                  start {item.startDate}{' '}
+                  {!item.isCurrent && `end ${item.endDate}`}
+                </p>
+                <p>{item.resps}</p>
+                <ul>
+                  {item.achievesList.map((item, j) => {
+                    return <li key={j}>{item}</li>;
+                  })}
+                </ul>
+                <ul className="flex">
+                  {item.keywordsList.map((item, n) => {
+                    return (
+                      <li key={n} className="p-1 mr-1 bg-gray-400">
+                        {item}
+                      </li>
+                    );
+                  })}
+                </ul>
               </li>
             ))}
           </ul>
