@@ -35,23 +35,23 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
         ))}
       </ul>
 
-      <div className="flex p-5">
-        <ul className="basis-1/2 flex pl-5">
+      <div className="flex items-start p-5">
+        <ul className="basis-1/2 flex flex-wrap pl-5">
           {formState.hardSkillsList.map((item, i) => (
             <li
               key={i}
-              className="py-1 px-2 mr-1 bg-blue-400 text-white rounded-lg"
+              className="py-1 px-2 mr-1 mt-1 whitespace-nowrap bg-blue-400 text-white rounded-lg"
             >
               {item}
             </li>
           ))}
         </ul>
 
-        <ul className="basis-1/2 flex pl-5">
+        <ul className="basis-1/2 flex flex-wrap pl-5">
           {formState.softSkillsList.map((item, i) => (
             <li
               key={i}
-              className="py-1 px-2 mr-1 bg-orange-400 text-white rounded-lg"
+              className="py-1 px-2 mr-1 mt-1 whitespace-nowrap bg-orange-400 text-white rounded-lg"
             >
               {item}
             </li>
@@ -81,7 +81,10 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
             <ul className="flex">
               {item.keywordsList.map((item, n) => {
                 return (
-                  <li key={n} className="p-1 mr-1 bg-gray-400">
+                  <li
+                    key={n}
+                    className="py-1 px-2 mr-1 mt-1 whitespace-nowrap bg-gray-400 text-white rounded-lg"
+                  >
                     {item}
                   </li>
                 );
