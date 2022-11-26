@@ -247,16 +247,29 @@ const AddProfile: NextPage = () => {
       setFormState({
         ...formState,
         edList: [...formState.edList, formState],
-        company: '',
-        role: '',
-        startDate: '',
-        endDate: '',
-        isCurrent: false,
-        resps: '',
-        achievesList: [],
-        keywordsList: [],
+        edName: '',
+        edDegree: '',
+        edStart: '',
+        edEnd: '',
+        edDesc: '',
       });
     }
+  };
+
+  // Submit form
+
+  const handleSubmit = async () => {
+    try {
+      await fetch('/api/applications/add', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          userId: 1,
+        }),
+      });
+    } catch {}
   };
 
   // Navigation
@@ -312,7 +325,7 @@ const AddProfile: NextPage = () => {
     <FormStep
       key={'education'}
       handleNextStep={handleNextStep}
-      handlePrevStep={handlePrevStep}
+      handleSubmit={handleSubmit}
     >
       <EducationInfo
         formState={formState}
