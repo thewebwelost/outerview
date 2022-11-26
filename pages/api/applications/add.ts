@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { IContact } from '../../../components/AddContact';
 import prisma from '../../../prisma/client';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -22,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         location: body.location,
         status: body.status,
         contacts: {
-          create: contacts.map((item: any) => ({
+          create: contacts.map((item: IContact) => ({
             title: item.name,
             url: item.contact,
           })),

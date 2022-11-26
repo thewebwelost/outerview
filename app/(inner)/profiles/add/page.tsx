@@ -9,7 +9,7 @@ import ProfessionalInfo from '../../../../components/ProfessionalInfo';
 import EducationInfo from '../../../../components/EducationInfo';
 import ProfilePreview from '../../../../components/ProfilePreview';
 
-interface IExperience {
+export interface IExperience {
   company: string;
   role: string;
   startDate: string;
@@ -20,7 +20,7 @@ interface IExperience {
   keywordsList: string[];
 }
 
-interface IEducation {
+export interface IEducation {
   edName: string;
   edDegree: string;
   edStart: string;
