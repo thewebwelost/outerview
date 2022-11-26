@@ -22,7 +22,7 @@ function ProfilePanel({ profiles }: IProfilePanel) {
         + new profile
       </Link>
 
-      <ul className="mt-3 p-3">
+      <ul className="flex mt-3 p-3">
         {profiles?.map((profile) => (
           <Profile key={profile.id} {...profile} />
         ))}
