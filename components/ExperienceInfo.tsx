@@ -1,7 +1,6 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
 import TextInput from './atoms/TextInput';
-import FormNavigation from './FormNavigation';
 
 interface IExperienceInfo {
   formState: IProfileForm;
