@@ -22,6 +22,27 @@ export interface IUser {
   image: string;
 }
 
+const Logo = () => (
+  <div className="relative flex-shrink-0 h-8 w-8">
+    <Image
+      src="/images/logo_short.svg"
+      alt="Workflow"
+      layout="fill"
+      objectFit="contain"
+    />
+  </div>
+);
+
+const NotificationsButton = () => (
+  <button
+    type="button"
+    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+  >
+    <span className="sr-only">View notifications</span>
+    <BellIcon className="h-6 w-6" aria-hidden="true" />
+  </button>
+);
+
 const Header: React.FC<IHeader> = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -34,27 +55,6 @@ const Header: React.FC<IHeader> = () => {
       router.push('/');
     },
   });
-
-  const Logo = () => (
-    <div className="relative flex-shrink-0 h-8 w-8">
-      <Image
-        src="/images/logo_short.svg"
-        alt="Workflow"
-        layout="fill"
-        objectFit="contain"
-      />
-    </div>
-  );
-
-  const NotificationsButton = () => (
-    <button
-      type="button"
-      className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-    >
-      <span className="sr-only">View notifications</span>
-      <BellIcon className="h-6 w-6" aria-hidden="true" />
-    </button>
-  );
 
   return (
     <Disclosure as="header" className="bg-gray-800">

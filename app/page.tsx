@@ -1,7 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/legacy/image';
 
@@ -42,6 +42,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="text-sm">
+            {/* TODO: add login */}
             <button
               onClick={() =>
                 signIn('login', {
