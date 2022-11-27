@@ -22,7 +22,7 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
         </Link>
       </div>
 
-      <ul className="flex overflow-x-scroll">
+      <ul className="flex">
         {applications?.map((application) => (
           <Application key={application.id} {...application} />
         ))}

@@ -16,12 +16,6 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // console.log('object :>> ', {
-  //   pathname,
-  //   searchParams: searchParams.getAll('id'),
-  //   router,
-  // });
-
   const getHref = () => {
     let href = '/events/add';
 
@@ -36,7 +30,7 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
 
   return (
     <section className={'p-3 mr-5'}>
-      <ul className="flex overflow-x-scroll">
+      <ul className="flex flex-wrap">
         {events.map((userEvent) => (
           <UserEvent key={userEvent.id} {...userEvent} />
         ))}
