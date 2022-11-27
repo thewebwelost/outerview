@@ -1,6 +1,8 @@
 'use client';
 
 import { NextPage } from 'next';
+import { useSearchParams } from 'next/navigation';
+import { ParsedUrlQuery } from 'querystring';
 import { useEffect, useState } from 'react';
 
 interface IProfile {
@@ -20,30 +22,29 @@ interface IProfile {
   socials: object[];
 }
 
-const SingleProfile: NextPage = () => {
-  // const router = useRouter();
-  // const { id } = router.query;
+const SingleProfile: NextPage<{ params: ParsedUrlQuery }> = ({ params }) => {
+  const id = params.id;
   const [profile, setProfile] = useState<IProfile>();
 
-  // useEffect(() => {
-  //   if (!id) return;
+  useEffect(() => {
+    if (!id) return;
 
-  //   const fetchProfile = async () => {
-  //     try {
-  //       await fetch(`/api/profiles/${id}`)
-  //         .then((response) => response.json())
-  //         .then((data) => setProfile(data));
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
+    const fetchProfile = async () => {
+      try {
+        await fetch(`/api/profiles/${id}`)
+          .then((response) => response.json())
+          .then((data) => setProfile(data));
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  //   fetchProfile();
-  // }, [id]);
+    fetchProfile();
+  }, [id]);
 
   return (
     <>
-      <p>Profile Id:</p>
+      <p>Profile Id: {id}</p>
       <p>{profile?.name}</p>
       <p>{profile?.title}</p>
       <p>{profile?.email}</p>
