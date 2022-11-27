@@ -1,12 +1,13 @@
 'use client';
 
 import type { NextPage } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import { useEffect, useState } from 'react';
 import { IApplication } from '../../../../components/Application';
 import EventsPanel from '../../../../components/EventsPanel';
 
-const Application: NextPage = () => {
-  const id = 1;
+const Application: NextPage<{ params: ParsedUrlQuery }> = ({ params }) => {
+  const { id } = params;
   const [application, setApplication] = useState<IApplication>();
 
   useEffect(() => {
