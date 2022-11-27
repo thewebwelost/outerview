@@ -1,7 +1,4 @@
-'use client';
-
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
 
 import ApplicationsPanel from '../../../components/ApplicationsPanel';
 import EventsPanel from '../../../components/EventsPanel';
@@ -10,7 +7,8 @@ import ProfilePanel from '../../../components/ProfilePanel';
 import type { IProfile } from '../../../components/Profile';
 import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
-import { useSession } from 'next-auth/react';
+
+import { unstable_getServerSession } from 'next-auth';
 
 export interface IDashboard {
   id: number;
@@ -22,32 +20,28 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
-const Dashboard: NextPage = () => {
-  const session = useSession();
-
-  const [dashboard, setDashboard] = useState<IDashboard>();
-
-  useEffect(() => {
-    const fetchDashboard = async () => {
-      try {
-        await fetch('/api/dashboard', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json;charset=UTF-8',
-          },
-          body: JSON.stringify({ email: session.data?.user?.email }),
-        })
-          .then((response) => response.json())
-          .then((data) => setDashboard(data));
-      } catch (err) {
-        console.error(err);
+const fetchDashboard = async (email: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({ email }),
       }
-    };
+    );
 
-    if (session.status === 'authenticated') {
-      fetchDashboard();
-    }
-  }, [session.status]);
+    return res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const Dashboard = async () => {
+  const session = await unstable_getServerSession();
+  const dashboard = await fetchDashboard(session?.user?.email as string);
 
   return (
     <>
