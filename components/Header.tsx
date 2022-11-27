@@ -3,17 +3,17 @@
 import React from 'react';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useSession } from 'next-auth/react';
+
 import Navbar from './Navbar';
 import ProfileDropdown from './ProfileDropdown';
 
 import { navigation, userNavigation } from '../utils/navigation';
 import { classNames } from '../utils/classNames';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 export interface IHeader {}
 export interface IUser {
@@ -22,7 +22,7 @@ export interface IUser {
   image: string;
 }
 
-const Logo = () => (
+const Logo: React.FC = () => (
   <div className="relative flex-shrink-0 h-8 w-8">
     <Image
       src="/images/logo_short.svg"
@@ -33,7 +33,7 @@ const Logo = () => (
   </div>
 );
 
-const NotificationsButton = () => (
+const NotificationsButton: React.FC = () => (
   <button
     type="button"
     className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
