@@ -15,13 +15,19 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseData | ErrorData>
 ) => {
-  if (!req.body.userId) {
-    return res.status(400).send({ error: 'unknown userId' });
+  if (!req.body.email) {
+    return res.status(400).send({ error: 'unknown email' });
   }
+
+  const user = await prisma.credentials.findUnique({
+    where: {
+      email: req.body.email,
+    },
+  });
 
   const profiles = await prisma.profile.findMany({
     where: {
-      userId: req.body.userId,
+      userId: user?.id,
     },
     include: {
       education: true,

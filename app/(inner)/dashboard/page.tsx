@@ -12,6 +12,7 @@ import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
 import { useSession } from 'next-auth/react';
 import { UserContext } from '../../../context/userContext';
+import { IUser } from '../../../components/Header';
 
 export interface IDashboard {
   id: number;
@@ -37,7 +38,7 @@ const Dashboard: NextPage = () => {
           headers: {
             'content-type': 'application/json;charset=UTF-8',
           },
-          body: JSON.stringify({ userId: 1 }),
+          body: JSON.stringify({ email: session.data?.user?.email }),
         })
           .then((response) => response.json())
           .then((data) => setDashboard(data));
@@ -47,7 +48,7 @@ const Dashboard: NextPage = () => {
     };
 
     if (session.status === 'authenticated') {
-      setUser(session.data.user);
+      setUser(session.data.user as IUser);
       fetchDashboard();
     }
   }, [session.status]);
