@@ -29,7 +29,7 @@ function Application({
   userEvents,
 }: IApplication) {
   return (
-    <li className="p-3 mr-5 border rounded-md">
+    <li className="w-[12rem] p-3 mr-3 border rounded-md">
       <p className="font-bold">{company}</p>
       <p>Role: {role}</p>
       <p>Location: {location}</p>

@@ -12,17 +12,17 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
     return <EmptySection type={'application'} href={'/applications/add'} />;
 
   return (
-    <section className={'flex mt-3'}>
-      <Link
-        href={'/applications/add'}
-        className={
-          'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
-        }
-      >
-        + new application
-      </Link>
+    <section className={'flex items-center mt-3'}>
+      <div className={'mr-5 leading-none border rounded-full cursor-pointer'}>
+        <Link
+          href={'/applications/add'}
+          className={'flex justify-center items-center w-[3rem] h-[3rem]'}
+        >
+          +
+        </Link>
+      </div>
 
-      <ul className="mt-3 p-3 flex">
+      <ul className="flex overflow-x-scroll">
         {applications?.map((application) => (
           <Application key={application.id} {...application} />
         ))}
