@@ -1,7 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ApplicationsPanel from '../../../components/ApplicationsPanel';
 import EventsPanel from '../../../components/EventsPanel';
@@ -11,8 +11,6 @@ import type { IProfile } from '../../../components/Profile';
 import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
 import { useSession } from 'next-auth/react';
-import { UserContext } from '../../../context/userContext';
-import { IUser } from '../../../components/Header';
 
 export interface IDashboard {
   id: number;
@@ -26,7 +24,6 @@ export interface IDashboard {
 
 const Dashboard: NextPage = () => {
   const session = useSession();
-  const { user, setUser } = useContext(UserContext);
 
   const [dashboard, setDashboard] = useState<IDashboard>();
 
@@ -48,7 +45,6 @@ const Dashboard: NextPage = () => {
     };
 
     if (session.status === 'authenticated') {
-      setUser(session.data.user as IUser);
       fetchDashboard();
     }
   }, [session.status]);

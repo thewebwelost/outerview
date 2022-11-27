@@ -1,7 +1,6 @@
 'use client';
 
-import { ReactElement, useContext, useEffect } from 'react';
-import { UserContext } from '../../context/userContext';
+import { ReactElement } from 'react';
 import Header from '../../components/Header';
 import { SessionProvider } from 'next-auth/react';
 
@@ -10,26 +9,6 @@ interface ILayout {
 }
 
 const RootLayout = ({ children }: ILayout) => {
-  const { user, setUser } = useContext(UserContext);
-
-  const userId = 1; // get user from auth session
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        await fetch(`/api/user/${userId}`)
-          .then((response) => response.json())
-          .then((data) => setUser(data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    if (!user) {
-      fetchUser();
-    }
-  }, [userId, setUser, user]);
-
   return (
     <SessionProvider>
       <Header />
