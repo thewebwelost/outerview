@@ -1,12 +1,12 @@
 'use client';
 
 import type { NextPage } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import { useEffect, useState } from 'react';
 import { IUserEvent } from '../../../../components/UserEvent';
 
-const Event: NextPage = () => {
-  // const router = useRouter();
-  // const { id } = router.query;
+const Event: NextPage<{ params: ParsedUrlQuery }> = ({ params }) => {
+  const { id } = params;
   const [userEvent, setUserEvent] = useState<IUserEvent>();
 
   const dateStart = new Date(userEvent?.dateStart as string);
@@ -16,21 +16,21 @@ const Event: NextPage = () => {
   const dateEnd = new Date(userEvent?.dateEnd as string);
   const timeEnd = dateEnd.toLocaleTimeString();
 
-  // useEffect(() => {
-  //   if (!id) return;
+  useEffect(() => {
+    if (!id) return;
 
-  //   const fetchEvent = async () => {
-  //     try {
-  //       await fetch(`/api/events/${id}`)
-  //         .then((response) => response.json())
-  //         .then((data) => setUserEvent(data));
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
+    const fetchEvent = async () => {
+      try {
+        await fetch(`/api/events/${id}`)
+          .then((response) => response.json())
+          .then((data) => setUserEvent(data));
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  //   fetchEvent();
-  // }, [id]);
+    fetchEvent();
+  }, [id]);
 
   return (
     <>

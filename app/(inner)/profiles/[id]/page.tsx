@@ -1,7 +1,6 @@
 'use client';
 
 import { NextPage } from 'next';
-import { useSearchParams } from 'next/navigation';
 import { ParsedUrlQuery } from 'querystring';
 import { useEffect, useState } from 'react';
 
@@ -23,7 +22,7 @@ interface IProfile {
 }
 
 const SingleProfile: NextPage<{ params: ParsedUrlQuery }> = ({ params }) => {
-  const id = params.id;
+  const { id } = params;
   const [profile, setProfile] = useState<IProfile>();
 
   useEffect(() => {
