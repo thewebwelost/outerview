@@ -1,7 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import ApplicationsPanel from '../../../components/ApplicationsPanel';
 import EventsPanel from '../../../components/EventsPanel';
@@ -10,6 +10,8 @@ import ProfilePanel from '../../../components/ProfilePanel';
 import type { IProfile } from '../../../components/Profile';
 import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
+import { useSession } from 'next-auth/react';
+import { UserContext } from '../../../context/userContext';
 
 export interface IDashboard {
   id: number;
@@ -22,27 +24,33 @@ export interface IDashboard {
 }
 
 const Dashboard: NextPage = () => {
+  const session = useSession();
+  const { user, setUser } = useContext(UserContext);
+
   const [dashboard, setDashboard] = useState<IDashboard>();
 
-  const fetchDashboard = async () => {
-    try {
-      await fetch('/api/dashboard', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-        },
-        body: JSON.stringify({ userId: 1 }),
-      })
-        .then((response) => response.json())
-        .then((data) => setDashboard(data));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    fetchDashboard();
-  }, []);
+    const fetchDashboard = async () => {
+      try {
+        await fetch('/api/dashboard', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify({ userId: 1 }),
+        })
+          .then((response) => response.json())
+          .then((data) => setDashboard(data));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (session.status === 'authenticated') {
+      setUser(session.data.user);
+      fetchDashboard();
+    }
+  }, [session.status]);
 
   return (
     <>

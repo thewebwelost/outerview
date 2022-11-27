@@ -1,12 +1,9 @@
 import { createContext } from 'react';
+import { IUser } from '../components/Header';
 
-export const UserContext = createContext({
-  user: {
-    name: 'Jon',
-    email: 'Doe',
-    imageUrl: 'https://via.placeholder.com/150/FFFF00/000000',
-  },
-  setUser: (data: any) => {},
-});
+export const UserContext = createContext<{
+  user: IUser;
+  setUser: Function;
+} | null>(null);
 
 export default UserContext.Provider;
