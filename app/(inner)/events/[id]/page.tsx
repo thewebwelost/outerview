@@ -37,7 +37,7 @@ const Event: NextPage<{ params: ParsedUrlQuery }> = ({ params }) => {
       <h1 className="mb-5 text-3xl font-bold underline">Single event</h1>
 
       <p>{`${startPretty} ${timeStart}-${timeEnd}`}</p>
-      <p>{userEvent?.description}</p>
+      <p className="whitespace-pre-line">{userEvent?.description}</p>
       <p>
         <a
           href={userEvent?.meetinUrl}
