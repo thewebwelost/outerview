@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 export interface IProfile {
@@ -12,7 +12,7 @@ export interface IProfile {
 
 function Profile({ id, name, avatar, username, title, location }: IProfile) {
   return (
-    <li className={'p-3 mr-3 border rounded-md'}>
+    <li className={'w-[10rem] p-3 mr-3 border rounded-md'}>
       {avatar && <Image src={avatar} alt={username} />}
       <h3 className={'font-bold'}>{name}</h3>
       <p>{title}</p>

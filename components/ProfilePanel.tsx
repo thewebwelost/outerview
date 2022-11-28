@@ -12,15 +12,17 @@ function ProfilePanel({ profiles }: IProfilePanel) {
     return <EmptySection type={'profile'} href={'/profiles/add'} />;
 
   return (
-    <section className={'flex mt-3'}>
-      <Link
-        href={'/profiles/add'}
-        className={
-          'flex justify-center items-center p-3 mr-5 text-blue-500 underline border rounded-md cursor-pointer'
-        }
-      >
-        + new profile
-      </Link>
+    <section className={'flex items-center mt-3'}>
+      <div className={'mr-5 leading-none border rounded-full cursor-pointer'}>
+        <Link
+          href={'/profiles/add'}
+          className={
+            'flex justify-center items-center w-[3rem] h-[3rem] text-gray-400'
+          }
+        >
+          +
+        </Link>
+      </div>
 
       <ul className="flex mt-3 p-3">
         {profiles?.map((profile: IProfile) => (

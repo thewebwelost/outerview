@@ -16,7 +16,9 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
       <div className={'mr-5 leading-none border rounded-full cursor-pointer'}>
         <Link
           href={'/applications/add'}
-          className={'flex justify-center items-center w-[3rem] h-[3rem]'}
+          className={
+            'flex justify-center items-center w-[3rem] h-[3rem] text-gray-400'
+          }
         >
           +
         </Link>

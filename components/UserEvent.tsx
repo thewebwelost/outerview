@@ -24,23 +24,24 @@ const steps: { [key: string]: string } = {
 };
 
 const stepsStyling: { [key: string]: string } = {
-  ONSITE_STEP: 'border border-blue-600 bg-blue-200',
-  APPLICATION: 'border border-green-600 bg-green-200',
-  INITIAL_CALL: 'border border-gray-600 bg-gray-200',
-  PHONE_SCREEN: 'border border-blue-600 bg-blue-200',
-  BEHAVIOURAL: 'border border-purple-600 bg-purple-200',
-  CLOSER: 'border border-yellow-400 bg-yellow-200',
+  ONSITE_STEP: 'border border-blue-200 bg-blue-100',
+  APPLICATION: 'border border-green-200 bg-green-100',
+  INITIAL_CALL: 'border border-gray-200 bg-gray-100',
+  PHONE_SCREEN: 'border border-blue-200 bg-blue-100',
+  BEHAVIOURAL: 'border border-purple-200 bg-purple-100',
+  CLOSER: 'border border-yellow-200 bg-yellow-100',
 };
 
 function UserEvent({ id, status, dateStart, step }: IUserEvent) {
   return (
-    <li className={`mr-3 mb-3 ${stepsStyling[step]}`}>
-      <Link href={`/events/${id}`} className="flex flex-col items-end p-3">
-        <p className="whitespace-nowrap">
-          <span className="mr-1">{steps[step]}</span>
-          <span className={'text-green-400'}>{status}</span>
-        </p>
-        <span className="text-xs text-gray-500 italic">
+    <li className={`mr-3 mb-3 rounded-lg text-xs ${stepsStyling[step]}`}>
+      <Link
+        href={`/events/${id}`}
+        className="flex flex-col items-end p-2 whitespace-nowrap"
+      >
+        <span className="mr-1">{steps[step]}</span>
+        {/* <span className={'text-green-400'}>{status}</span> */}
+        <span className="text-xs text-gray-400 italic">
           {moment(dateStart).format('MM/DD, hh:mm')}
         </span>
       </Link>
