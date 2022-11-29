@@ -30,13 +30,13 @@ function Application({
 }: IApplication) {
   return (
     <li className="flex flex-col justify-between w-[12rem] p-3 mr-3 border rounded-md">
-      <div>
-        <p className="font-bold">{company}</p>
+      <div className="text-xs">
+        <p className="mb-3 text-base font-bold">{company}</p>
         <p>Role: {role}</p>
         <p>Location: {location}</p>
-        <p>Salary: {salary}</p>
+        <p className="mb-3">Salary: {salary}</p>
 
-        <p>
+        <p className="mb-1">
           Status:{' '}
           <span className="text-sm text-white bg-green-400">{status}</span>
         </p>

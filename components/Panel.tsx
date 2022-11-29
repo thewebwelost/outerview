@@ -16,7 +16,7 @@ const Panel: React.FC<IPanel> = ({ children, heading, btnCopy, btnHref }) => {
         <Link
           href={btnHref}
           className={
-            'block p-2 rounded-full capitalize font-bold text-xs bg-blue-500 text-white'
+            'block px-3 py-2 rounded-full capitalize font-bold text-xs bg-gray-700 text-gray-300'
           }
         >
           {btnCopy}
