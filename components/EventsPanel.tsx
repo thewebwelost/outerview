@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { IDashboard } from '../app/(inner)/dashboard/page';
 import EmptySection from './EmptySection';
+import Panel from './Panel';
 import UserEvent from './UserEvent';
 
 interface IEventsPanel {
@@ -29,20 +30,13 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
   if (!events.length) return <EmptySection type={'event'} href={getHref()} />;
 
   return (
-    <section className={'p-3 mr-5'}>
-      <ul className="flex flex-wrap">
+    <Panel heading="Upcoming events" btnCopy="add event" btnHref="/events/add">
+      <ul className="flex">
         {events.map((userEvent) => (
           <UserEvent key={userEvent.id} {...userEvent} />
         ))}
       </ul>
-
-      <Link
-        href={getHref()}
-        className="block mt-3 text-right text-blue-500 underline cursor-pointer"
-      >
-        + add event
-      </Link>
-    </section>
+    </Panel>
   );
 };
 

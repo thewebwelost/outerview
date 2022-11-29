@@ -57,7 +57,7 @@ const Header: React.FC<IHeader> = () => {
   });
 
   return (
-    <Disclosure as="header" className="bg-gray-800">
+    <Disclosure as="header" className="bg-gray-900">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
