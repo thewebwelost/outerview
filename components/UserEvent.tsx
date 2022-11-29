@@ -25,8 +25,8 @@ const steps: { [key: string]: string } = {
 
 const stepsStyling: { [key: string]: string } = {
   ONSITE_STEP: 'border-blue-400 bg-blue-300/25',
-  APPLICATION: 'border-teal-400 bg-teal-200/25',
-  INITIAL_CALL: 'border-gray-400 bg-gray-200/25',
+  INITIAL_CALL: 'border-teal-400 bg-teal-200/25',
+  APPLICATION: 'border-gray-400 bg-gray-200/25',
   PHONE_SCREEN: 'border-lime-400 bg-lime-200/25',
   BEHAVIOURAL: 'border-purple-400 bg-purple-200/25',
   CLOSER: 'border-yellow-400 bg-yellow-200/25',
