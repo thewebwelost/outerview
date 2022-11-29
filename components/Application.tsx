@@ -30,28 +30,21 @@ function Application({
 }: IApplication) {
   return (
     <li className="flex flex-col justify-between w-[12rem] p-3 mr-3 border rounded-md">
-      <div className="text-xs">
-        <p className="mb-3 text-base font-bold">{company}</p>
-        <p>Role: {role}</p>
-        <p>Location: {location}</p>
-        <p className="mb-3">Salary: {salary}</p>
+      <Link href={`/applications/${id}`}>
+        <div className="text-sm">
+          <p className="mb-3 text-base font-bold">{company}</p>
+          <p>Role: {role}</p>
+          <p>Location: {location}</p>
+          <p className="mb-3">Salary: {salary}</p>
 
-        <p className="mb-1">
-          Status:{' '}
-          <span className="text-sm text-white bg-green-400">{status}</span>
-        </p>
+          <p className="mb-1">
+            Status:{' '}
+            <span className="text-sm text-white bg-green-400">{status}</span>
+          </p>
 
-        <p>Events: {userEvents.length}</p>
-      </div>
-
-      <div className="w-full text-right">
-        <Link
-          href={`/applications/${id}`}
-          className={'mt-2 text-blue-500 underline'}
-        >
-          edit
-        </Link>
-      </div>
+          <p>Events: {userEvents.length}</p>
+        </div>
+      </Link>
     </li>
   );
 }

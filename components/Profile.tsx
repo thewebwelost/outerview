@@ -13,21 +13,14 @@ export interface IProfile {
 function Profile({ id, name, avatar, username, title, location }: IProfile) {
   return (
     <li className={'w-[10rem] p-3 mr-3 border rounded-md'}>
-      <div>
-        {avatar && <Image src={avatar} alt={username} />}
-        <h3 className={'font-bold'}>{name}</h3>
-        <p>{title}</p>
-        <p>{location}</p>
-      </div>
-
-      <div className="w-full text-right">
-        <Link
-          href={`/profiles/${id}`}
-          className={'mt-2 text-blue-500 underline'}
-        >
-          edit
-        </Link>
-      </div>
+      <Link href={`/profiles/${id}`}>
+        <div className="text-sm">
+          {avatar && <Image src={avatar} alt={username} />}
+          <h3 className={'mb-2 text-base font-bold'}>{name}</h3>
+          <p>{title}</p>
+          <p>{location}</p>
+        </div>
+      </Link>
     </li>
   );
 }
