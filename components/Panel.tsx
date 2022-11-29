@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 
 interface IPanel {
   children: any;
@@ -11,7 +11,7 @@ interface IPanel {
 const Panel: React.FC<IPanel> = ({ children, heading, btnCopy, btnHref }) => {
   return (
     <section className={'mt-5'}>
-      <header className="flex items-center justify-between mb-3">
+      <header className="flex items-center justify-between mb-5">
         <h2 className="text-m text-gray-400 font-light">{heading}</h2>
         <Link
           href={btnHref}
