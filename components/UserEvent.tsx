@@ -24,22 +24,22 @@ const steps: { [key: string]: string } = {
 };
 
 const stepsStyling: { [key: string]: string } = {
-  ONSITE_STEP: 'border border-blue-200 bg-blue-100',
-  APPLICATION: 'border border-green-200 bg-green-100',
-  INITIAL_CALL: 'border border-gray-200 bg-gray-100',
-  PHONE_SCREEN: 'border border-blue-200 bg-blue-100',
-  BEHAVIOURAL: 'border border-purple-200 bg-purple-100',
-  CLOSER: 'border border-yellow-200 bg-yellow-100',
+  ONSITE_STEP: 'border-blue-400 bg-blue-200/25',
+  APPLICATION: 'border-green-400 bg-green-200/25',
+  INITIAL_CALL: 'border-gray-400 bg-gray-200/25',
+  PHONE_SCREEN: 'border-blue-400 bg-blue-200/25',
+  BEHAVIOURAL: 'border-purple-400 bg-purple-200/25',
+  CLOSER: 'border-yellow-400 bg-yellow-200/25',
 };
 
 function UserEvent({ id, status, dateStart, step }: IUserEvent) {
   return (
-    <li className={`mr-3 mb-3 rounded-lg text-sm ${stepsStyling[step]}`}>
+    <li className={`mr-3 mb-3 rounded-lg text-sm border ${stepsStyling[step]}`}>
       <Link
         href={`/events/${id}`}
-        className="relative flex flex-col p-2 pr-3  whitespace-nowrap"
+        className="relative flex flex-col p-2 pr-3 whitespace-nowrap"
       >
-        <span className="">{steps[step]}</span>
+        <span className="text-gray-200">{steps[step]}</span>
 
         <span
           className={
