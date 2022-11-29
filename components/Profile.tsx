@@ -16,8 +16,8 @@ function Profile({ id, name, avatar, username, title, location }: IProfile) {
       <Link href={`/profiles/${id}`}>
         <div className="text-sm">
           {avatar && <Image src={avatar} alt={username} />}
-          <h3 className={'mb-2 text-base font-bold'}>{name}</h3>
-          <p>{title}</p>
+          <h3 className={'mb-3 text-white text-base font-bold'}>{name}</h3>
+          <p className="capitalize">{title}</p>
           <p>{location}</p>
         </div>
       </Link>

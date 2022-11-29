@@ -29,20 +29,23 @@ function Application({
   userEvents,
 }: IApplication) {
   return (
-    <li className="flex flex-col justify-between w-[12rem] p-3 mr-3 border rounded-md">
+    <li className="w-[12rem] p-3 mr-3 border rounded-md">
       <Link href={`/applications/${id}`}>
-        <div className="text-sm">
-          <p className="mb-3 text-base font-bold">{company}</p>
-          <p>Role: {role}</p>
-          <p>Location: {location}</p>
-          <p className="mb-3">Salary: {salary}</p>
+        <div className="h-full flex flex-col justify-between text-sm">
+          <div>
+            <p className="mb-3 text-white text-base font-bold">{company}</p>
+            <p className="capitalize">Role: {role}</p>
+            <p>Location: {location}</p>
+            {salary && <p className="mb-3">Salary: {salary}</p>}
+          </div>
 
-          <p className="mb-1">
-            Status:{' '}
-            <span className="text-sm text-white bg-green-400">{status}</span>
-          </p>
+          <div>
+            <p className="mb-1 whitespace-nowrap">
+              Status: <span className="text-sm bg-green-700">{status}</span>
+            </p>
 
-          <p>Events: {userEvents.length}</p>
+            <p>Events: {userEvents.length}</p>
+          </div>
         </div>
       </Link>
     </li>
