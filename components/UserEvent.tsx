@@ -34,21 +34,22 @@ const stepsStyling: { [key: string]: string } = {
 
 function UserEvent({ id, status, dateStart, step }: IUserEvent) {
   return (
-    <li className={`mr-3 mb-3 rounded-lg text-sm border ${stepsStyling[step]}`}>
-      <Link
-        href={`/events/${id}`}
-        className="relative flex flex-col p-2 pr-3 whitespace-nowrap"
-      >
-        <span className="text-gray-200">{steps[step]}</span>
+    <li role={'listitem'}>
+      <Link href={`/events/${id}`}>
+        <div
+          className={`relative flex flex-col p-2 pr-3 mr-3 mb-3 rounded-lg text-sm whitespace-nowrap  border ${stepsStyling[step]}`}
+        >
+          <span className="text-gray-200">{steps[step]}</span>
 
-        <span
-          className={
-            'absolute right-[5px] top-[5px] w-[5px] h-[5px] bg-green-500 rounded-full animate-blink'
-          }
-        />
-        <span className="self-end text-xs text-gray-400 italic">
-          {moment(dateStart).format('MM/DD, hh:mm')}
-        </span>
+          <span
+            className={
+              'absolute right-[5px] top-[5px] w-[5px] h-[5px] bg-green-500 rounded-full animate-blink'
+            }
+          />
+          <span className="self-end text-xs text-gray-400 italic">
+            {moment(dateStart).format('MM/DD, hh:mm')}
+          </span>
+        </div>
       </Link>
     </li>
   );

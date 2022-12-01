@@ -16,7 +16,7 @@ const ProfilePanel: React.FC<IProfilePanel> = ({ profiles }) => {
 
   return (
     <Panel heading="Profiles" btnCopy="add profile" btnHref="/profiles/add">
-      <ul className="flex">
+      <ul className="flex" role={'list'}>
         {profiles?.map((profile: IProfile) => (
           <Profile key={profile.id} {...profile} />
         ))}

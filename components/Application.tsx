@@ -29,9 +29,9 @@ function Application({
   userEvents,
 }: IApplication) {
   return (
-    <li className="w-[12rem] p-3 mr-3 border rounded-md">
+    <li role={'listitem'}>
       <Link href={`/applications/${id}`}>
-        <div className="h-full flex flex-col justify-between text-sm">
+        <div className="flex flex-col justify-between h-full w-[12rem] p-3 mr-3 border rounded-md text-sm">
           <div>
             <p className="mb-3 text-white text-base font-bold">{company}</p>
             <p className="capitalize">Role: {role}</p>

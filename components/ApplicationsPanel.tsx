@@ -18,7 +18,7 @@ function ApplicationsPanel({ applications }: IApplicationsPanel) {
       btnCopy="new application"
       btnHref="/applications/add"
     >
-      <ul className="flex">
+      <ul className="flex" role={'list'}>
         {applications?.map((application) => (
           <Application key={application.id} {...application} />
         ))}

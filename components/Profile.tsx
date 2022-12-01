@@ -12,9 +12,9 @@ export interface IProfile {
 
 function Profile({ id, name, avatar, username, title, location }: IProfile) {
   return (
-    <li className={'w-[10rem] p-3 mr-3 border rounded-md'}>
+    <li role={'listitem'}>
       <Link href={`/profiles/${id}`}>
-        <div className="text-sm">
+        <div className="w-[10rem] p-3 mr-3 border rounded-md text-sm">
           {avatar && <Image src={avatar} alt={username} />}
           <h3 className={'mb-3 text-white text-base font-bold'}>{name}</h3>
           <p className="capitalize">{title}</p>

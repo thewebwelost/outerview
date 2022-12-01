@@ -31,7 +31,7 @@ const EventsPanel: React.FC<IEventsPanel> = ({ events }) => {
 
   return (
     <Panel heading="Upcoming events" btnCopy="add event" btnHref="/events/add">
-      <ul className="flex">
+      <ul className="flex" role={'list'}>
         {events.map((userEvent) => (
           <UserEvent key={userEvent.id} {...userEvent} />
         ))}
