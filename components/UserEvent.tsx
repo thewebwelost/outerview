@@ -32,6 +32,14 @@ const stepsStyling: { [key: string]: string } = {
   CLOSER: 'border-yellow-400 bg-yellow-200/25',
 };
 
+const Pulsar = () => (
+  <span
+    className={
+      'absolute right-[5px] top-[5px] w-[5px] h-[5px] bg-green-500 rounded-full animate-blink'
+    }
+  />
+);
+
 function UserEvent({ id, status, dateStart, step }: IUserEvent) {
   return (
     <li role={'listitem'}>
@@ -41,11 +49,7 @@ function UserEvent({ id, status, dateStart, step }: IUserEvent) {
         >
           <span className="text-gray-200">{steps[step]}</span>
 
-          <span
-            className={
-              'absolute right-[5px] top-[5px] w-[5px] h-[5px] bg-green-500 rounded-full animate-blink'
-            }
-          />
+          <Pulsar />
           <span className="self-end text-xs text-gray-400 italic">
             {moment(dateStart).format('MM/DD, hh:mm')}
           </span>
