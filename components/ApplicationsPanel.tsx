@@ -8,6 +8,22 @@ interface IApplicationsPanel {
   applications: IDashboard['applications'];
 }
 
+// enum EventStep {
+//   APPLICATION
+//   PHONE_SCREEN
+//   ONSITE_STEP
+//   BEHAVIOURAL
+//   CLOSER
+// }
+
+// enum ApplicationStatus {
+//   FIRST_TOUCH
+//   PRESCREEN
+//   TECHNICAL
+//   NON_TECHNICAL
+//   OFFER
+// }
+
 function ApplicationsPanel({ applications }: IApplicationsPanel) {
   if (!applications.length)
     return <EmptySection type={'application'} href={'/applications/add'} />;

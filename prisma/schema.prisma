@@ -128,7 +128,6 @@ enum EventStatus {
 
 enum EventStep {
   APPLICATION
-  INITIAL_CALL
   PHONE_SCREEN
   ONSITE_STEP
   BEHAVIOURAL
@@ -138,7 +137,7 @@ enum EventStep {
 enum ApplicationStatus {
   FIRST_TOUCH
   PRESCREEN
-  NON_TECHNICAL
   TECHNICAL
+  NON_TECHNICAL
   OFFER
 }
