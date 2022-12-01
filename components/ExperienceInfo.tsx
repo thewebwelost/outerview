@@ -1,5 +1,6 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
+import Button from './atoms/Button';
 import TextInput from './atoms/TextInput';
 
 interface IExperienceInfo {
@@ -105,13 +106,7 @@ const ExperienceInfo: React.FC<IExperienceInfo> = ({
         }
       />
 
-      <button
-        className="mt-2 text-white bg-blue-500"
-        onClick={addAchieve}
-        type="button"
-      >
-        + add
-      </button>
+      <Button handleClick={addAchieve}>+ add</Button>
     </div>
 
     <div>
@@ -126,21 +121,10 @@ const ExperienceInfo: React.FC<IExperienceInfo> = ({
         }
       />
 
-      <button
-        className="mt-2 text-white bg-blue-500"
-        onClick={addKeyword}
-        type="button"
-      >
-        + add
-      </button>
+      <Button handleClick={addKeyword}>+ add</Button>
     </div>
 
-    <button
-      className="p-1 mt-3 text-white bg-blue-500"
-      onClick={handleAddExperience}
-    >
-      Add experience
-    </button>
+    <Button handleClick={handleAddExperience}>Add experience</Button>
   </div>
 );
 

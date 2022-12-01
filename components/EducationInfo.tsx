@@ -1,5 +1,6 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
+import Button from './atoms/Button';
 import TextInput from './atoms/TextInput';
 
 interface IEducationInfo {
@@ -75,12 +76,7 @@ const EducationInfo: React.FC<IEducationInfo> = ({
       />
     </label>
 
-    <button
-      className="p-1 mt-3 text-white bg-blue-500"
-      onClick={handleAddEducation}
-    >
-      Add education
-    </button>
+    <Button handleClick={handleAddEducation}>Add education</Button>
   </div>
 );
 

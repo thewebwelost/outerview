@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './atoms/Button';
 
 interface IFormNavigation {
   handlePrevStep?: () => void;
@@ -13,23 +14,9 @@ const FormNavigation: React.FC<IFormNavigation> = ({
 }) => {
   return (
     <div className="w-full flex justify-between mt-10">
-      {handlePrevStep && (
-        <button className="p-1 text-white bg-blue-500" onClick={handlePrevStep}>
-          Prev
-        </button>
-      )}
-
-      {handleNextStep && (
-        <button className="p-1 text-white bg-blue-500" onClick={handleNextStep}>
-          Next
-        </button>
-      )}
-
-      {handleSubmit && (
-        <button className="p-1 text-white bg-blue-500" onClick={handleSubmit}>
-          Submit
-        </button>
-      )}
+      {handlePrevStep && <Button handleClick={handlePrevStep}>Prev</Button>}
+      {handleNextStep && <Button handleClick={handleNextStep}>Next</Button>}
+      {handleSubmit && <Button handleClick={handleSubmit}>Submit</Button>}
     </div>
   );
 };

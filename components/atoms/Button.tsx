@@ -12,7 +12,7 @@ function Button({ handleClick, classNames, type, children }: ButtonInterface) {
     <button
       type={type || 'button'}
       onClick={handleClick}
-      className={`px-6 py-2 bg-purple-700 text-white font-bold rounded-full ${classNames}`}
+      className={`px-4 py-2 bg-purple-700 text-sm font-semibold rounded-full ${classNames}`}
     >
       {children}
     </button>

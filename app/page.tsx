@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/legacy/image';
+import Button from '../components/atoms/Button';
 
 const Home: NextPage = () => {
   return (
@@ -43,15 +44,15 @@ const Home: NextPage = () => {
           </div>
           <div className="text-sm">
             {/* TODO: add login */}
-            <button
-              onClick={() =>
+            <Button
+              handleClick={() =>
                 signIn('login', {
                   callbackUrl: '/dashboard',
                 })
               }
             >
               Log in
-            </button>
+            </Button>
           </div>
         </div>
 

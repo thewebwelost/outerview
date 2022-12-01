@@ -1,4 +1,5 @@
 import React, { SetStateAction } from 'react';
+import Button from './atoms/Button';
 import TextInput from './atoms/TextInput';
 
 export interface IContact {
@@ -42,13 +43,7 @@ const AddContact: React.FC<IAddContact> = ({
       <TextInput title="Name" handler={setName} value={name} />
       <TextInput title="Contact" handler={setCred} value={cred} />
 
-      <button
-        className="mt-2 text-white bg-blue-500"
-        onClick={handleAdd}
-        type="button"
-      >
-        {btnCopy}
-      </button>
+      <Button handleClick={handleAdd}>{btnCopy}</Button>
     </fieldset>
   );
 };

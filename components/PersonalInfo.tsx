@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
+import Button from './atoms/Button';
 import TextInput from './atoms/TextInput';
 
 interface IPersonalInfo {
@@ -100,13 +101,7 @@ const PersonalInfo: React.FC<IPersonalInfo> = ({
           }
         />
 
-        <button
-          className="mt-2 text-white bg-blue-500"
-          onClick={addSocial}
-          type="button"
-        >
-          + add
-        </button>
+        <Button handleClick={addSocial}>+ add</Button>
       </div>
     </div>
   );

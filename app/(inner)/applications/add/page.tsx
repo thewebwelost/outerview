@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import AddContact, { IContact } from '../../../../components/AddContact';
+import Button from '../../../../components/atoms/Button';
 import TextInput from '../../../../components/atoms/TextInput';
 
 const CreateApplication: NextPage = () => {
@@ -128,9 +129,7 @@ const CreateApplication: NextPage = () => {
             btnCopy={'Add contact'}
           />
 
-          <button type="submit" className="p-2 mt-5 text-white bg-blue-500">
-            Create application
-          </button>
+          <Button type="submit">Create application</Button>
         </form>
       </div>
     </>

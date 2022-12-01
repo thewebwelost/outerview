@@ -52,7 +52,7 @@ function Application({
             <p className="mb-3 text-white text-base font-bold">{company}</p>
             <p className="capitalize">Role: {role}</p>
             <p>Location: {location}</p>
-            {salary && <p className="mb-3">Salary: {salary}</p>}
+            {salary && <p className="mb-3">Compensation: {salary}</p>}
           </div>
 
           <div>
@@ -64,8 +64,6 @@ function Application({
                 {statusCopy[status]}
               </span>
             </p>
-
-            <p>Events: {userEvents.length}</p>
           </div>
         </div>
       </Link>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { IProfileForm } from '../app/(inner)/profiles/add/page';
+import Button from './atoms/Button';
 import TextInput from './atoms/TextInput';
 
 interface IProfessionalInfo {
@@ -44,13 +45,7 @@ const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
         }
       />
 
-      <button
-        className="mt-2 text-white bg-blue-500"
-        onClick={addDetail}
-        type="button"
-      >
-        + add
-      </button>
+      <Button handleClick={addDetail}>+ add</Button>
     </div>
 
     <div>
@@ -65,13 +60,7 @@ const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
         }
       />
 
-      <button
-        className="mt-2 text-white bg-blue-500"
-        onClick={addHardSkill}
-        type="button"
-      >
-        + add
-      </button>
+      <Button handleClick={addHardSkill}>+ add</Button>
     </div>
 
     <div>
@@ -86,13 +75,7 @@ const ProfessionalInfo: React.FC<IProfessionalInfo> = ({
         }
       />
 
-      <button
-        className="mt-2 text-white bg-blue-500"
-        onClick={addSoftSkill}
-        type="button"
-      >
-        + add
-      </button>
+      <Button handleClick={addSoftSkill}>+ add</Button>
     </div>
   </div>
 );
