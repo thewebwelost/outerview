@@ -19,6 +19,22 @@ export interface IApplication {
   }[];
 }
 
+const statusCopy: { [key: string]: string } = {
+  FIRST_TOUCH: 'First touch',
+  PRESCREEN: 'Screening',
+  TECHNICAL: 'Technical',
+  NON_TECHNICAL: 'Non technical',
+  OFFER: 'Closer step',
+};
+
+const statusColor: { [key: string]: string } = {
+  FIRST_TOUCH: 'bg-gray-500',
+  PRESCREEN: 'bg-lime-500',
+  TECHNICAL: 'bg-blue-500',
+  NON_TECHNICAL: 'bg-purple-500',
+  OFFER: 'bg-orange-500',
+};
+
 function Application({
   id,
   company,
@@ -41,7 +57,12 @@ function Application({
 
           <div>
             <p className="mb-1 whitespace-nowrap">
-              Status: <span className="text-sm bg-green-700">{status}</span>
+              Status:{' '}
+              <span
+                className={`p-1 px-2 rounded-full text-gray-900 text-xs font-semibold ${statusColor[status]}`}
+              >
+                {statusCopy[status]}
+              </span>
             </p>
 
             <p>Events: {userEvents.length}</p>
