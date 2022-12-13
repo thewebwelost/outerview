@@ -11,7 +11,8 @@ import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
 
 import { useQuery } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
 export interface IDashboard {
   id: number;
@@ -23,36 +24,37 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
-function useDashboard(email: string) {
-  return useQuery({
-    queryKey: ['dashboard'],
-    queryFn: async () => {
-      if (!email) throw new Error(`Oh no! ${email} is invalid email!`);
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json;charset=UTF-8',
-          },
-          body: JSON.stringify({ email }),
-        }
-      ).then((res) => res.json());
-
-      console.log('RESPONSE', res);
-
-      return res;
-    },
-  });
+function useDashboard(email: string | null | undefined) {
+  return;
 }
 
 const Dashboard = () => {
   const { data: session } = useSession();
+  const email = session?.user?.email;
 
-  const { isLoading, error, data, isFetching } = useDashboard(
-    session?.user?.email || ''
-  );
+  const { isLoading, error, data, isFetching } = useQuery({
+    queryKey: ['dashboard', email],
+    queryFn: async ({ queryKey }) => {
+      if (email) {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard`,
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json;charset=UTF-8',
+            },
+            body: JSON.stringify({ email: queryKey[1] }),
+          }
+        ).then((res) => res.json());
+
+        console.log('RESPONSE', res);
+
+        return res;
+      } else {
+        throw new Error(`Oh no! ${email} is invalid email!`);
+      }
+    },
+  });
 
   if (isLoading) return 'Loading...';
 
