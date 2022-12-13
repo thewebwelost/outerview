@@ -47,11 +47,9 @@ const Header: React.FC<IHeader> = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // status "loading" | "authenticated" | "unauthenticated"
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      // The user is not authenticated, handle it here.
       router.push('/');
     },
   });
