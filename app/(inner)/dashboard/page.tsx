@@ -24,11 +24,8 @@ export interface IDashboard {
 }
 
 const Dashboard = () => {
-  const { data: session } = useSession();
-  const email = session?.user?.email;
-
   const { isLoading, error, data, isFetching } = useQuery<IDashboard, Error>({
-    queryKey: ['dashboard', email],
+    queryKey: ['dashboard'],
     queryFn: fetchDashboard,
   });
 
