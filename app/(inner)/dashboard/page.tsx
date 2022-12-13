@@ -12,6 +12,7 @@ import type { IApplication } from '../../../components/Application';
 import fetchDashboard from '../../../api/fetchDashboard';
 
 import { useQuery } from '@tanstack/react-query';
+import { NextPage } from 'next';
 
 export interface IDashboard {
   id: number;
@@ -23,7 +24,7 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
-const Dashboard = () => {
+const Dashboard: NextPage = () => {
   const { isLoading, error, data, isFetching } = useQuery<IDashboard, Error>({
     queryKey: ['dashboard'],
     queryFn: fetchDashboard,
@@ -31,7 +32,7 @@ const Dashboard = () => {
 
   if (isLoading) return <Spinner isLoading={isFetching} color={'#6a429c'} />;
 
-  if (error) return 'An error has occurred: ' + error.stack;
+  if (error) return <div>{'An error has occurred: ' + error.message}</div>;
 
   return (
     <>

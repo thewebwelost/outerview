@@ -6,16 +6,13 @@ const fetchDashboard = async () => {
 
   if (!email) throw new Error('No email');
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard`,
-    {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({ email }),
-    }
-  ).then((res) => res.json());
+  const res = await fetch('/api/dashboard', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json;charset=UTF-8',
+    },
+    body: JSON.stringify({ email }),
+  }).then((res) => res.json());
 
   return res;
 };
