@@ -8,6 +8,8 @@ import type { IProfile } from '../../../components/Profile';
 import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
 
+import fetchDashboard from '../../../api/fetchDashboard';
+
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 
@@ -27,24 +29,7 @@ const Dashboard = () => {
 
   const { isLoading, error, data, isFetching } = useQuery<IDashboard, Error>({
     queryKey: ['dashboard', email],
-    queryFn: async ({ queryKey }) => {
-      if (email) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard`,
-          {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json;charset=UTF-8',
-            },
-            body: JSON.stringify({ email: queryKey[1] }),
-          }
-        ).then((res) => res.json());
-
-        return res;
-      } else {
-        throw new Error(`Oh no! ${email} is invalid email!`);
-      }
-    },
+    queryFn: fetchDashboard,
   });
 
   if (isLoading) return 'Loading...';
