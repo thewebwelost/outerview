@@ -10,7 +10,7 @@ const RootLayout = ({ children }: ILayout) => {
   return (
     <html lang="en">
       <Head />
-      <body className="bg-gray-800 text-gray-200">{children}</body>
+      <body className="h-screen bg-gray-800 text-gray-200">{children}</body>
     </html>
   );
 };

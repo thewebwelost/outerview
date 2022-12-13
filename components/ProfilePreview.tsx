@@ -18,7 +18,7 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
       <h2 className="font-bold text-xl mt-3 mb-1">Socials</h2>
       <ul className="flex">
         {formState.socialsList.map((item, i) => (
-          <li key={i} className="mr-2 text-blue-400 animate-fade-in">
+          <li key={i} className="mr-2 text-blue-400 animate-slide-in">
             {item.title}
           </li>
         ))}
@@ -29,7 +29,7 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
       <h2 className="font-bold text-xl mt-3 mb-1">Details</h2>
       <ul className="pl-5 list-disc ">
         {formState.detailsList.map((item, i) => (
-          <li key={i} className="animate-fade-in">
+          <li key={i} className="animate-slide-in">
             {item}
           </li>
         ))}
@@ -65,7 +65,7 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
         {formState.experienceList.map((item, i) => (
           <li
             key={i}
-            className="p-3 mt-1 border border-gray-400 animate-fade-in"
+            className="p-3 mt-1 border border-gray-400 animate-slide-in"
           >
             <h5 className="font-bold">{item.role}</h5>
             <p>{item.company}</p>
@@ -97,7 +97,7 @@ const ProfilePreview: React.FC<{ formState: IProfileForm }> = ({
       <h2 className="font-bold text-xl mt-3 mb-1">Education</h2>
       <ul>
         {formState.edList.map((item, i) => (
-          <li key={i} className="p-3 mt-1 animate-fade-in">
+          <li key={i} className="p-3 mt-1 animate-slide-in">
             <h5 className="font-bold">{item.edName}</h5>
             <p>{item.edDegree}</p>
             <p>

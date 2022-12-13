@@ -11,7 +11,7 @@ import type { IApplication } from '../../../components/Application';
 import fetchDashboard from '../../../api/fetchDashboard';
 
 import { useQuery } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
+import Spinner from '../../../components/Spinner';
 
 export interface IDashboard {
   id: number;
@@ -29,7 +29,7 @@ const Dashboard = () => {
     queryFn: fetchDashboard,
   });
 
-  if (isLoading) return 'Loading...';
+  if (isLoading) return <Spinner isLoading={isFetching} color={'#6a429c'} />;
 
   if (error) return 'An error has occurred: ' + error.stack;
 
