@@ -1,7 +1,5 @@
 'use client';
 
-import type { NextPage } from 'next';
-
 import ApplicationsPanel from '../../../components/ApplicationsPanel';
 import EventsPanel from '../../../components/EventsPanel';
 import ProfilePanel from '../../../components/ProfilePanel';
@@ -11,8 +9,7 @@ import type { IUserEvent } from '../../../components/UserEvent';
 import type { IApplication } from '../../../components/Application';
 
 import { useQuery } from '@tanstack/react-query';
-import { getSession, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export interface IDashboard {
   id: number;
@@ -24,15 +21,11 @@ export interface IDashboard {
   events: IUserEvent[];
 }
 
-function useDashboard(email: string | null | undefined) {
-  return;
-}
-
 const Dashboard = () => {
   const { data: session } = useSession();
   const email = session?.user?.email;
 
-  const { isLoading, error, data, isFetching } = useQuery({
+  const { isLoading, error, data, isFetching } = useQuery<IDashboard, Error>({
     queryKey: ['dashboard', email],
     queryFn: async ({ queryKey }) => {
       if (email) {
@@ -46,8 +39,6 @@ const Dashboard = () => {
             body: JSON.stringify({ email: queryKey[1] }),
           }
         ).then((res) => res.json());
-
-        console.log('RESPONSE', res);
 
         return res;
       } else {
