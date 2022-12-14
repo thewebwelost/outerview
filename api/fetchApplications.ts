@@ -10,7 +10,7 @@ const fetchApplications = async () => {
     headers: {
       'content-type': 'application/json;charset=UTF-8',
     },
-    body: JSON.stringify({ userId: 1 }),
+    body: JSON.stringify({ email: session.user?.email }),
   }).then((res) => res.json());
 
   return res;

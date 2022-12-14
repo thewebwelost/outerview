@@ -22,7 +22,7 @@ model User {
 model Credentials {
   id       Int    @id @default(autoincrement())
   email    String @unique
-  password String
+  password String @ignore
   userId   Int    @unique
   // Relations
   User     User   @relation(fields: [userId], references: [id])
